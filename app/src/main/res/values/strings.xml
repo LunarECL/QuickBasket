@@ -91,4 +91,16 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="signup_customer">Customer Sign-up</string>
+    <string name="signup_storeowner">Store Owner Sign-up</string>
+    <string name="login_customer">Customer Login</string>
+    <string name="login_storeowner">Store Owner Login</string>
+    <string name="or_text">OR</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="button_login">LOGIN</string>
+    <string name="welcome_text">WELCOME!</string>
+    <string name="login_customer_heading">Login as a Customer</string>
+    <string name="login_storeowner_heading">Login as a Store Owner</string>
+
 </resources>
