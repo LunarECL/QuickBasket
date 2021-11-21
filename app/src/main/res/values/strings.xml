@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">QuickBasket</string>
+    <string name="signup_customer">Customer Sign-up</string>
+    <string name="signup_storeowner">Store Owner Sign-up</string>
+    <string name="login_customer">Customer Login</string>
+    <string name="login_storeowner">Store Owner Login</string>
+    <string name="or_key">OR</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="button_login">LOGIN</string>
+    <string name="welcome_message">WELCOME!</string>
+    <string name="login_custumor_heading">Login as a Customer</string>
+    <string name="login_storeowner_heading">Login as a Store Owner</string>
 </resources>
