@@ -12,13 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickBasket">
         <activity
-            android:name=".SignupCustomerPage"
-            android:exported="false" />
-        <activity
-            android:name=".LoginStoreOwnerPage"
-            android:exported="false" />
-        <activity
-            android:name=".LoginCustomerPage"
+            android:name=".main_screen_owner"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
