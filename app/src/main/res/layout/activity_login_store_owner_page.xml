@@ -25,7 +25,7 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="150dp"
-        android:hint="@string/welcome_message"
+        android:hint="@string/welcome_text"
         android:textAlignment="center"
         android:textColorHint="#000000"
         android:textSize="24sp"
