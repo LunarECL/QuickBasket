@@ -102,5 +102,8 @@
     <string name="welcome_text">WELCOME!</string>
     <string name="login_customer_heading">Login as a Customer</string>
     <string name="login_storeowner_heading">Login as a Store Owner</string>
+    <string name="button_signup">sign-up</string>
+    <string name="signup_storeowner_heading">Sign-Up as a Store Owner</string>
+    <string name="signup_customer_heading">Sign-Up as a Customer</string>
 
 </resources>
