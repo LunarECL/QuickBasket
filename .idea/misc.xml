@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_login_page.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_login_store_owner_page.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_main_screen_owner.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_owner_add_product.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_signup_customer_page.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/activity_store_owner_add_product.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/QuickBasket/app/src/main/res/layout/owner_orders_adapter_view_layout.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
