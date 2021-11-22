@@ -106,4 +106,22 @@
     <string name="signup_storeowner_heading">Sign-Up as a Store Owner</string>
     <string name="signup_customer_heading">Sign-Up as a Customer</string>
 
+    <string name="store_name_text">Store Name</string>
+    <string name="view_products_text">View Products</string>
+    <string name="add_new_product_text">Add New Product</string>
+    <string name="orders_text">Orders</string>
+
+    <string name="enter_product_info">Enter Product Information</string>
+    <string name="product_image_text">Image:</string>
+    <string name="product_image_description">Image of Product</string>
+    <string name="product_name_text">Name:</string>
+    <string name="product_name_hint_text">Enter Name</string>
+    <string name="product_brand_text">Brand:</string>
+    <string name="product_brand_hint_text">Enter Brand</string>
+    <string name="product_price_text">Price:</string>
+    <string name="product_price_hint_text">Enter Price</string>
+    <string name="product_description_text">Description:</string>
+    <string name="product_description_hint_text">Enter Description</string>
+    <string name="add_product_text">Add Product</string>
+
 </resources>
