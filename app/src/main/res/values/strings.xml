@@ -123,5 +123,7 @@
     <string name="product_description_text">Description:</string>
     <string name="product_description_hint_text">Enter Description</string>
     <string name="add_product_text">Add Product</string>
+    <string name="test_main_customer">Test for Customer Main</string>
+    <string name="test_main_customer_screen">Test Main Customer Screen</string>
 
 </resources>
