@@ -14,9 +14,20 @@
         <activity
             android:name=".SignupOwnerPage"
             android:exported="false" />
-        <activity
-            android:name=".main_screen_owner"
-            android:exported="false" />
+        <activity android:name=".main_screen_owner"
+            android:parentActivityName=".MainActivity">
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".OwnerAddProductPage"
+            android:parentActivityName=".main_screen_owner">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".main_screen_owner" />
+        </activity>
         <activity android:name=".main_screen_customer"
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
