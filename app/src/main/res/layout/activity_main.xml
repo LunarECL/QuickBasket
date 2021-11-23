@@ -9,18 +9,20 @@
     <Button
         android:id="@+id/button"
         android:layout_width="210dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="222dp"
         android:layout_marginBottom="20dp"
         android:text="@string/login_customer"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="210dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="37dp"
         android:text="@string/signup_customer"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -43,7 +45,7 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="210dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_marginTop="37dp"
         android:layout_marginBottom="20dp"
         android:text="@string/login_storeowner"
@@ -56,12 +58,13 @@
     <Button
         android:id="@+id/button4"
         android:layout_width="210dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:text="@string/signup_storeowner"
         android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="505dp" />
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
