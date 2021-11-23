@@ -15,60 +15,57 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfoRecyclerViewAdapter.ViewHolder> {
-
-    private ArrayList<String> mImageNames = new ArrayList<>();
+public class QtyRecylerViewAdapter extends RecyclerView.Adapter<QtyRecylerViewAdapter.ViewHolder> {
+    private ArrayList<String> mProductNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
-    private ArrayList<String> mLocations = new ArrayList<>();
+    private ArrayList<String> mPrices = new ArrayList<>();
     private Context mContext;
 
 
-    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mImageNames, ArrayList<String> mImages, ArrayList<String> mLocation) {
-        this.mImageNames = mImageNames;
+    public QtyRecylerViewAdapter(Context mContext, ArrayList<String> mProductNames, ArrayList<String> mImages, ArrayList<String> mPrice) {
+        this.mProductNames = mProductNames;
         this.mImages = mImages;
-        this.mLocations = mLocation;
+        this.mPrices = mPrice;
         this.mContext = mContext;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QtyRecylerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_liststore, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        QtyRecylerViewAdapter.ViewHolder holder = new QtyRecylerViewAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(QtyRecylerViewAdapter.ViewHolder holder, final int position) {
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
                 .into(holder.image);
 
-        holder.imageName.setText(mImageNames.get(position));
-        holder.location.setText(mLocations.get(position));
+        holder.productName.setText(mProductNames.get(position));
+        holder.location.setText(mPrices.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mLocations.size();
+        return mPrices.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image;
-        TextView imageName;
+        TextView productName;
         TextView location;
         RelativeLayout parentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.product_image);
-            imageName = itemView.findViewById(R.id.product_name);
+            productName = itemView.findViewById(R.id.product_name);
             location = itemView.findViewById(R.id.price);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
 
         }
     }
 }
-
-

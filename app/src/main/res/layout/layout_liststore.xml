@@ -8,23 +8,37 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/product_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/image"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher" />
 
 
     <TextView
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Canada"
-        android:id="@+id/image_name"
-        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/product_name"
+        android:layout_alignBaseline="@id/product_image"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@+id/product_image"
+        android:text="North America"
         android:textColor="@color/black"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="24dp"
-        android:textSize="17sp"
-        />
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/product_image"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@+id/product_image"
+        android:text="Canada"
+        android:textColor="@color/black"
+        android:textSize="17sp" />
+    />
 
 </RelativeLayout>
 
