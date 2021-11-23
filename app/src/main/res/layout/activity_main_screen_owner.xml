@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".main_screen_owner">
 
+    <ImageButton
+        android:id="@+id/cart_Button2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,SpeakableTextPresentCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
         android:id="@+id/textView12"
-        android:layout_width="297dp"
-        android:layout_height="70dp"
+        android:layout_width="255dp"
+        android:layout_height="62dp"
         android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="@string/store_name_text"
@@ -44,6 +56,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="328dp"
         android:layout_height="429dp"
         android:layout_marginBottom="24dp"
