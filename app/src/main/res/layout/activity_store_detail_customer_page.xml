@@ -7,7 +7,7 @@
     tools:context=".StoreDetailCustomerPage">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/StoreName"
         android:layout_width="297dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
@@ -149,7 +149,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/StoreDetailCustomerLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"

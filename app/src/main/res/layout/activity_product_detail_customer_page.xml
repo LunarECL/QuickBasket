@@ -7,7 +7,7 @@
     tools:context=".ProductDetailCustomerPage">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/StoreName"
         android:layout_width="297dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
@@ -57,10 +57,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
+                    android:id="@+id/Description"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Description"/>
+                    android:text="Description" />
                 <LinearLayout
                     android:layout_marginLeft="35dp"
                     android:layout_width="wrap_content"
@@ -73,7 +75,7 @@
                     android:gravity="center_horizontal">
 
                     <NumberPicker
-                        android:id="@+id/numberPicker"
+                        android:id="@+id/Quantity"
                         android:layout_width="13dp"
                         android:layout_height="17dp"
                         android:layout_marginStart="8dp"
@@ -87,7 +89,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -98,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/AddToCart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
