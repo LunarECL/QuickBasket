@@ -15,7 +15,7 @@ public class ViewOrderOwner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order_owner);
 
-        ListView mListView = (ListView) findViewById(R.id.listView);
+        ListView mListView = (ListView) findViewById(R.id.orderlist);
 
         //Demo Run with hardcoded items not relevant in future
 

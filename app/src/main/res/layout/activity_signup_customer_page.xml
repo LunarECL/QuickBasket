@@ -40,7 +40,6 @@
         android:layout_height="41dp"
         android:layout_marginTop="77dp"
         android:hint="@string/app_name"
-        android:hintTextColor="#009688"
         android:textAlignment="center"
         android:textColor="#08980E"
         android:textColorHighlight="#500D0D"

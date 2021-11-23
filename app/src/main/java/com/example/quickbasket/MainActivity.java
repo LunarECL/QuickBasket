@@ -4,15 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +27,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
-        Intent intent = new Intent(this, main_screen_customer.class);
-        EditText editText = (EditText) findViewById(R.id.editTextTextPersonName);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
 
-    //sample Firebase Test code. It will be moved to customer register Activity soon.
+
+//sample Firebase Test code. It will be moved to customer register Activity soon.
     /*public void sendData(View view) {
         EditText idEditText = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText passwordEditText = (EditText) findViewById(R.id.editTextTextPassword);
