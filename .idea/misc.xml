@@ -8,10 +8,12 @@
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_login_page.xml" value="0.18" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_login_store_owner_page.xml" value="0.153125" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_main_screen_customer.xml" value="0.153125" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_main_screen_owner.xml" value="0.22" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_owner_add_product.xml" value="0.153125" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/activity_signup_customer_page.xml" value="0.153125" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/content_scrolling.xml" value="0.153125" />
+        <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/customer_store_info_adapter_view_layout.xml" value="0.153125" />
         <entry key="..\:/Users/Devesh/QuickBasket/app/src/main/res/layout/owner_orders_adapter_view_layout.xml" value="0.18" />
       </map>
     </option>
