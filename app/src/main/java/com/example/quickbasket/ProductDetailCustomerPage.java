@@ -11,4 +11,5 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_customer_page);
     }
+    //test
 }
