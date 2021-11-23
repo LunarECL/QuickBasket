@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ProductDetailCustomerPage extends AppCompatActivity {
+public class ViewProductsOwner extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail_customer_page);
+        setContentView(R.layout.activity_view_products_owner);
     }
-    //test
 }
