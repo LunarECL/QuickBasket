@@ -15,36 +15,36 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfoRecyclerViewAdapter.ViewHolder> {
+public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfoRecyclerViewAdapter.ViewHolder_StoreInfo> {
 
-    private ArrayList<String> mImageNames = new ArrayList<>();
+    private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
     private Context mContext;
 
 
-    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mImageNames, ArrayList<String> mImages, ArrayList<String> mLocation) {
-        this.mImageNames = mImageNames;
+    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation) {
+        this.mStoreNames = mStoreName;
         this.mImages = mImages;
         this.mLocations = mLocation;
         this.mContext = mContext;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder_StoreInfo onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_liststore, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        ViewHolder_StoreInfo holder = new ViewHolder_StoreInfo(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder_StoreInfo holder, final int position) {
         Glide.with(mContext)
                 .asBitmap()
                 .load(mImages.get(position))
                 .into(holder.image);
 
-        holder.imageName.setText(mImageNames.get(position));
+        holder.storeName.setText(mStoreNames.get(position));
         holder.location.setText(mLocations.get(position));
     }
 
@@ -53,18 +53,18 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
         return mLocations.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder_StoreInfo extends RecyclerView.ViewHolder{
 
         CircleImageView image;
-        TextView imageName;
+        TextView storeName;
         TextView location;
         RelativeLayout parentLayout;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder_StoreInfo(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.product_image);
-            imageName = itemView.findViewById(R.id.product_name);
-            location = itemView.findViewById(R.id.price);
+            image = itemView.findViewById(R.id.store_image);
+            storeName = itemView.findViewById(R.id.store_name);
+            location = itemView.findViewById(R.id.location);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
 
         }

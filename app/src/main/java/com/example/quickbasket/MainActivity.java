@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //CODE FOR TEST MAIN CUSTOMER BUTTON
         Button testButtonMainCustomer = findViewById(R.id.testMainCustomer);
         testButtonMainCustomer.setOnClickListener(new View.OnClickListener() {
@@ -25,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(activity2Intent);
             }
         });
+
+        //CODE FOR TEST CUSTOMER CHECKOUT BUTTON
+        Button testButtonCheckoutCustomer = findViewById(R.id.testCheckout);
+        testButtonCheckoutCustomer.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), CustomerCheckout.class);
+                startActivity(activity2Intent);
+            }
+        });
+
     }
 
 
