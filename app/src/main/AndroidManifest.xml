@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickBasket">
         <activity
-            android:name=".main_screen_customer"
+            android:name=".main_screen_owner"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

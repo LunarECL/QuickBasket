@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class main_screen_customer extends AppCompatActivity {
+public class main_screen_owner extends AppCompatActivity {
 
-    private static final String TAG = "main_screen_owner";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen_customer);
+        setContentView(R.layout.activity_main_screen_owner);
     }
 }
