@@ -29,6 +29,9 @@
                 android:value=".main_screen_owner" />
         </activity>
         <activity android:name=".main_screen_customer"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".CustomerCheckout"
             android:parentActivityName=".MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
