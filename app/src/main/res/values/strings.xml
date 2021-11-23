@@ -123,5 +123,11 @@
     <string name="product_description_text">Description:</string>
     <string name="product_description_hint_text">Enter Description</string>
     <string name="add_product_text">Add Product</string>
+    <string name="input_storeName_text">Store Name:</string>
+    <string name="enter_storeName">Enter Store Name</string>
+    <string name="location_text">Location:</string>
+    <string name="enter_location">Enter location</string>
+    <string name="username_text">Username:</string>
+    <string name="password_text">Password:</string>
 
 </resources>
