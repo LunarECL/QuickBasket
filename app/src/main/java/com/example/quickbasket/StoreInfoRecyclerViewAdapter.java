@@ -26,6 +26,7 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
     private ArrayList<String> mImages = new ArrayList<>();
     private Context mContext;
 
+
     public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mImageNames, ArrayList<String> mImages) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
