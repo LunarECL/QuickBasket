@@ -1,26 +1,36 @@
 package com.example.quickbasket;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
+import android.widget.ListView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActvity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG,"onCreate:");
+        ListView mListView = (ListView) findViewById((R.id.listView));
+
+        //Create Person Objects
+        StoreInformation john = new StoreInformation("John", "12-20-1998", "Male");
+        StoreInformation steve = new StoreInformation("Steve", "08-03-1987", "Male");
+        StoreInformation stacy = new StoreInformation("Stacy", "11-15-2000", "Female");
+
+        ArrayList<StoreInformation> peopleList = new ArrayList<>();
+        peopleList.add(john);
+        peopleList.add(steve);
+        peopleList.add(stacy);
+
+        StoreInfoAdapter adapter = new StoreInfoAdapter(this, R.layout.customer_store_info_adapter_view_layout, peopleList);
+        mListView.setAdapter(adapter);
     }
 
 

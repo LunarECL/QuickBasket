@@ -12,12 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickBasket">
         <activity
-            android:name=".ProductDetailCustomerPage"
-            android:exported="false" />
-        <activity
-            android:name=".StoreDetailCustomerPage"
-            android:exported="false" />
-        <activity
             android:name=".main_screen_owner"
             android:exported="false" />
         <activity
