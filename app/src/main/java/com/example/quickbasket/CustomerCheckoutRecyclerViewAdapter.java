@@ -27,6 +27,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
         this.mProductNames = mProductName;
         this.mImages = mImages;
         this.mPrices = mPrice;
+        this.mQtys = mQty;
         this.mContext = mContext;
     }
 
@@ -45,8 +46,8 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                 .into(holder.image);
 
         holder.productName.setText(mProductNames.get(position));
-        holder.price.setText("" + mPrices.get(position));
-        holder.qty.setText("" + mQtys.get(position));
+        holder.price.setText(Double.toString(mPrices.get(position)));
+        holder.qty.setText(Double.toString(mQtys.get(position)));
     }
 
     @Override
@@ -64,7 +65,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
         public ViewHolder_Checkout(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.store_image);
+            image = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.price);
             qty = itemView.findViewById(R.id.qty);
