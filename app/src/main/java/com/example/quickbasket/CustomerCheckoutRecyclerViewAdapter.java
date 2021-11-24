@@ -1,9 +1,11 @@
 package com.example.quickbasket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,8 +48,8 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                 .into(holder.image);
 
         holder.productName.setText(mProductNames.get(position));
-        holder.price.setText(Double.toString(mPrices.get(position)));
-        holder.qty.setText(Double.toString(mQtys.get(position)));
+        holder.price.setText("$" + Double.toString(mPrices.get(position)));
+        holder.qty.setText(Integer.toString(mQtys.get(position)));
     }
 
     @Override
@@ -70,6 +72,31 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             price = itemView.findViewById(R.id.price);
             qty = itemView.findViewById(R.id.qty);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
+
+            //Functionality for '+' Button
+            itemView.findViewById(R.id.addQty).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String currentQty = qty.getText().toString();
+                    int newQty = Integer.parseInt(currentQty) + 1;
+                    qty.setText(Integer.toString(newQty));
+                }
+            });
+
+            //Functionality for '+' Button
+            itemView.findViewById(R.id.minusQty).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String currentQty = qty.getText().toString();
+                    int newQty = Integer.parseInt(currentQty) - 1;
+
+                    if (newQty < 0){
+                        newQty = 0;
+                    }
+                    qty.setText(Integer.toString(newQty));
+                }
+            });
+
         }
     }
 }

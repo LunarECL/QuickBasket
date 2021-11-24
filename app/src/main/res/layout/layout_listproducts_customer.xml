@@ -7,6 +7,21 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
+    <Button
+        android:id="@+id/addQty"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/product_image"
         android:layout_width="80dp"
@@ -44,17 +59,32 @@
         app:layout_constraintStart_toEndOf="@+id/product_image"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/minusQty"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="-"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/qty"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/qty"
-        android:layout_width="40dp"
+        android:layout_width="30dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:text="1"
-        android:textSize="17sp"
+        android:text="10"
         android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addQty"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
