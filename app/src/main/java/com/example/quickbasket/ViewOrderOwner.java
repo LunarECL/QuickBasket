@@ -2,13 +2,18 @@ package com.example.quickbasket;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class ViewOrderOwner extends AppCompatActivity {
+
+    private Button back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +22,21 @@ public class ViewOrderOwner extends AppCompatActivity {
 
         ListView mListView = (ListView) findViewById(R.id.orderlist);
 
+        back_button = (Button) findViewById(R.id.back_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOwnerMainPage();
+            }
+        });
+
+
         //Demo Run with hardcoded items not relevant in future
 
-        Item item1 = new Item("iphone","800$","Apple");
-        Item item2 = new Item("surface pro","1000$","Microsoft");
-        Item item3 = new Item("pixel 6","700$","Google");
+        Item item1 = new Item("iphone",800.0,"Apple");
+        Item item2 = new Item("surface pro",1000.0,"Microsoft");
+        Item item3 = new Item("pixel 6",700.0,"Google");
 
         ArrayList<Item> itemList = new ArrayList<>();
 
@@ -35,4 +50,13 @@ public class ViewOrderOwner extends AppCompatActivity {
 
 
     }
+
+    public void openOwnerMainPage(){
+        Intent intent  = new Intent(this, main_screen_owner.class);
+        startActivity(intent);
+    }
+
+
+
+
 }

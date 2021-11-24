@@ -10,13 +10,12 @@
         android:id="@+id/textView21"
         android:layout_width="103dp"
         android:layout_height="34dp"
-        android:layout_marginStart="44dp"
         android:hint="@string/password_text"
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword3"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword3"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPassword3"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -24,13 +23,12 @@
         android:id="@+id/textView20"
         android:layout_width="103dp"
         android:layout_height="34dp"
-        android:layout_marginStart="44dp"
         android:hint="@string/username_text"
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName4"
         app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -81,27 +79,27 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="55dp"
         android:ems="10"
         android:hint="@string/enter_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
 
     <EditText
         android:id="@+id/editTextTextPersonName4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="55dp"
         android:ems="10"
         android:hint="@string/enter_username"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

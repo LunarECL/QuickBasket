@@ -11,15 +11,14 @@ Contains information about the item such as : product name, price and brand
 public class Item {
 
     private String productName;
-    private String price;
+    private Double price;
     private String brand;
 
-    public Item(String productName, String price, String brand){
+    public Item(String productName, Double price, String brand){
 
         this.productName = productName;
         this.price = price;
         this.brand = brand;
-
     }
 
     public String getProductName() {
@@ -30,11 +29,11 @@ public class Item {
         this.productName = productName;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -45,4 +44,5 @@ public class Item {
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
 }

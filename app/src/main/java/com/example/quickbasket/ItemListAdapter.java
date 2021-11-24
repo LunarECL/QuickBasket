@@ -29,7 +29,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 
         //get item information
         String productName = getItem(position).getProductName();
-        String price = getItem(position).getPrice();
+        Double price = getItem(position).getPrice();
         String brand = getItem(position).getBrand();
 
         //create item with the information
@@ -46,10 +46,12 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 
         TextView tvBrand = (TextView) convertView.findViewById(R.id.Brand);
 
+        //TextView tvQty = (TextView) convertView.findViewById(R.id.);
+
         //Set the TextViews to display the information wanted
 
         tvProductName.setText(productName);
-        tvPrice.setText(price);
+        tvPrice.setText(Double.toString(price));
         tvBrand.setText(brand);
 
         return convertView;
