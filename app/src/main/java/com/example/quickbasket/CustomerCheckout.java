@@ -2,6 +2,7 @@ package com.example.quickbasket;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +15,17 @@ public class CustomerCheckout extends Activity {
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
 
+    //TextView totalCost = findViewById(R.id.totalCost);
+   // double grandTotal = CustomerCheckoutRecyclerViewAdapter.getSubTotal();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout_customer);
 
         initImageBitmaps();
+        //totalCost.setText(Double.toString(grandTotal));
     }
 
     private void initImageBitmaps() {
