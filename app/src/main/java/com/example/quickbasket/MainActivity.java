@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 //sample Firebase Test code. It will be moved to customer register Activity soon.
     /*public void sendData(View view) {

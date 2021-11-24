@@ -19,9 +19,9 @@ public class ViewOrderOwner extends AppCompatActivity {
 
         //Demo Run with hardcoded items not relevant in future
 
-        Item item1 = new Item("iphone","800$","Apple");
-        Item item2 = new Item("surface pro","1000$","Microsoft");
-        Item item3 = new Item("pixel 6","700$","Google");
+        Item item1 = new Item("iphone",800.0,"Apple");
+        Item item2 = new Item("surface pro",1000.0,"Microsoft");
+        Item item3 = new Item("pixel 6",700.0,"Google");
 
         ArrayList<Item> itemList = new ArrayList<>();
 
