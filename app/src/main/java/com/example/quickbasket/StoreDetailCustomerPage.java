@@ -43,7 +43,8 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             ImageView img = new ImageView(this);
             LinearLayout.LayoutParams imgl = new LinearLayout.LayoutParams(600, 600);
             img.setScaleType(ImageView.ScaleType.FIT_XY);
-            new URLImageTask(img).execute("https://media.istockphoto.com/photos/university-of-toronto-picture-id519685267?b=1&k=20&m=519685267&s=170667a&w=0&h=R45ZMm2Bf62gStoi01J6gQYDdZRBmuP9Oj5cWQpYAE4=");
+            // Commented out this line because it was giving an error
+            // new URLImageTask(img).execute("https://media.istockphoto.com/photos/university-of-toronto-picture-id519685267?b=1&k=20&m=519685267&s=170667a&w=0&h=R45ZMm2Bf62gStoi01J6gQYDdZRBmuP9Oj5cWQpYAE4=");
 
             TextView tv1 = new TextView(this);
             tv1.setText("Name");
