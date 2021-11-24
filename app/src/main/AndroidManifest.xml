@@ -11,12 +11,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickBasket">
+
+        // back button for customer login page
+        <activity
+            android:name=".LoginCustomerPage"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
+        // back button for owner login page
+        <activity
+            android:name=".LoginStoreOwnerPage"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
+        // back button for customer signup page
+        <activity
+            android:name=".SignupCustomerPage"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
+        // back button for owner signup page
         <activity
             android:name=".SignupOwnerPage"
-            android:exported="false" />
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
+
         <activity
             android:name=".main_screen_owner"
             android:exported="false" />
+
         <activity android:name=".main_screen_customer"
             android:parentActivityName=".MainActivity"/>
 

@@ -7,20 +7,20 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/customerLogin"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="222dp"
         android:layout_marginBottom="20dp"
         android:text="@string/login_customer"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/customerSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/customerSignup"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginBottom="37dp"
@@ -43,20 +43,20 @@
         app:layout_constraintVertical_bias="0.532" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/ownerLogin"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="37dp"
         android:layout_marginBottom="20dp"
         android:text="@string/login_storeowner"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/ownerSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/ownerSignup"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/ownerLogin" />
 
     //*****************************************************
     //CODE FOR TEST BUTTONS (Customer Main and Checkout)
