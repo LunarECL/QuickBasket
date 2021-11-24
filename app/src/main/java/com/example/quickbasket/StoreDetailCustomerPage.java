@@ -62,9 +62,4 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         }
     }
 
-    public void getProductInfo(View view){
-        Intent intent = new Intent(this, ProductDetailCustomerPage.class);
-        String productID = view.getContentDescription().toString();
-
-    }
 }

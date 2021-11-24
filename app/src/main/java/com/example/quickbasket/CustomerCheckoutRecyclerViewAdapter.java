@@ -19,11 +19,14 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<CustomerCheckoutRecyclerViewAdapter.ViewHolder_Checkout> {
+    //private static double total;
     private ArrayList<String> mProductNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
     private Context mContext;
+
+
 
     public CustomerCheckoutRecyclerViewAdapter(Context mContext, ArrayList<String> mProductName, ArrayList<String> mImages, ArrayList<Double> mPrice, ArrayList<Integer> mQty) {
         this.mProductNames = mProductName;
@@ -54,6 +57,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
     @Override
     public int getItemCount() {
+
         return mPrices.size();
     }
 
@@ -97,6 +101,12 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                 }
             });
 
+            //total = Integer.parseInt(qty.getText().toString()) * Double.parseDouble(price.getText().toString());
         }
     }
+
+    /*public static double getSubTotal(){
+       return total;
+    }*/
+
 }
