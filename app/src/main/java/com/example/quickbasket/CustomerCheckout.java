@@ -1,8 +1,10 @@
 package com.example.quickbasket;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,15 @@ public class CustomerCheckout extends Activity {
 
         initImageBitmaps();
         //totalCost.setText(Double.toString(grandTotal));
+
+        // CODE FOR BACK BUTTON
+        ImageButton backButton = findViewById(R.id.backButtonCheckoutCustomer);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), main_screen_customer.class);
+                startActivity(activity2Intent);
+            }
+        });
     }
 
     private void initImageBitmaps() {

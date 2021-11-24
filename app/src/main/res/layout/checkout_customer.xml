@@ -81,16 +81,27 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/checkout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="335dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="32dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@+id/product_list_recycle_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButtonCheckoutCustomer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/backButtonCheckoutCustomer"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/backbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
