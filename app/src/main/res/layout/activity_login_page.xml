@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".LoginCustomerPage">
 
+    <ImageButton
+        android:id="@+id/backButton_CustomerLogin"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="TODO"
+        android:scaleType="fitCenter"
+        android:src="@drawable/backbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
