@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ProductDetailCustomerPage">
 
+    <ImageButton
+        android:id="@+id/backButton_ProductDetail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/backbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/StoreName"
         android:layout_width="297dp"
