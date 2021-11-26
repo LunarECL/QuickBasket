@@ -9,6 +9,8 @@ import android.widget.ImageButton;
 
 public class SignupCustomerPage extends AppCompatActivity {
 
+    private int counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +21,14 @@ public class SignupCustomerPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(activity2Intent);
+                //if (bunch of stuff)
+                counter++;
             }
         });
     }
+
+    public int getCounter(){
+        return counter;
+    }
+
 }
