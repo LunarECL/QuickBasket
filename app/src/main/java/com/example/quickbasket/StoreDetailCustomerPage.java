@@ -1,9 +1,11 @@
 package com.example.quickbasket;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,7 +13,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Map;
+
 public class StoreDetailCustomerPage extends AppCompatActivity {
+    ArrayList<Product> products;
+    String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,24 +41,57 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        String StoreID = intent.getStringExtra("ID");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        String StoreID = "Test Store";
-
-
-        //Get Store Info from DB with ID
-        String StoreName = "Test Store";
+        mDatabase.child("Product").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    collectProducts((Map<String, Object>) task.getResult().getValue(), Integer.valueOf(StoreID));
+                }
+            }
+        });
+        mDatabase.child("StoreOwner").child(StoreID).child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    storeName = String.valueOf(task.getResult().getValue());
+                }
+            }
+        });
 
         TextView t1 = (TextView) findViewById(R.id.StoreName);
         t1.setText(StoreID);
 
-        for(int i=0; i<10;i++){
+        for(Product product : products){
             LinearLayout ll = new LinearLayout(this);
             ll.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             ll.setClickable(true);
-            String ProductID = "test";
 
+            ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), ProductDetailCustomerPage.class);
+                    String productID = v.getContentDescription().toString();
+                    intent.putExtra("ID", productID);
+                    intent.putExtra("StoreID", StoreID);
+                    startActivity(intent);
+                }
+            });
+
+            String ProductID = String.valueOf(product.id);
 
             ll.setContentDescription(ProductID);
 
@@ -52,15 +100,15 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             ImageView img = new ImageView(this);
             LinearLayout.LayoutParams imgl = new LinearLayout.LayoutParams(600, 600);
             img.setScaleType(ImageView.ScaleType.FIT_XY);
-            new URLImageTask(img).execute("https://media.istockphoto.com/photos/university-of-toronto-picture-id519685267?b=1&k=20&m=519685267&s=170667a&w=0&h=R45ZMm2Bf62gStoi01J6gQYDdZRBmuP9Oj5cWQpYAE4=");
+            new URLImageTask(img).execute(product.imageURL);
 
             TextView tv1 = new TextView(this);
-            tv1.setText("Name");
+            tv1.setText(product.name);
             LinearLayout.LayoutParams tv11 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             tv1.setGravity(Gravity.CENTER);
 
             TextView tv2 = new TextView(this);
-            tv2.setText("$0.00");
+            tv2.setText("$" + product.price);
             tv2.setGravity(Gravity.CENTER);
 
             ll.addView(img, imgl);
@@ -70,5 +118,15 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             l0.addView(ll, layoutParams);
         }
     }
+
+    private void collectProducts(Map<String,Object> rawProducts, Integer storeid) {
+        for (Map.Entry<String, Object> entry : rawProducts.entrySet()){
+            Product product = (Product) entry.getValue();
+            if (product.storeid == storeid){
+                products.add(product);
+            }
+        }
+    }
+
 
 }
