@@ -14,7 +14,7 @@ public class main_screen_owner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_owner);
 
-        ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
+        ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
