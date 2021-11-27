@@ -40,6 +40,7 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(storeID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -52,15 +53,19 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                     Map storeMap = (Map) task.getResult().getValue();
                     storeName = String.valueOf(storeMap.get("name"));
                     Map<String, Object> productsMap = (Map) storeMap.get("Product");
+
+
+
                     for (Map.Entry<String, Object> entry : productsMap.entrySet()){
                         Map<String, Object> productMap = (Map<String, Object>) entry.getValue();
-                        if (String.valueOf(productMap.get("price")) == productID){
+                        if (String.valueOf(productMap.get("id")) == productID){
                             product = new Product(String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
                         }
                     }
                 }
             }
         });
+
 
 
         TextView t1 = (TextView) findViewById(R.id.StoreName);
