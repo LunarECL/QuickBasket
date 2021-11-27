@@ -113,6 +113,7 @@
 
     <string name="enter_product_info">Enter Product Information</string>
     <string name="product_image_text">Image:</string>
+    <string name="product_image_hint_text">Enter Image URL</string>
     <string name="product_image_description">Image of Product</string>
     <string name="product_name_text">Name:</string>
     <string name="product_name_hint_text">Enter Name</string>
