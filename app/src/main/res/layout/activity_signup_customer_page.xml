@@ -24,9 +24,9 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword3"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword3"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword3"
+        app:layout_constraintBottom_toBottomOf="@+id/enterPassword"
+        app:layout_constraintEnd_toStartOf="@+id/enterPassword"
+        app:layout_constraintTop_toTopOf="@+id/enterPassword"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -37,9 +37,9 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName4"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName4"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName4"
+        app:layout_constraintBottom_toBottomOf="@+id/enterUsername"
+        app:layout_constraintEnd_toStartOf="@+id/enterUsername"
+        app:layout_constraintTop_toTopOf="@+id/enterUsername"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -82,10 +82,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
+        app:layout_constraintTop_toBottomOf="@+id/enterPassword" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/enterPassword"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
@@ -96,10 +96,10 @@
         android:inputType="textPassword"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/enterUsername" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/enterUsername"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"

@@ -44,8 +44,7 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         Intent intent = getIntent();
         String StoreID = intent.getStringExtra("ID");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("Product").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -53,19 +52,14 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
                 }
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    collectProducts((Map<String, Object>) task.getResult().getValue(), Integer.valueOf(StoreID));
-                }
-            }
-        });
-        mDatabase.child("StoreOwner").child(StoreID).child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    storeName = String.valueOf(task.getResult().getValue());
+                    Map storeMap = (Map) task.getResult().getValue();
+                    storeName = String.valueOf(storeMap.get("name"));
+                    Map<String, Object> productsMap = (Map) storeMap.get("Product");
+                    for (Map.Entry<String, Object> entry : productsMap.entrySet()){
+                        Map<String, Object> productMap = (Map<String, Object>) entry.getValue();
+                        Product product = new Product(String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                        products.add(product);
+                    }
                 }
             }
         });
@@ -116,15 +110,6 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             ll.addView(tv2, tv11);
             LinearLayout l0 = (LinearLayout) findViewById(R.id.Store_Products);
             l0.addView(ll, layoutParams);
-        }
-    }
-
-    private void collectProducts(Map<String,Object> rawProducts, Integer storeid) {
-        for (Map.Entry<String, Object> entry : rawProducts.entrySet()){
-            Product product = (Product) entry.getValue();
-            if (product.storeid == storeid){
-                products.add(product);
-            }
         }
     }
 
