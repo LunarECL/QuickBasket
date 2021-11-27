@@ -1,7 +1,7 @@
 package com.example.quickbasket;
 
 public interface Contract {
-    public interface Mode{
+    public interface Model{
         public boolean userExists(String username);
     }
 

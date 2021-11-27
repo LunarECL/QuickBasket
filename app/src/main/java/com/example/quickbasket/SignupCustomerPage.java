@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignupCustomerPage extends AppCompatActivity implements Contract.View{
 
     private int counter = 0;
-
+    private Contract.Presenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,8 @@ public class SignupCustomerPage extends AppCompatActivity implements Contract.Vi
             }
         });
 
+        presenter = new MyPresenter(new MyModel(), this);
+
     }
 
     public String getUsername(){
@@ -44,7 +46,7 @@ public class SignupCustomerPage extends AppCompatActivity implements Contract.Vi
 
     public void addCustomer(View view){
         DatabaseReference signup = FirebaseDatabase.getInstance().getReference("Customers");
-        //Customer customer = new Customer(counter, getUsername(), )
+        //Customer customer = new Customer(counter, this.getUsername(), )
     }
 
 }
