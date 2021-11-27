@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class SignupCustomerPage extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class SignupCustomerPage extends AppCompatActivity implements Contract.View{
 
     private int counter = 0;
 
@@ -21,14 +25,26 @@ public class SignupCustomerPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(activity2Intent);
-                //if (bunch of stuff)
+                //if (!usernameExists && !customeridExists && !passwordExists??)
                 counter++;
             }
         });
+
     }
 
-    public int getCounter(){
-        return counter;
+    public String getUsername(){
+        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
+        return editUsername.getText().toString();
+    }
+
+    public String getPassword(){
+        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
+        return editPassword.getText().toString();
+    }
+
+    public void addCustomer(View view){
+        DatabaseReference signup = FirebaseDatabase.getInstance().getReference("Customers");
+        //Customer customer = new Customer(counter, getUsername(), )
     }
 
 }
