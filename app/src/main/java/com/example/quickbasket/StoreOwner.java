@@ -7,8 +7,8 @@ public class StoreOwner extends User{
     String location;
     String logoURL;
 
-    public StoreOwner(String name, String password, String storeName, String location, String logoURL) {
-        super(name, password);
+    public StoreOwner(String username, String password, String storeName, String location, String logoURL) {
+        super(username, password);
         this.storeName = storeName;
         this.location = location;
         this.logoURL = logoURL;
