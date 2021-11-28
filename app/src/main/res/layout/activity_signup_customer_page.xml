@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".SignupCustomerPage">
 
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:hint="@string/username_text"
+        android:textAlignment="textEnd"
+        android:textColorHint="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/enterUsername"
+        app:layout_constraintEnd_toStartOf="@+id/enterUsername"
+        app:layout_constraintTop_toTopOf="@+id/enterUsername"
+        app:layout_constraintVertical_bias="1.0" />
+
     <ImageButton
         android:id="@+id/backButton_CustomerSignup"
         android:layout_width="60dp"
@@ -74,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/signup_button"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -102,7 +115,7 @@
         android:id="@+id/enterUsername"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="136dp"
         android:layout_marginEnd="55dp"
         android:ems="10"
         android:hint="@string/enter_username"
@@ -111,5 +124,33 @@
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <EditText
+        android:id="@+id/enterName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="40dp"
+        android:ems="10"
+        android:hint="@string/enter_name"
+        android:inputType="textPersonName"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/enterUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="103dp"
+        android:layout_height="34dp"
+        android:hint="@string/name_text"
+        android:textAlignment="textEnd"
+        android:textColorHint="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/enterName"
+        app:layout_constraintTop_toTopOf="@+id/enterName"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="45dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

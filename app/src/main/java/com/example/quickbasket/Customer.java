@@ -2,15 +2,15 @@ package com.example.quickbasket;
 
 public class Customer extends User{
     Integer id;
-    String username;
+    String name;
     public Customer(Integer id, String username, String name, String password) {
-        super(name, password);
+        super(username, password);
         this.id = id;
-        this.username = username;
+        this.name = name;
     }
 
-    public String getName(){
-        return name;
+    public String getUsername(){
+        return username;
     }
 
     public String getPassword(){
