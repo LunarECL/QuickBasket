@@ -43,6 +43,8 @@ public class SignupCustomerPage extends AppCompatActivity{
             }
         });
 
+
+
         //Customer customer = new Customer(db.child("userCount").getValue(), username, name, password);
     }
 
