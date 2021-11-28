@@ -1,11 +1,11 @@
 package com.example.quickbasket;
 
 public class User {
-    String name;
+    String username;
     String password;
 
-    public User(String name, String password){
-        this.name = name;
+    public User(String username, String password){
+        this.username = username;
         this.password = password;
     }
 
