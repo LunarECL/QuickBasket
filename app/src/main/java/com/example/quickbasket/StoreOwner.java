@@ -3,14 +3,14 @@ package com.example.quickbasket;
 import java.util.Base64;
 
 public class StoreOwner extends User{
-    String storename;
+    String storeName;
     String location;
-    Base64 image;
+    String logoURL;
 
-    public StoreOwner(String name, String password, String storename, String location, Base64 image) {
+    public StoreOwner(String name, String password, String storeName, String location, String logoURL) {
         super(name, password);
-        this.storename = storename;
+        this.storeName = storeName;
         this.location = location;
-        this.image = image;
+        this.logoURL = logoURL;
     }
 }
