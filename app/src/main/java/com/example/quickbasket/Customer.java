@@ -17,4 +17,8 @@ public class Customer extends User{
         return password;
     }
 
+    public Integer getId() {return id; }
+
+    public String getName() {return name; }
+
 }

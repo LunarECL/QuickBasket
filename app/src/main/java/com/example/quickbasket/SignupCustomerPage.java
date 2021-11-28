@@ -49,11 +49,12 @@ public class SignupCustomerPage extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if (dataSnapshot.exists()){
+                    if (dataSnapshot.child("username").exists()){
                         System.out.println("Username already exists. Please choose another username.");
                     }
                     else{
                         Customer customer = new Customer(counter + 1, username, name, password);
+                        db.child("Customer").child("customerID").setValue(customer);
                     }
                 }
             }
@@ -63,6 +64,7 @@ public class SignupCustomerPage extends AppCompatActivity{
 
             }
         });
+
     }
 
     @Override
