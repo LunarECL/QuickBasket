@@ -48,7 +48,9 @@ public class main_screen_customer extends Activity {
         });
     }
 
+
     public void sendData(View view) {
+        System.out.println("HEYYY");
         DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
         StoreOwnerData.child("StoreOwner").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -58,8 +60,8 @@ public class main_screen_customer extends Activity {
                     mImageUrls.add(owner.logoURL);
                     tempURL = owner.logoURL;
 
-                    mNames.add(owner.name);
-                    tempName = owner.name;
+                    mNames.add(owner.storeName);
+                    tempName = owner.storeName;
 
                     mLocations.add(owner.location);
                     tempLocation = owner.location;
@@ -75,6 +77,7 @@ public class main_screen_customer extends Activity {
     }
 
     private void initImageBitmaps() {
+        System.out.println("HEYYY22");
         mImageUrls.add(tempURL);
         mNames.add(tempName);
         mLocations.add(tempLocation);
