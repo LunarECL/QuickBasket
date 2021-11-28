@@ -13,4 +13,28 @@ public class StoreOwner extends User{
         this.location = location;
         this.logoURL = logoURL;
     }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLogoURL() {
+        return logoURL;
+    }
+
+    public void setLogoURL(String logoURL) {
+        this.logoURL = logoURL;
+    }
 }

@@ -46,25 +46,37 @@ public class main_screen_customer extends Activity {
                 startActivity(activity2Intent);
             }
         });
+
+
+        //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
+    }
+    DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
+
+    public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
+        StoreOwner owner = new StoreOwner(userID, password, storeName, location, logoURL);
+
+        StoreOwnerData.child("StoreOwner").child(userID).setValue(owner);
     }
 
     public void sendData(View view) {
-        DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
+        System.out.println("HEYYY");
+
         StoreOwnerData.child("StoreOwner").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     StoreOwner owner = snapshot.getValue(StoreOwner.class);
+
                     mImageUrls.add(owner.logoURL);
                     tempURL = owner.logoURL;
 
-                    mNames.add(owner.name);
-                    tempName = owner.name;
+                    mNames.add(owner.storeName);
+                    tempName = snapshot.child("storeName").getValue().toString();
 
                     mLocations.add(owner.location);
                     tempLocation = owner.location;
 
-                    System.out.println(owner.name);
+                    System.out.println(owner.storeName);
                 }
             }
 
@@ -75,9 +87,11 @@ public class main_screen_customer extends Activity {
     }
 
     private void initImageBitmaps() {
+
         mImageUrls.add(tempURL);
         mNames.add(tempName);
         mLocations.add(tempLocation);
+
         /*mImageUrls.add("https://media.istockphoto.com/photos/university-of-toronto-picture-id519685267?b=1&k=20&m=519685267&s=170667a&w=0&h=R45ZMm2Bf62gStoi01J6gQYDdZRBmuP9Oj5cWQpYAE4=");
         mNames.add("University of Toronto");
         mLocations.add("Toronto, ON");
