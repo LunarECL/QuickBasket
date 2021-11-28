@@ -66,7 +66,7 @@ public class main_screen_customer extends Activity {
                     mLocations.add(owner.location);
                     tempLocation = owner.location;
 
-                    System.out.println(owner.name);
+                    System.out.println(owner.storeName);
                 }
             }
 
