@@ -25,10 +25,9 @@ public class OwnerAddProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_add_product);
 
-        // TO DO
         // Get ownerID from previous activity
-//        Intent intent = getIntent();
-//        ownerID = intent.getIntegerExtra(MainActivity."ownerID");
+        Intent intent = getIntent();
+        ownerID = intent.getIntExtra("ownerID", 0);
 
         // Back button code
         ImageButton backButton = findViewById(R.id.backButton_AddProductInfo);
@@ -40,6 +39,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
         });
     }
 
+    // Add product button code
     public void onAddProductClick(View view) {
         // Get values from edit texts
         EditText nameEditText = (EditText) findViewById(R.id.editTextTextPersonName3);
@@ -69,16 +69,15 @@ public class OwnerAddProductPage extends AppCompatActivity {
             }
         });
 
-        // Use product index to add product to DB then increment product index afterwards
+        // Use product index to add product to DB and increment product index afterwards
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Product product = new Product(name, description, brand, price, imageURL);
         ref2.child("StoreOwner").child(String.valueOf(ownerID)).child("Products").child(String.valueOf(productIndex)).setValue(product);
         ref2.child("StoreOwner").child(String.valueOf(ownerID)).child("ProductIndex").setValue(String.valueOf(productIndex + 1));
 
-        // TO DO
         // Go to next screen
         Intent intent = new Intent(this, main_screen_owner.class);
-//        intent.putExtra("ownerID", ownerID);
+        intent.putExtra("ownerID", ownerID);
         startActivity(intent);
     }
 }
