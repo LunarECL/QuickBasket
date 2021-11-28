@@ -92,6 +92,7 @@ public class main_screen_customer extends Activity {
                     Map storeIDMap = (Map) task.getResult().getValue();
 
                     Map<String, Object> storeInfoMap = (Map) storeIDMap;
+                    //ERROR HERE
                     for (Map.Entry<String, Object> entry : storeInfoMap.entrySet()){
                         Map<String, Object> storeMap = (Map<String, Object>) entry.getValue();
                         StoreOwner owner = new StoreOwner(String.valueOf(storeMap.get("Name")), String.valueOf(storeMap.get("Location")), String.valueOf(storeMap.get("logoURL")));
