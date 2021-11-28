@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class main_screen_owner extends AppCompatActivity {
+    Integer ownerID;
     String storeName;
     String logo;
     //ArrayList<Order> orders;
@@ -17,7 +18,12 @@ public class main_screen_owner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_owner);
 
-        // Back Button
+        // TO DO
+        // Get ownerID from previous activity
+//        Intent intent = getIntent();
+//        ownerID = intent.getIntegerExtra(MainActivity."ownerID");
+
+        // Back button code
         ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,13 +94,19 @@ public class main_screen_owner extends AppCompatActivity {
         // get orders and display on screen
     }
 
+    // TO DO
+    // Go to next screen
     public void onViewProductsClick(View view) {
         Intent intent = new Intent(this, ViewProductsOwner.class);
+//        intent.putExtra("ownerID", ownerID);
         startActivity(intent);
     }
 
+    // TO DO
+    // Go to next screen
     public void onAddNewProductClick(View view) {
         Intent intent = new Intent(this, ViewOrderOwner.class);
+//        intent.putExtra("ownerID", ownerID);
         startActivity(intent);
     }
 }
