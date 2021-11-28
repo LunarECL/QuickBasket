@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class main_screen_customer extends Activity {
     private ArrayList<String> mNames = new ArrayList<>();
@@ -30,6 +31,9 @@ public class main_screen_customer extends Activity {
     private String tempName;
     private String tempLocation;
     private String tempURL;
+
+    ArrayList<StoreOwner> owners;
+    String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,55 @@ public class main_screen_customer extends Activity {
             }
         });
 
+        /*StoreOwnerData.child("StoreOwner").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //StoreOwner owner = snapshot.getValue(StoreOwner.class);
+
+                    //mImageUrls.add(owner.logoURL);
+                    tempURL = snapshot.child("logoURL").getValue().toString();
+                    mImageUrls.add(tempURL);
+
+                   // mNames.add(owner.storeName);
+                    tempName = snapshot.child("Name").getValue().toString();
+                    mNames.add(tempName);
+
+                    //mLocations.add(owner.location);
+                    tempLocation = snapshot.child("Location").getValue().toString();
+                    mLocations.add(tempLocation);
+
+                   // System.out.println(owner.storeName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });*/
+
+        //Intent intent = getIntent();
+        //String StoreID = intent.getStringExtra("ID");
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("StoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                    Map storeIDMap = (Map) task.getResult().getValue();
+
+                    Map<String, Object> storeInfoMap = (Map) storeIDMap;
+                    for (Map.Entry<String, Object> entry : storeInfoMap.entrySet()){
+                        Map<String, Object> storeMap = (Map<String, Object>) entry.getValue();
+                        StoreOwner owner = new StoreOwner(String.valueOf(storeMap.get("Name")), String.valueOf(storeMap.get("Location")), String.valueOf(storeMap.get("logoURL")));
+                        owners.add(owner);
+                    }
+                }
+            }
+        });
 
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
@@ -58,39 +111,29 @@ public class main_screen_customer extends Activity {
         StoreOwnerData.child("StoreOwner").child(userID).setValue(owner);
     }
 
-    public void sendData(View view) {
-        System.out.println("HEYYY");
+    //public void sendData(View view) {
+        //System.out.println("HEYYY");
 
-        StoreOwnerData.child("StoreOwner").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    StoreOwner owner = snapshot.getValue(StoreOwner.class);
 
-                    mImageUrls.add(owner.logoURL);
-                    tempURL = owner.logoURL;
-
-                    mNames.add(owner.storeName);
-                    tempName = snapshot.child("storeName").getValue().toString();
-
-                    mLocations.add(owner.location);
-                    tempLocation = owner.location;
-
-                    System.out.println(owner.storeName);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
+   // }
 
     private void initImageBitmaps() {
 
-        mImageUrls.add(tempURL);
+
+        if (owners != null){
+            for (StoreOwner owner: owners){
+                if (owner != null) {
+                    mImageUrls.add(owner.logoURL);
+                    mNames.add(owner.storeName);
+                    mLocations.add(owner.location);
+                }
+            }
+        }
+
+
+        /*mImageUrls.add(tempURL);
         mNames.add(tempName);
-        mLocations.add(tempLocation);
+        mLocations.add(tempLocation);*/
 
         /*mImageUrls.add("https://media.istockphoto.com/photos/university-of-toronto-picture-id519685267?b=1&k=20&m=519685267&s=170667a&w=0&h=R45ZMm2Bf62gStoi01J6gQYDdZRBmuP9Oj5cWQpYAE4=");
         mNames.add("University of Toronto");
