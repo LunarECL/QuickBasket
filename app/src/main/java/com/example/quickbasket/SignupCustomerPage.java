@@ -14,12 +14,13 @@ import android.widget.ImageButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignupCustomerPage extends AppCompatActivity{
-
-
+    private int counter;
     public void addCustomer(View view){
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -38,14 +39,32 @@ public class SignupCustomerPage extends AppCompatActivity{
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
+                    counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                 }
             }
         });
 
+        db.child("Customer").child("customerID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if (dataSnapshot.child("username").exists()){
+                        System.out.println("Username already exists. Please choose another username.");
+                    }
+                    else{
+                        Customer customer = new Customer(counter + 1, username, name, password);
+                        db.child("Customer").child("customerID").setValue(customer);
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        //Customer customer = new Customer(db.child("userCount").getValue(), username, name, password);
+            }
+        });
+
     }
 
     @Override

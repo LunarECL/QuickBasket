@@ -9,11 +9,59 @@ public class Product {
     double price;
     String imageURL;
 
-    public Product(String name, String description, String brand, double price, String imageURL){
+    public Product( String name, String description, String brand, double price, String imageURL){
         this.name = name;
         this.description = description;
         this.brand = brand;
         this.price = price;
+        this.imageURL = imageURL;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
 }
