@@ -28,6 +28,7 @@ public class main_screen_customer extends Activity implements StoreInfoRecyclerV
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
+    private ArrayList<String> mStoreIDs = new ArrayList<>();
 
     ArrayList<StoreOwner> owners = new ArrayList<>();
     int storeID;
@@ -65,6 +66,7 @@ public class main_screen_customer extends Activity implements StoreInfoRecyclerV
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     ArrayList storeIDMap = (ArrayList) task.getResult().getValue();
                     ArrayList<Map> storeList = (ArrayList<Map>) storeIDMap;
+                    int index = 0;
                     //ERROR HERE
                     int check = 0;
                     for (Map<String, Object> entry : storeList){
@@ -72,8 +74,13 @@ public class main_screen_customer extends Activity implements StoreInfoRecyclerV
                             String storeName = String.valueOf(entry.get("Name"));
                             String location = String.valueOf(entry.get("Location"));
                             String logoURL = String.valueOf(entry.get("logoURL"));
+                            String storeID = String.valueOf(index);
+
+                            Log.d("storeIDS are ", storeID);
                             StoreOwner owner = new StoreOwner(storeName, location, logoURL);
                             owners.add(owner);
+                            mStoreIDs.add(storeID);
+                            index++;
                         }
                     }
 
@@ -140,7 +147,8 @@ public class main_screen_customer extends Activity implements StoreInfoRecyclerV
     @Override
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, StoreDetailCustomerPage.class);
-        intent.putExtra("ID", "1");
+        Log.d("Value of ID is ", mStoreIDs.get(position));
+        intent.putExtra("ID", mStoreIDs.get(position));
         startActivity(intent);
     }
 }

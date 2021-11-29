@@ -80,7 +80,7 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
 
         @Override
         public void onClick(View v) {
-            String storeID = v.getContentDescription().toString();
+            // storeID = v.getContentDescription().toString();
             onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
