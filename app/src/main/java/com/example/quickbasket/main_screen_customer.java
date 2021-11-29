@@ -33,7 +33,7 @@ public class main_screen_customer extends Activity {
     private String tempLocation;
     private String tempURL;
 
-    ArrayList<StoreOwner> owners;
+    ArrayList<StoreOwner> owners = new ArrayList<>();
     String storeName;
     DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
 
@@ -90,17 +90,18 @@ public class main_screen_customer extends Activity {
                 }
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    Map storeIDMap = (Map) task.getResult().getValue();
-
-                    Map<String, Object> storeInfoMap = (Map) storeIDMap;
+                    ArrayList storeIDMap = (ArrayList) task.getResult().getValue();
+                    ArrayList<Map> storeList = (ArrayList<Map>) storeIDMap;
                     //ERROR HERE
-                    for (Map.Entry<String, Object> entry : storeInfoMap.entrySet()){
-                        Map<String, Object> storeMap = (Map<String, Object>) entry.getValue();
-                        String storeName = String.valueOf(storeMap.get("Name"));
-                        String location = String.valueOf(storeMap.get("Location"));
-                        String logoURL = String.valueOf(storeMap.get("logoURL"));
-                        StoreOwner owner = new StoreOwner(storeName, location, logoURL);
-                        owners.add(owner);
+                    int check = 0;
+                    for (Map<String, Object> entry : storeList){
+                        if (entry != null) {
+                            String storeName = String.valueOf(entry.get("Name"));
+                            String location = String.valueOf(entry.get("Location"));
+                            String logoURL = String.valueOf(entry.get("logoURL"));
+                            StoreOwner owner = new StoreOwner(storeName, location, logoURL);
+                            owners.add(owner);
+                        }
                     }
 
                     initImageBitmaps();
