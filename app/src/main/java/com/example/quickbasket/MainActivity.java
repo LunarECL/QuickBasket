@@ -28,6 +28,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // CODE FOR TestDetailPage
+        Button testDetail = findViewById(R.id.testDetailPage);
+        testDetail.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
+                activity2Intent.putExtra("ID", "1");
+                startActivity(activity2Intent);
+            }
+        });
+
         // CODE FOR OWNER LOGIN BUTTON
         Button testButtonOwnerLogin = findViewById(R.id.ownerLogin);
         testButtonOwnerLogin.setOnClickListener(new View.OnClickListener() {
