@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,29 +21,22 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ProductDetailCustomerPage extends AppCompatActivity {
+    String StoreID;
+    String StoreName;
     Product product;
-    String storeName;
+    String ProductID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_customer_page);
 
-
         Intent intent = getIntent();
-        String productID = intent.getStringExtra("ID");
-        String storeID = intent.getStringExtra("StoreID");
-        ImageButton backButton = findViewById(R.id.backButton_ProductDetail);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
-                intent.putExtra("ID", storeID);
-                startActivity(intent);
-            }
-        });
-
+        StoreID = intent.getStringExtra("StoreID");
+        ProductID = intent.getStringExtra("ID");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("StoreOwner").child(storeID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -51,31 +45,34 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
-                    storeName = String.valueOf(storeMap.get("name"));
-                    Map<String, Object> productsMap = (Map) storeMap.get("Product");
-
-
-
-                    for (Map.Entry<String, Object> entry : productsMap.entrySet()){
-                        Map<String, Object> productMap = (Map<String, Object>) entry.getValue();
-                        if (String.valueOf(productMap.get("id")) == productID){
-                            product = new Product(String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                    StoreName = String.valueOf(storeMap.get("Name"));
+                    ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
+                    for (Map<String, String> productMap : productsList) {
+                        if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
+                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                            break;
                         }
                     }
+                    getReadt();
                 }
             }
         });
 
 
-
+    }
+    private void getReadt(){
         TextView t1 = (TextView) findViewById(R.id.StoreName);
-        t1.setText(storeName);
+        t1.setText(StoreName);
 
         TextView t2 = (TextView) findViewById(R.id.Description);
-        t2.setText(product.description);
+        t2.setText(String.valueOf(product.description));
 
         TextView t3 = (TextView) findViewById(R.id.Price);
         t3.setText("$" + product.price);
+        t3.setContentDescription(String.valueOf(product.price));
+
+        ImageView img1 = (ImageView) findViewById(R.id.product_image);
+        new URLImageTask(img1).execute(product.imageURL);
     }
 
     public void onMinus(View view){

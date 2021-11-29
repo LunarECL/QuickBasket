@@ -26,7 +26,9 @@ import java.util.Map;
 
 public class StoreDetailCustomerPage extends AppCompatActivity {
     ArrayList<Product> products;
-    String storeName;
+    String StoreName;
+    String StoreLocation;
+    String StoreID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +38,13 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.backButton_StoreDetail);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), main_screen_customer.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
         Intent intent = getIntent();
-        String StoreID = intent.getStringExtra("ID");
+        StoreID = intent.getStringExtra("ID");
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -53,27 +55,36 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
-                    storeName = String.valueOf(storeMap.get("name"));
-                    Map<String, Object> productsMap = (Map) storeMap.get("Product");
-                    for (Map.Entry<String, Object> entry : productsMap.entrySet()){
-                        Map<String, Object> productMap = (Map<String, Object>) entry.getValue();
-                        Product product = new Product(String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                    StoreName = String.valueOf(storeMap.get("Name"));
+                    StoreLocation = String.valueOf(storeMap.get("Location"));
+                    ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
+                    products = new ArrayList<>();
+                    for (Map<String, String> productMap : productsList) {
+                        Product product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(productMap.get("price")), String.valueOf(productMap.get("imageURL")));
                         products.add(product);
                     }
+                    getReadt();
                 }
             }
         });
 
+    }
+    private void getReadt(){
         TextView t1 = (TextView) findViewById(R.id.StoreName);
-        t1.setText(StoreID);
+        t1.setText(StoreName);
+
+        TextView t2 = (TextView) findViewById(R.id.StoreDetailCustomerLocation);
+        t2.setText(StoreLocation);
 
         for(Product product : products){
             LinearLayout ll = new LinearLayout(this);
             ll.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.setClickable(true);
 
+            ll.setContentDescription(String.valueOf(product.id));
+
+            ll.setClickable(true);
             ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -112,6 +123,5 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             l0.addView(ll, layoutParams);
         }
     }
-
 
 }

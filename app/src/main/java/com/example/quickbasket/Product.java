@@ -2,14 +2,14 @@ package com.example.quickbasket;
 
 public class Product {
     Integer id;
-
     String name;
     String description;
     String brand;
     double price;
     String imageURL;
 
-    public Product( String name, String description, String brand, double price, String imageURL){
+    public Product(Integer id, String name, String description, String brand, double price, String imageURL){
+        this.id = id;
         this.name = name;
         this.description = description;
         this.brand = brand;
@@ -64,4 +64,5 @@ public class Product {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
+}
 }
