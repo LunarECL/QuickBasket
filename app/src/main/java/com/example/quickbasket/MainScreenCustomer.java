@@ -105,6 +105,12 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
             }
         });
 
+        ArrayList<Integer> temp = new ArrayList<>();
+
+        temp.add(1);
+        temp.add(5);
+
+        writeNewOrder(1,2,3,temp);
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
 
@@ -113,6 +119,14 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
         entireDB.child("StoreOwner").child(userID).setValue(owner);
     }
+
+    public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList ) {
+        Order order = new Order(orderID,ownerID,customerID,productIDsList);
+
+        entireDB.child("Order").child(Integer.toString(orderID)).setValue(order);
+    }
+
+
 
     private void initImageBitmaps() {
         if (owners != null){
