@@ -37,7 +37,7 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
 
     @Override
     public ViewHolder_StoreInfo onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_liststore, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_layout_liststore, parent, false);
         ViewHolder_StoreInfo holder = new ViewHolder_StoreInfo(view, mOnNoteListener);
         return holder;
     }

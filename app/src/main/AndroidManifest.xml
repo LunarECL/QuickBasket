@@ -50,7 +50,7 @@
             android:name=".main_screen_owner"
             android:exported="false" />
 
-        <activity android:name=".main_screen_customer"
+        <activity android:name=".MainScreenCustomer"
             android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".CustomerCheckout"

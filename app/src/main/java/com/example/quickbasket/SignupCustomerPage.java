@@ -83,7 +83,7 @@ public class SignupCustomerPage extends AppCompatActivity{
         Button testButtonCustomerSignup = findViewById(R.id.signup_button);
         testButtonCustomerSignup.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent activity2Intent = new Intent(getApplicationContext(), main_screen_customer.class);
+                Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
                 startActivity(activity2Intent);
 
 

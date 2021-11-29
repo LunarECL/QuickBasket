@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class main_screen_customer extends Activity implements StoreInfoRecyclerViewAdapter.OnNoteListener{
+public class MainScreenCustomer extends Activity implements StoreInfoRecyclerViewAdapter.OnNoteListener{
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
