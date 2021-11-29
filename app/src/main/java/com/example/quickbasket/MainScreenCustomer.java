@@ -107,8 +107,8 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
         ArrayList<Integer> temp = new ArrayList<>();
 
+        temp.add(0);
         temp.add(1);
-        temp.add(5);
 
         writeNewOrder(1,2,3,temp);
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
