@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,10 +31,10 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
     private ArrayList<String> mLocations = new ArrayList<>();
     private ArrayList<String> mStoreIDs = new ArrayList<>();
 
-    ArrayList<StoreOwner> owners = new ArrayList<>();
-    int storeID;
-    int customerID;
-    DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
+    private ArrayList<StoreOwner> owners = new ArrayList<>();
+    private int customerID;
+    private String customerName;
+    DatabaseReference entireDB = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getIntExtra("customerID", 0);
+        customerID = 1;
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -53,8 +55,22 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
             }
         });
 
-        //Intent intent = getIntent();
-        //String StoreID = intent.getStringExtra("ID");
+        entireDB.child("Customer").child(String.valueOf(customerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else {
+                        Log.d("Customer Stuff", String.valueOf(task.getResult().getValue()));
+                        Map customerMap = (Map) task.getResult().getValue();
+                        customerName = String.valueOf(customerMap.get("name"));
+
+                        Log.d("Customer Name is ", customerName);
+                    }
+                }
+            });
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -95,7 +111,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
     public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
         StoreOwner owner = new StoreOwner(userID, password, storeName, location, logoURL);
 
-        StoreOwnerData.child("StoreOwner").child(userID).setValue(owner);
+        entireDB.child("StoreOwner").child(userID).setValue(owner);
     }
 
     private void initImageBitmaps() {
@@ -109,7 +125,8 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
             }
         }
 
-
+        TextView cName = (TextView) findViewById(R.id.customerName);
+        cName.setText(customerName);
         /*mImageUrls.add(tempURL);
         mNames.add(tempName);
         mLocations.add(tempLocation);*/
@@ -139,7 +156,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.store_list_recycle_view);
-        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this, storeID);
+        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

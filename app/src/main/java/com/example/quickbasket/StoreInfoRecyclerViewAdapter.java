@@ -22,17 +22,15 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
     private ArrayList<String> mLocations = new ArrayList<>();
     private Context mContext;
 
-    private int mStoreID;
 
     private OnNoteListener mOnNoteListener;
 
-    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation, OnNoteListener mOnNoteListener, int mStoreID) {
+    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation, OnNoteListener mOnNoteListener) {
         this.mStoreNames = mStoreName;
         this.mImages = mImages;
         this.mLocations = mLocation;
         this.mContext = mContext;
         this.mOnNoteListener = mOnNoteListener;
-        this.mStoreID = mStoreID;
     }
 
     @Override
@@ -51,6 +49,8 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
 
         holder.storeName.setText(mStoreNames.get(position));
         holder.location.setText(mLocations.get(position));
+
+
     }
 
     @Override
