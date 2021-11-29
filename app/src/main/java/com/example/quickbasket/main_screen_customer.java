@@ -24,23 +24,24 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class main_screen_customer extends Activity {
-    private ArrayList<String> mNames = new ArrayList<>();
+public class main_screen_customer extends Activity implements StoreInfoRecyclerViewAdapter.OnNoteListener{
+    private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
 
-    private String tempName;
-    private String tempLocation;
-    private String tempURL;
-
     ArrayList<StoreOwner> owners = new ArrayList<>();
-    String storeName;
+    int storeID;
+    int customerID;
     DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_customer);
+
+        //Get Customer ID from previous page
+        Intent intent = getIntent();
+        customerID = intent.getIntExtra("customerID", 0);
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -50,34 +51,6 @@ public class main_screen_customer extends Activity {
                 startActivity(activity2Intent);
             }
         });
-
-       /* StoreOwnerData.child("StoreOwner").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    StoreOwner owner = snapshot.child(snapshot.getKey()).getValue(StoreOwner.class);
-                    owners.add(owner);
-
-                    //mImageUrls.add(owner.logoURL);
-                    tempURL = snapshot.child("logoURL").getValue().toString();
-                    mImageUrls.add(tempURL);
-
-                    // mNames.add(owner.storeName);
-                    tempName = snapshot.child("Name").getValue().toString();
-                    mNames.add(tempName);
-
-                    //mLocations.add(owner.location);
-                    tempLocation = snapshot.child("Location").getValue().toString();
-                    mLocations.add(tempLocation);
-
-                    // System.out.println(owner.storeName);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });*/
 
         //Intent intent = getIntent();
         //String StoreID = intent.getStringExtra("ID");
@@ -123,7 +96,7 @@ public class main_screen_customer extends Activity {
             for (StoreOwner owner: owners){
                 if (owner != null) {
                     mImageUrls.add(owner.logoURL);
-                    mNames.add(owner.storeName);
+                    mStoreNames.add(owner.storeName);
                     mLocations.add(owner.location);
                 }
             }
@@ -159,8 +132,15 @@ public class main_screen_customer extends Activity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.store_list_recycle_view);
-        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mNames, mImageUrls, mLocations);
+        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this, storeID);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        Intent intent = new Intent(this, StoreDetailCustomerPage.class);
+        intent.putExtra("ID", "1");
+        startActivity(intent);
     }
 }

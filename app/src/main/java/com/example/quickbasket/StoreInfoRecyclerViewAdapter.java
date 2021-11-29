@@ -22,18 +22,23 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
     private ArrayList<String> mLocations = new ArrayList<>();
     private Context mContext;
 
+    private int mStoreID;
 
-    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation) {
+    private OnNoteListener mOnNoteListener;
+
+    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation, OnNoteListener mOnNoteListener, int mStoreID) {
         this.mStoreNames = mStoreName;
         this.mImages = mImages;
         this.mLocations = mLocation;
         this.mContext = mContext;
+        this.mOnNoteListener = mOnNoteListener;
+        this.mStoreID = mStoreID;
     }
 
     @Override
     public ViewHolder_StoreInfo onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_liststore, parent, false);
-        ViewHolder_StoreInfo holder = new ViewHolder_StoreInfo(view);
+        ViewHolder_StoreInfo holder = new ViewHolder_StoreInfo(view, mOnNoteListener);
         return holder;
     }
 
@@ -53,22 +58,37 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
         return mLocations.size();
     }
 
-    public class ViewHolder_StoreInfo extends RecyclerView.ViewHolder{
+    public class ViewHolder_StoreInfo extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CircleImageView image;
         TextView storeName;
         TextView location;
         RelativeLayout parentLayout;
+        OnNoteListener onNoteListener;
+        int storeID;
 
-        public ViewHolder_StoreInfo(View itemView) {
+        public ViewHolder_StoreInfo(View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             image = itemView.findViewById(R.id.store_image);
             storeName = itemView.findViewById(R.id.store_name);
             location = itemView.findViewById(R.id.location);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
+            this.onNoteListener = onNoteListener;
 
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            String storeID = v.getContentDescription().toString();
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
+    }
+
 }
 
 
