@@ -35,7 +35,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
         String imgURL = getItem(position).getImageURL();
 
         //create item with the information
-        Product product = new Product(productName,description,brand,price,imgURL); // <- this should be with product id too, Joshua Kim
+        //Product product = new Product(productName,description,brand,price,imgURL); // <- this should be with product id too, Joshua Kim
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

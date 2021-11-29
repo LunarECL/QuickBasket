@@ -71,8 +71,8 @@ public class OwnerAddProductPage extends AppCompatActivity {
 
         // Use product index to add product to DB and increment product index afterwards
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
-        Product product = new Product(name, description, brand, price, imageURL); // <- this should be with product id too, Joshua Kim
-        ref2.child("StoreOwner").child(String.valueOf(ownerID)).child("Products").child(String.valueOf(productIndex)).setValue(product);
+        //Product product = new Product(name, description, brand, price, imageURL); // <- this should be with product id too, Joshua Kim
+       // ref2.child("StoreOwner").child(String.valueOf(ownerID)).child("Products").child(String.valueOf(productIndex)).setValue(product);
         ref2.child("StoreOwner").child(String.valueOf(ownerID)).child("ProductIndex").setValue(String.valueOf(productIndex + 1));
 
         // Go to next screen

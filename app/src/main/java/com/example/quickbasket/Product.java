@@ -62,7 +62,7 @@ public class Product {
     }
 
     public void setImageURL(String imageURL) {
+
         this.imageURL = imageURL;
     }
-}
 }

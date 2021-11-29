@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,13 +35,12 @@ public class main_screen_customer extends Activity {
 
     ArrayList<StoreOwner> owners;
     String storeName;
+    DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_customer);
-
-        initImageBitmaps();
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -51,17 +51,18 @@ public class main_screen_customer extends Activity {
             }
         });
 
-        /*StoreOwnerData.child("StoreOwner").addListenerForSingleValueEvent(new ValueEventListener() {
+       /* StoreOwnerData.child("StoreOwner").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //StoreOwner owner = snapshot.getValue(StoreOwner.class);
+                    StoreOwner owner = snapshot.child(snapshot.getKey()).getValue(StoreOwner.class);
+                    owners.add(owner);
 
                     //mImageUrls.add(owner.logoURL);
                     tempURL = snapshot.child("logoURL").getValue().toString();
                     mImageUrls.add(tempURL);
 
-                   // mNames.add(owner.storeName);
+                    // mNames.add(owner.storeName);
                     tempName = snapshot.child("Name").getValue().toString();
                     mNames.add(tempName);
 
@@ -69,7 +70,7 @@ public class main_screen_customer extends Activity {
                     tempLocation = snapshot.child("Location").getValue().toString();
                     mLocations.add(tempLocation);
 
-                   // System.out.println(owner.storeName);
+                    // System.out.println(owner.storeName);
                 }
             }
 
@@ -95,16 +96,20 @@ public class main_screen_customer extends Activity {
                     //ERROR HERE
                     for (Map.Entry<String, Object> entry : storeInfoMap.entrySet()){
                         Map<String, Object> storeMap = (Map<String, Object>) entry.getValue();
-                        StoreOwner owner = new StoreOwner(String.valueOf(storeMap.get("Name")), String.valueOf(storeMap.get("Location")), String.valueOf(storeMap.get("logoURL")));
+                        String storeName = String.valueOf(storeMap.get("Name"));
+                        String location = String.valueOf(storeMap.get("Location"));
+                        String logoURL = String.valueOf(storeMap.get("logoURL"));
+                        StoreOwner owner = new StoreOwner(storeName, location, logoURL);
                         owners.add(owner);
                     }
+
+                    initImageBitmaps();
                 }
             }
         });
 
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
-    DatabaseReference StoreOwnerData = FirebaseDatabase.getInstance().getReference();
 
     public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
         StoreOwner owner = new StoreOwner(userID, password, storeName, location, logoURL);
@@ -112,15 +117,7 @@ public class main_screen_customer extends Activity {
         StoreOwnerData.child("StoreOwner").child(userID).setValue(owner);
     }
 
-    //public void sendData(View view) {
-        //System.out.println("HEYYY");
-
-
-   // }
-
     private void initImageBitmaps() {
-
-
         if (owners != null){
             for (StoreOwner owner: owners){
                 if (owner != null) {
