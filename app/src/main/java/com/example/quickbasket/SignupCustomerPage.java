@@ -24,8 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupCustomerPage extends AppCompatActivity{
-    private Integer counter = 0;
-
+    private Integer counter;
+    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,16 +42,9 @@ public class SignupCustomerPage extends AppCompatActivity{
     }
 
     public void addCustomer(View view){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
-        String username = editUsername.getText().toString();
-        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
-        String password = editPassword.getText().toString();
-        EditText editName = (EditText) findViewById(R.id.enterName);
-        String name = editName.getText().toString();
 
         // Get the customer count
-        /*db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -59,16 +52,28 @@ public class SignupCustomerPage extends AppCompatActivity{
                 }
                 else {
                     if (task.getResult().getValue() == null){
-                        db.child("userCount").setValue(counter);
+                        Log.d("check null", "null");
+                        db.child("userCount").setValue(0);
+                        counter = 0;
                     }
                     else{
                         counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
                     }
-                    Log.d("check outside", String.valueOf(counter));
                 }
+                after();
             }
-        });*/
+        });
 
+
+    }
+
+    public void after(){
+        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
+        String username = editUsername.getText().toString();
+        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
+        String password = editPassword.getText().toString();
+        EditText editName = (EditText) findViewById(R.id.enterName);
+        String name = editName.getText().toString();
         db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -87,7 +92,7 @@ public class SignupCustomerPage extends AppCompatActivity{
                         // increment counter
                         counter += 1;
                         // update the userCount
-                        //db.child("userCount").setValue(counter);
+                        db.child("userCount").setValue(counter);
                         // create the customer object
                         Customer customer = new Customer(counter, username, name, password);
                         // set the customerID to customer object
@@ -107,6 +112,5 @@ public class SignupCustomerPage extends AppCompatActivity{
         Intent intent = new Intent(this, MainScreenCustomer.class);
         intent.putExtra("customerID", counter);
         startActivity(intent);
-
     }
 }

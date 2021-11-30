@@ -39,7 +39,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
         //Get Customer ID from previous page
         Intent intent = getIntent();
-        customerID = intent.getIntExtra("customerID", 0);
+        customerID = intent.getIntExtra("customerID", 1);
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
