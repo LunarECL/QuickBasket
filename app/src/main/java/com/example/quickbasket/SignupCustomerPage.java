@@ -53,7 +53,6 @@ public class SignupCustomerPage extends AppCompatActivity{
                 }
                 else {
                     if (task.getResult().getValue() == null){
-                        Log.d("check null", "null");
                         db.child("userCount").setValue(0);
                         counter = 0;
                     }
@@ -90,14 +89,19 @@ public class SignupCustomerPage extends AppCompatActivity{
                     Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    // increment counter
-                    counter += 1;
-                    // update the userCount
-                    db.child("userCount").setValue(counter);
-                    // create the customer object
-                    Customer customer = new Customer(counter, username, name, password);
-                    db.child("Customer").child(String.valueOf(counter)).setValue(customer);
-                    ready2();
+                    if (username.equals("") || password.equals("") || name.equals("")){
+                        Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        // increment counter
+                        counter += 1;
+                        // update the userCount
+                        db.child("userCount").setValue(counter);
+                        // create the customer object
+                        Customer customer = new Customer(counter, username, name, password);
+                        db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                        ready2();
+                    }
                 }
 
                 if (checker < 1){
