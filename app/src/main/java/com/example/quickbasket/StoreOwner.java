@@ -1,11 +1,13 @@
 package com.example.quickbasket;
 
+import java.util.ArrayList;
 import java.util.Base64;
 
 public class StoreOwner extends User{
     String storeName;
     String location;
     String logoURL;
+    ArrayList<Product> storeProducts = new ArrayList<>();
 
     public StoreOwner(String username, String password, String storeName, String location, String logoURL) {
         super(username, password);
@@ -18,6 +20,13 @@ public class StoreOwner extends User{
         this.storeName = storeName;
         this.location = location;
         this.logoURL = logoURL;
+    }
+
+    public StoreOwner(String storeName, String location, String logoURL, ArrayList<Product> storeProducts) {
+        this.storeName = storeName;
+        this.location = location;
+        this.logoURL = logoURL;
+        this.storeProducts = storeProducts;
     }
 
 
