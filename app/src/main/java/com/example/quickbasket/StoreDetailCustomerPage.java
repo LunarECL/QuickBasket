@@ -29,6 +29,7 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
     String StoreName;
     String StoreLocation;
     String StoreID;
+    String CustomerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         StoreID = intent.getStringExtra("ID");
+        CustomerID = intent.getStringExtra("CustomerID");
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -93,6 +95,8 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
                     String productID = v.getContentDescription().toString();
                     intent.putExtra("ID", productID);
                     intent.putExtra("StoreID", StoreID);
+                    intent.putExtra("CustomerID", CustomerID);
+
                     startActivity(intent);
                 }
             });
