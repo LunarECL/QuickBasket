@@ -63,7 +63,6 @@ public class MainScreenCustomerRecyclerViewAdapter extends RecyclerView.Adapter<
         TextView location;
         RelativeLayout parentLayout;
         OnNoteListener onNoteListener;
-        int storeID;
 
         public ViewHolder_StoreInfo(View itemView, OnNoteListener onNoteListener) {
             super(itemView);
@@ -78,7 +77,6 @@ public class MainScreenCustomerRecyclerViewAdapter extends RecyclerView.Adapter<
 
         @Override
         public void onClick(View v) {
-            // storeID = v.getContentDescription().toString();
             onNoteListener.onNoteClick(getAdapterPosition());
         }
     }

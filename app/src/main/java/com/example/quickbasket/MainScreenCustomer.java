@@ -39,7 +39,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
         //Get Customer ID from previous page
         Intent intent = getIntent();
-        customerID = intent.getIntExtra("customerID", 0);
+        customerID = intent.getIntExtra(Constant.CustomerID, 0);
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -104,12 +104,12 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
             }
         });
 
-        ArrayList<Integer> temp = new ArrayList<>();
+       /* ArrayList<Integer> temp = new ArrayList<>();
 
         temp.add(0);
         temp.add(1);
 
-        writeNewOrder(1,2,3,temp);
+        writeNewOrder(1,2,3,temp);*/
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
 
@@ -118,12 +118,6 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
         entireDB.child("StoreOwner").child(userID).setValue(owner);
     }*/
-
-    public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList ) {
-        Order order = new Order(orderID,ownerID,customerID,productIDsList);
-
-        entireDB.child(Constant.Order).child(Integer.toString(orderID)).setValue(order);
-    }
 
     private void initImageBitmaps() {
 

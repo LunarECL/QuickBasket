@@ -140,8 +140,9 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                         entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(0)).setValue(cartProduct);
                     }
                     Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
-                    intent.putExtra("StoreID", StoreID);
-                    intent.putExtra("CustomerID", CustomerID);
+                    //Changed Strings to Constants from Java file, Ankit
+                    intent.putExtra(Constant.OwnerID, StoreID);
+                    intent.putExtra(Constant.CustomerID, CustomerID);
                 }
             }
         });

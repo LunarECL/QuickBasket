@@ -10,11 +10,12 @@ public class Order {
     boolean status;
     ArrayList<Integer>  productIDsList;
 
-    public Order(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList) {
+    public Order(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
         this.orderID = orderID;
         this.ownerID = ownerID;
         this.customerID = customerID;
         this.productIDsList = productIDsList;
+        this.status = status;
     }
 
     public int getOrderID() {

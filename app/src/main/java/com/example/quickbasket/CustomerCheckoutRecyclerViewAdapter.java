@@ -57,7 +57,6 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
     @Override
     public int getItemCount() {
-
         return mPrices.size();
     }
 
@@ -76,6 +75,8 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             price = itemView.findViewById(R.id.price);
             qty = itemView.findViewById(R.id.qty);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
+
+
 
             //Functionality for '+' Button
             itemView.findViewById(R.id.addQty).setOnClickListener(new View.OnClickListener() {
