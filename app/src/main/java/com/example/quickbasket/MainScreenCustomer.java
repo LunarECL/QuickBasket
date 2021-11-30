@@ -86,9 +86,9 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                             String location = String.valueOf(entry.get("Location"));
                             String logoURL = String.valueOf(entry.get("logoURL"));
                             String storeID = String.valueOf(index);
-                            Product product = (Product) entry.get("Product");
-                            ArrayList<Product> storeProducts = new ArrayList<>();
-                            storeProducts.add(product);
+                            //Product product = (Product) entry.get("Product");
+                            //ArrayList<Product> storeProducts = new ArrayList<>();
+                            //storeProducts.add(product);
 
                             Log.d("storeIDS are ", storeID);
                             StoreOwner owner = new StoreOwner(storeName, location, logoURL);
