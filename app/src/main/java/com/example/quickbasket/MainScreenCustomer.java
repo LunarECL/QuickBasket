@@ -91,7 +91,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                             storeProducts.add(product);
 
                             Log.d("storeIDS are ", storeID);
-                            StoreOwner owner = new StoreOwner(storeName, location, logoURL, storeProducts);
+                            StoreOwner owner = new StoreOwner(storeName, location, logoURL);
                             owners.add(owner);
                             mStoreIDs.add(storeID);
                             index++;
@@ -128,11 +128,11 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
         if (owners != null){
             for (StoreOwner owner : owners) {
                 if (owner != null) {
-                    if (owner.storeProducts != null){
+                    //if (owner.storeProducts != null){
                         mImageUrls.add(owner.logoURL);
                         mStoreNames.add(owner.storeName);
                         mLocations.add(owner.location);
-                    }
+                   // }
                 }
             }
         }
