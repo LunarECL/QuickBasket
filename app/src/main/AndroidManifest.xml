@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickBasket.NoActionBar">
 
-
         <activity
             android:name=".ViewOrderOwner"
             android:exported="false" />
@@ -40,7 +39,6 @@
         <activity
             android:name=".ProductDetailCustomerPage"
             android:exported="false"/>
-
 
         <activity
             android:name=".SignupOwnerPage"

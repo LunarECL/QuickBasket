@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,17 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainScreenCustomer extends Activity implements StoreInfoRecyclerViewAdapter.OnNoteListener{
+public class MainScreenCustomer extends Activity implements MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
@@ -44,7 +40,6 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getIntExtra("customerID", 0);
-        customerID = 1;
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -130,6 +125,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
     private void initImageBitmaps() {
         if (owners != null){
+
             for (StoreOwner owner: owners){
                 if (owner != null) {
                     mImageUrls.add(owner.logoURL);
@@ -170,7 +166,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.store_list_recycle_view);
-        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this);
+        MainScreenCustomerRecyclerViewAdapter adapter = new MainScreenCustomerRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -179,7 +175,8 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, StoreDetailCustomerPage.class);
         Log.d("Value of ID is ", mStoreIDs.get(position));
-        intent.putExtra("ID", mStoreIDs.get(position));
+        intent.putExtra("CustomerID", String.valueOf(customerID));
+        intent.putExtra("StoreID", mStoreIDs.get(position));
         startActivity(intent);
     }
 }
