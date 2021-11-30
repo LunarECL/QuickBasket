@@ -6,7 +6,7 @@ public class Constant {
     static String Customer = "Customer";
     static String Cart = "cart";
     static String CustomerID = "customerID";
-    static String Name = "name";
+    static String CustomerName = "name";
     static String Password = "password";
     static String Username = "username";
     // Same as the one from StoreOwner Table: static String OwnerID = "ownerID";

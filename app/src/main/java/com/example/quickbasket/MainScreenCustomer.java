@@ -59,7 +59,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                     else {
                         Log.d("Customer Stuff", String.valueOf(task.getResult().getValue()));
                         Map customerMap = (Map) task.getResult().getValue();
-                        customerName = String.valueOf(customerMap.get(Constant.Name));
+                        customerName = String.valueOf(customerMap.get(Constant.CustomerName));
 
                         Log.d("Customer Name is ", customerName);
                     }

@@ -60,11 +60,11 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
-                    StoreName = String.valueOf(storeMap.get(Constant.Name));
+                    StoreName = String.valueOf(storeMap.get(Constant.StoreName));
                     ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
                     for (Map<String, String> productMap : productsList) {
-                        if (String.valueOf(productMap.get(Constant.CustomerID)).equalsIgnoreCase(ProductID)) {
-                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get(Constant.Name)), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                        if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
+                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get(Constant.CustomerName)), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
                             break;
                         }
                     }
@@ -77,7 +77,7 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
 
     }
     private void getReadt(){
-        TextView t1 = (TextView) findViewById(R.id.StoreName);
+        TextView t1 = (TextView) findViewById(R.id.StoreNameProductDetail);
         t1.setText(StoreName);
 
         TextView t2 = (TextView) findViewById(R.id.Description);

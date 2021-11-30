@@ -17,7 +17,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/StoreName"
+        android:id="@+id/StoreNameProductDetail"
         android:layout_width="297dp"
         android:layout_height="70dp"
         android:layout_marginTop="50dp"
