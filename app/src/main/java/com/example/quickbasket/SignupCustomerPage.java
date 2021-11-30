@@ -97,13 +97,15 @@ public class SignupCustomerPage extends AppCompatActivity{
                     // create the customer object
                     Customer customer = new Customer(counter, username, name, password);
                     db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                    ready2();
                 }
 
                 if (checker < 1){
                     Customer customer = new Customer(counter, username, name, password);
                     db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                    ready2();
                 }
-                ready2();
+
             }
 
             @Override
