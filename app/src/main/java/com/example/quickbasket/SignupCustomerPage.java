@@ -75,12 +75,13 @@ public class SignupCustomerPage extends AppCompatActivity{
         EditText editName = (EditText) findViewById(R.id.enterName);
         String name = editName.getText().toString();
         db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("demo", "data changed");
 
+                Integer checker = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    checker++;
                     String dbUsername = String.valueOf(dataSnapshot.child("username").getValue());
                     Log.d("Checking username", username);
 
@@ -101,6 +102,13 @@ public class SignupCustomerPage extends AppCompatActivity{
                         break;
                     }
                 }
+                if (checker < 1){
+                    Customer customer = new Customer(counter, username, name, password);
+                    // set the customerID to customer object
+                    Log.d("Counter is this", String.valueOf(counter));
+                    db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                }
+                ready2();
             }
 
             @Override
@@ -109,6 +117,10 @@ public class SignupCustomerPage extends AppCompatActivity{
             }
         });
 
+
+    }
+
+    private void ready2(){
         Intent intent = new Intent(this, MainScreenCustomer.class);
         intent.putExtra("customerID", counter);
         startActivity(intent);
