@@ -9,6 +9,7 @@ public class Constant {
     static String Name = "name";
     static String Password = "password";
     static String Username = "username";
+    static String userCount = "userCount";
     // Same as the one from StoreOwner Table: static String OwnerID = "ownerID";
     static String ProductID = "productID";
     static String Quantity = "quantity";

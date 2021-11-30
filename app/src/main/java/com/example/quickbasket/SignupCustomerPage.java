@@ -1,5 +1,8 @@
 package com.example.quickbasket;
 
+import static com.example.quickbasket.Constant.userCount;
+import static com.example.quickbasket.Constant.Customer;
+import static com.example.quickbasket.Constant.CustomerID;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -21,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SignupCustomerPage extends AppCompatActivity{
     private Integer counter;
@@ -45,7 +45,7 @@ public class SignupCustomerPage extends AppCompatActivity{
     public void addCustomer(View view){
 
         // Get the customer count
-        db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        db.child(userCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -53,7 +53,7 @@ public class SignupCustomerPage extends AppCompatActivity{
                 }
                 else {
                     if (task.getResult().getValue() == null){
-                        db.child("userCount").setValue(0);
+                        db.child(userCount).setValue(0);
                         counter = 0;
                     }
                     else{
@@ -74,7 +74,7 @@ public class SignupCustomerPage extends AppCompatActivity{
         String password = editPassword.getText().toString();
         EditText editName = (EditText) findViewById(R.id.enterName);
         String name = editName.getText().toString();
-        db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+        db.child(Customer).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> usernames = new ArrayList<String>();
@@ -96,17 +96,17 @@ public class SignupCustomerPage extends AppCompatActivity{
                         // increment counter
                         counter += 1;
                         // update the userCount
-                        db.child("userCount").setValue(counter);
+                        db.child(userCount).setValue(counter);
                         // create the customer object
                         Customer customer = new Customer(counter, username, name, password);
-                        db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                        db.child(Customer).child(String.valueOf(counter)).setValue(customer);
                         ready2();
                     }
                 }
 
                 if (checker < 1){
                     Customer customer = new Customer(counter, username, name, password);
-                    db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                    db.child(Customer).child(String.valueOf(counter)).setValue(customer);
                     ready2();
                 }
 
@@ -123,7 +123,7 @@ public class SignupCustomerPage extends AppCompatActivity{
 
     private void ready2(){
         Intent intent = new Intent(this, MainScreenCustomer.class);
-        intent.putExtra("customerID", counter);
+        intent.putExtra(CustomerID, counter);
         startActivity(intent);
     }
 }
