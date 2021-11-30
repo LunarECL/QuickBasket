@@ -46,10 +46,6 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         Intent intent = getIntent();
         StoreID = intent.getStringExtra("ID");
 
-
-        //This doesn't work for when ID is 0, even if there is an ID 0 in the realtime database, Ankit Shrivastava
-
-
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
