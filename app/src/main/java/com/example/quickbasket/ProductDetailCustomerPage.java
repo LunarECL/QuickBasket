@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductDetailCustomerPage extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
     String StoreName;
     Product product;
     String ProductID;
+    String CustomerID;
 
 
     @Override
@@ -32,11 +35,23 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_customer_page);
 
+        ImageButton backButton = findViewById(R.id.backButton_ProductDetail);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
+                intent.putExtra("CustomerID", CustomerID);
+                intent.putExtra("ID", StoreID);
+                startActivity(intent);
+            }
+        });
+
         Intent intent = getIntent();
         StoreID = intent.getStringExtra("StoreID");
         ProductID = intent.getStringExtra("ID");
+        CustomerID = intent.getStringExtra("CustomerID");
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(Constant.StoreOwner).child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -45,20 +60,19 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
-                    StoreName = String.valueOf(storeMap.get("Name"));
+                    StoreName = String.valueOf(storeMap.get(Constant.Name));
                     ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
                     for (Map<String, String> productMap : productsList) {
-                        if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
-                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
+                        if (String.valueOf(productMap.get(Constant.CustomerID)).equalsIgnoreCase(ProductID)) {
+                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get(Constant.Name)), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
                             break;
                         }
                     }
-
-                    //Add the Product Quantity, Ankit Shrivastava
                     getReadt();
                 }
             }
         });
+
 
 
     }
@@ -99,5 +113,37 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
         TextView t2 = (TextView) findViewById(R.id.Price);
         Double price = Double.valueOf(t2.getContentDescription().toString());
         t2.setText("$"+ Math.round(price*value*100.0)/100.0);
+    }
+
+    public void addCart(View view){
+        DatabaseReference entireDB = FirebaseDatabase.getInstance().getReference();
+        Map<String, Integer> cartProduct = new HashMap<>();
+        cartProduct.put(Constant.OwnerID, Integer.valueOf(StoreID));
+        cartProduct.put(Constant.ProductID, Integer.valueOf(ProductID));
+        TextView t1 = (TextView) findViewById(R.id.quantity);
+        cartProduct.put(Constant.Quantity, Integer.valueOf(t1.getText().toString()));
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child(Constant.Customer).child(CustomerID).child(Constant.Cart).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    try {
+                        ArrayList<Map> carts = (ArrayList<Map>) task.getResult().getValue();
+                        Integer length = carts.size();
+                        entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(length)).setValue(cartProduct);
+
+                    }catch (NullPointerException e){
+                        entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(0)).setValue(cartProduct);
+                    }
+                    Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
+                    intent.putExtra("StoreID", StoreID);
+                    intent.putExtra("CustomerID", CustomerID);
+                }
+            }
+        });
     }
 }

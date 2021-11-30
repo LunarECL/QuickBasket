@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
                 activity2Intent.putExtra("ID", "1");
+                activity2Intent.putExtra("CustomerID", "0");
                 startActivity(activity2Intent);
             }
         });
