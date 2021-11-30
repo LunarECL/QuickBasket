@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,35 +78,29 @@ public class SignupCustomerPage extends AppCompatActivity{
         db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.i("demo", "data changed");
-
+                ArrayList<String> usernames = new ArrayList<String>();
                 Integer checker = 0;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    checker++;
-                    String dbUsername = String.valueOf(dataSnapshot.child("username").getValue());
-                    Log.d("Checking username", username);
 
-                    if (dbUsername.equals(username)){
-                        Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
-                        Log.d("Checking if statement", "check");
-                    }
-                    else {
-                        // increment counter
-                        counter += 1;
-                        // update the userCount
-                        db.child("userCount").setValue(counter);
-                        // create the customer object
-                        Customer customer = new Customer(counter, username, name, password);
-                        // set the customerID to customer object
-                        Log.d("Counter is this", String.valueOf(counter));
-                        db.child("Customer").child(String.valueOf(counter)).setValue(customer);
-                        break;
-                    }
+                for (DataSnapshot child: snapshot.getChildren()){
+                    checker++;
+                    Customer cust = child.getValue(Customer.class);
+                    usernames.add(cust.getUsername());
                 }
+                if (usernames.contains(username)){
+                    Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // increment counter
+                    counter += 1;
+                    // update the userCount
+                    db.child("userCount").setValue(counter);
+                    // create the customer object
+                    Customer customer = new Customer(counter, username, name, password);
+                    db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                }
+
                 if (checker < 1){
                     Customer customer = new Customer(counter, username, name, password);
-                    // set the customerID to customer object
-                    Log.d("Counter is this", String.valueOf(counter));
                     db.child("Customer").child(String.valueOf(counter)).setValue(customer);
                 }
                 ready2();

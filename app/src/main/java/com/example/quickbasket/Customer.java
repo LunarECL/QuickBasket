@@ -8,6 +8,7 @@ import java.util.Map;
 public class Customer extends User{
     Integer id;
     String name;
+    public Customer(){};
     public Customer(Integer id, String username, String name, String password) {
         super(username, password);
         this.id = id;
