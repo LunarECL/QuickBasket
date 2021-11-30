@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -68,11 +69,15 @@ public class main_screen_owner extends AppCompatActivity {
         storeNameTextView.setText(storeName);
 
         // Set logo to logo
-        ImageButton logoImageButton = (ImageButton) findViewById(R.id.cart_Button2);
-//        logoImageButton.
+        ImageView logo_image = (ImageView) findViewById(R.id.cart_Button2);
+        new URLImageTask(logo_image).execute(logo);
 
         // Setup orders
-        // get orders and display on screen
+        // get orders
+
+        // display orders on the screen
+
+        // when an order is pressed go to corresponding screen
     }
 
     // View products button code
