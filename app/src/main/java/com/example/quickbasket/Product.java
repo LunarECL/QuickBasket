@@ -7,6 +7,7 @@ public class Product {
     String brand;
     double price;
     String imageURL;
+    int qty;
 
     public Product(Integer id, String name, String description, String brand, double price, String imageURL){
         this.id = id;
@@ -15,6 +16,24 @@ public class Product {
         this.brand = brand;
         this.price = price;
         this.imageURL = imageURL;
+    }
+
+    public Product(Integer id, String name, String description, String brand, double price, String imageURL, int qty){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
+        this.price = price;
+        this.imageURL = imageURL;
+        this.qty = qty;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     public Integer getId() {

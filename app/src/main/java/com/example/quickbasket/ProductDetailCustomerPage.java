@@ -53,6 +53,8 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                             break;
                         }
                     }
+
+                    //Add the Product Quantity, Ankit Shrivastava
                     getReadt();
                 }
             }

@@ -33,69 +33,69 @@ public class SignupCustomerPage extends AppCompatActivity{
 
 
 
-            DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-            EditText editUsername = (EditText) findViewById(R.id.enterUsername);
-            String username = editUsername.getText().toString();
-            EditText editPassword = (EditText) findViewById(R.id.enterPassword);
-            String password = editPassword.getText().toString();
-            EditText editName = (EditText) findViewById(R.id.enterName);
-            String name = editName.getText().toString();
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
+        String username = editUsername.getText().toString();
+        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
+        String password = editPassword.getText().toString();
+        EditText editName = (EditText) findViewById(R.id.enterName);
+        String name = editName.getText().toString();
 
 
-            db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
+        db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    if (task.getResult().getValue() == null){
+                        db.child("userCount").setValue(counter);
                     }
-                    else {
-                        if (task.getResult().getValue() == null){
-                            db.child("userCount").setValue(counter);
-                        }
-                        else{
-                            counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
-                        }
-                        Log.d("check outside", String.valueOf(counter));
+                    else{
+                        counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
+                    }
+                    Log.d("check outside", String.valueOf(counter));
+                }
+            }
+        });
+
+        db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("demo", "data changed");
+
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if (dataSnapshot.child("username").getValue().equals(username)){
+                        Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
+                        Log.d("Checking if statement", "check");
+                    }
+                    else{
+
+                        // increment counter
+                        counter += 1;
+                        // update the userCount
+                        db.child("userCount").setValue(counter);
+                        // create the customer object
+                        Customer customer = new Customer(counter , username, name, password);
+                        // set the customerID to customer object
+                        Log.d("Counter is this", String.valueOf(counter));
+                        db.child("Customer").child(String.valueOf(counter)).setValue(customer);
                     }
                 }
-            });
+            }
 
-            db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Log.i("demo", "data changed");
+            }
+        });
 
-
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        if (dataSnapshot.child("username").getValue().equals(username)){
-                            Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
-                            Log.d("Checking if statement", "check");
-                        }
-                        else{
-
-                            // increment counter
-                            counter += 1;
-                            // update the userCount
-                            db.child("userCount").setValue(counter);
-                            // create the customer object
-                            Customer customer = new Customer(counter , username, name, password);
-                            // set the customerID to customer object
-                            Log.d("Counter is this", String.valueOf(counter));
-                            db.child("Customer").child(String.valueOf(counter)).setValue(customer);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            Intent intent = new Intent(this, MainScreenCustomer.class);
-            intent.putExtra("customerID", counter);
-            startActivity(intent);
+        Intent intent = new Intent(this, MainScreenCustomer.class);
+        intent.putExtra("customerID", counter);
+        startActivity(intent);
 
         ImageButton testBackButtonCustomerSignup = findViewById(R.id.backButton_CustomerSignup);
         testBackButtonCustomerSignup.setOnClickListener(new View.OnClickListener() {
