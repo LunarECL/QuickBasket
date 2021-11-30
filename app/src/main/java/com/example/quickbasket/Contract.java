@@ -6,9 +6,8 @@ public interface Contract {
     }
 
     public interface View{
-        //public String getName();
         public String getUsername();
-        public String getPassword();
+        public void displayMessage(String message);
 
     }
 

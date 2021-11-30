@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,53 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignupCustomerPage extends AppCompatActivity{
-    private int counter;
-    public void addCustomer(View view){
-
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
-        String username = editUsername.getText().toString();
-        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
-        String password = editPassword.getText().toString();
-        EditText editName = (EditText) findViewById(R.id.enterName);
-        String name = editName.getText().toString();
-        db.child("userCount").setValue("0");
-
-        db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-
-        db.child("Customer").child("customerID").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if (dataSnapshot.child("username").exists()){
-                        System.out.println("Username already exists. Please choose another username.");
-                    }
-                    else{
-                        Customer customer = new Customer(counter + 1, username, name, password);
-                        db.child("Customer").child("customerID").setValue(customer);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
+    private Integer counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,16 +39,70 @@ public class SignupCustomerPage extends AppCompatActivity{
             }
         });
 
-        Button testButtonCustomerSignup = findViewById(R.id.signup_button);
-        testButtonCustomerSignup.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
-                startActivity(activity2Intent);
+    }
 
+
+    public void addCustomer(View view){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        EditText editUsername = (EditText) findViewById(R.id.enterUsername);
+        String username = editUsername.getText().toString();
+        EditText editPassword = (EditText) findViewById(R.id.enterPassword);
+        String password = editPassword.getText().toString();
+        EditText editName = (EditText) findViewById(R.id.enterName);
+        String name = editName.getText().toString();
+
+
+        db.child("userCount").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    if (task.getResult().getValue() == null){
+                        db.child("userCount").setValue(counter);
+                    }
+                    else{
+                        counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
+                    }
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
+        db.child("Customer").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("demo", "data changed");
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if (dataSnapshot.child("username").getValue().equals(username)){
+                        Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        // increment counter
+                        counter += 1;
+                        // update the userCount
+                        db.child("userCount").setValue(counter);
+                        // create the customer object
+                        Customer customer = new Customer(counter , username, name, password);
+                        // set the customerID to customer object
+                        db.child("Customer").child(String.valueOf(counter)).setValue(customer);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
+        Intent intent = new Intent(this, MainScreenCustomer.class);
+        intent.putExtra("customerID", counter);
+        startActivity(intent);
+
     }
+
+
 
 }

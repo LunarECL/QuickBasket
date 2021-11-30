@@ -91,6 +91,7 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
+        android:onClick="addCustomer"
         android:text="@string/button_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -129,7 +130,6 @@
         android:id="@+id/enterName"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="51dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="40dp"
         android:ems="10"
@@ -138,7 +138,8 @@
         android:textColorHint="#757575"
         app:layout_constraintBottom_toTopOf="@+id/enterUsername"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView27"
@@ -149,8 +150,8 @@
         android:textColorHint="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/enterName"
+        app:layout_constraintEnd_toStartOf="@+id/enterName"
         app:layout_constraintTop_toTopOf="@+id/enterName"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="45dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
