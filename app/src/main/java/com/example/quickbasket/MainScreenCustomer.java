@@ -40,7 +40,6 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getIntExtra("customerID", 0);
-        customerID = 1;
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -126,6 +125,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
     private void initImageBitmaps() {
         if (owners != null){
+
             for (StoreOwner owner: owners){
                 if (owner != null) {
                     mImageUrls.add(owner.logoURL);
@@ -175,7 +175,8 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, StoreDetailCustomerPage.class);
         Log.d("Value of ID is ", mStoreIDs.get(position));
-        intent.putExtra("ID", mStoreIDs.get(position));
+        intent.putExtra("CustomerID", String.valueOf(customerID));
+        intent.putExtra("StoreID", mStoreIDs.get(position));
         startActivity(intent);
     }
 }
