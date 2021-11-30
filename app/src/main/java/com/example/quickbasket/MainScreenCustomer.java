@@ -39,7 +39,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
         //Get Customer ID from previous page
         Intent intent = getIntent();
-        customerID = intent.getIntExtra("customerID", 1);
+        customerID = intent.getIntExtra("customerID", 0);
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -50,7 +50,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
             }
         });
 
-        entireDB.child("Customer").child(String.valueOf(customerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        entireDB.child(Constant.Customer).child(String.valueOf(customerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (!task.isSuccessful()) {
@@ -59,7 +59,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                     else {
                         Log.d("Customer Stuff", String.valueOf(task.getResult().getValue()));
                         Map customerMap = (Map) task.getResult().getValue();
-                        customerName = String.valueOf(customerMap.get("name"));
+                        customerName = String.valueOf(customerMap.get(Constant.Name));
 
                         Log.d("Customer Name is ", customerName);
                     }
@@ -67,7 +67,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
             });
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("StoreOwner").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -77,24 +77,25 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     ArrayList storeIDMap = (ArrayList) task.getResult().getValue();
                     ArrayList<Map> storeList = (ArrayList<Map>) storeIDMap;
-                    int index = 0;
-                    //ERROR HERE
-                    int check = 0;
+
                     for (Map<String, Object> entry : storeList){
                         if (entry != null) {
-                            String storeName = String.valueOf(entry.get("Name"));
-                            String location = String.valueOf(entry.get("Location"));
-                            String logoURL = String.valueOf(entry.get("logoURL"));
-                            String storeID = String.valueOf(index);
-                            //Product product = (Product) entry.get("Product");
-                            //ArrayList<Product> storeProducts = new ArrayList<>();
-                            //storeProducts.add(product);
+                            String storeName = String.valueOf(entry.get(Constant.StoreName));
+                            String location = String.valueOf(entry.get(Constant.StoreLocation));
+                            String logoURL = String.valueOf(entry.get(Constant.StoreLogoURL));
+                            //String storeID = String.valueOf(index);
+                            String ownerID = String.valueOf(entry.get(Constant.OwnerID));
 
-                            Log.d("storeIDS are ", storeID);
-                            StoreOwner owner = new StoreOwner(storeName, location, logoURL);
-                            owners.add(owner);
-                            mStoreIDs.add(storeID);
-                            index++;
+                            //Product product = (Product) entry.get("Product");
+                            ArrayList<String> storeProductIDs = (ArrayList<String>) entry.get(Constant.StoreListProducts);
+
+                            Log.d("storeIDS are ", ownerID);
+                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL, storeProductIDs);
+
+                            if (owner.storeProductIDs != null) {
+                                owners.add(owner);
+                                mStoreIDs.add(ownerID);
+                            }
                         }
                     }
 
@@ -112,30 +113,26 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
         //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
 
-    public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
+    /*public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
         StoreOwner owner = new StoreOwner(userID, password, storeName, location, logoURL);
 
         entireDB.child("StoreOwner").child(userID).setValue(owner);
-    }
+    }*/
 
     public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList ) {
         Order order = new Order(orderID,ownerID,customerID,productIDsList);
 
-        entireDB.child("Order").child(Integer.toString(orderID)).setValue(order);
+        entireDB.child(Constant.Order).child(Integer.toString(orderID)).setValue(order);
     }
 
     private void initImageBitmaps() {
-        if (owners != null){
-            for (StoreOwner owner : owners) {
-                if (owner != null) {
-                    //if (owner.storeProducts != null){
-                        mImageUrls.add(owner.logoURL);
-                        mStoreNames.add(owner.storeName);
-                        mLocations.add(owner.location);
-                   // }
-                }
-            }
+
+        for (StoreOwner owner : owners) {
+            mImageUrls.add(owner.logoURL);
+            mStoreNames.add(owner.storeName);
+            mLocations.add(owner.location);
         }
+
 
         TextView cName = (TextView) findViewById(R.id.customerName);
         cName.setText(customerName);
@@ -153,9 +150,9 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
     @Override
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, StoreDetailCustomerPage.class);
-        Log.d("Value of ID is ", mStoreIDs.get(position));
-        intent.putExtra("CustomerID", String.valueOf(customerID));
-        intent.putExtra("StoreID", mStoreIDs.get(position));
+        Log.d("Value of ID is ", String.valueOf(owners.get(position).ownerID));
+        intent.putExtra(Constant.CustomerID, String.valueOf(customerID));
+        intent.putExtra(Constant.OwnerID, String.valueOf(owners.get(position).ownerID));
         startActivity(intent);
     }
 }

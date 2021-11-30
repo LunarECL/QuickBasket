@@ -45,8 +45,10 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        StoreID = intent.getStringExtra("ID");
-        CustomerID = intent.getStringExtra("CustomerID");
+
+        //Changed the name from Strings to to ones from Constant.java, Ankit
+        StoreID = intent.getStringExtra(Constant.OwnerID);
+        CustomerID = intent.getStringExtra(Constant.CustomerID);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

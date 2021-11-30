@@ -4,29 +4,18 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class StoreOwner extends User{
+    int ownerID;
     String storeName;
     String location;
     String logoURL;
-    ArrayList<Product> storeProducts = new ArrayList<>();
+    ArrayList<String> storeProductIDs = new ArrayList<>();
 
-    public StoreOwner(String username, String password, String storeName, String location, String logoURL) {
-        super(username, password);
+    public StoreOwner(int ownerID, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
+        this.ownerID = ownerID;
         this.storeName = storeName;
         this.location = location;
         this.logoURL = logoURL;
-    }
-
-    public StoreOwner(String storeName, String location, String logoURL) {
-        this.storeName = storeName;
-        this.location = location;
-        this.logoURL = logoURL;
-    }
-
-    public StoreOwner(String storeName, String location, String logoURL, ArrayList<Product> storeProducts) {
-        this.storeName = storeName;
-        this.location = location;
-        this.logoURL = logoURL;
-        this.storeProducts = storeProducts;
+        this.storeProductIDs = storeProductIDs;
     }
 
 
