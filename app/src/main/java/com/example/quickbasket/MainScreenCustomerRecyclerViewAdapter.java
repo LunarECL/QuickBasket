@@ -49,8 +49,6 @@ public class MainScreenCustomerRecyclerViewAdapter extends RecyclerView.Adapter<
 
         holder.storeName.setText(mStoreNames.get(position));
         holder.location.setText(mLocations.get(position));
-
-
     }
 
     @Override
