@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfoRecyclerViewAdapter.ViewHolder_StoreInfo> {
+public class MainScreenCustomerRecyclerViewAdapter extends RecyclerView.Adapter<MainScreenCustomerRecyclerViewAdapter.ViewHolder_StoreInfo> {
 
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
@@ -25,7 +25,7 @@ public class StoreInfoRecyclerViewAdapter extends RecyclerView.Adapter<StoreInfo
 
     private OnNoteListener mOnNoteListener;
 
-    public StoreInfoRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation, OnNoteListener mOnNoteListener) {
+    public MainScreenCustomerRecyclerViewAdapter(Context mContext, ArrayList<String> mStoreName, ArrayList<String> mImages, ArrayList<String> mLocation, OnNoteListener mOnNoteListener) {
         this.mStoreNames = mStoreName;
         this.mImages = mImages;
         this.mLocations = mLocation;

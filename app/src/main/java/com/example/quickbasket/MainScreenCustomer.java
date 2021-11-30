@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,17 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainScreenCustomer extends Activity implements StoreInfoRecyclerViewAdapter.OnNoteListener{
+public class MainScreenCustomer extends Activity implements MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
@@ -170,7 +166,7 @@ public class MainScreenCustomer extends Activity implements StoreInfoRecyclerVie
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.store_list_recycle_view);
-        StoreInfoRecyclerViewAdapter adapter = new StoreInfoRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this);
+        MainScreenCustomerRecyclerViewAdapter adapter = new MainScreenCustomerRecyclerViewAdapter(this, mStoreNames, mImageUrls, mLocations, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
