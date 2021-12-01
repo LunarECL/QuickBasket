@@ -77,6 +77,11 @@ public class SignupOwnerPage extends AppCompatActivity {
         EditText editLogo = (EditText) findViewById(R.id.enterLogo);
         String logo = editLogo.getText().toString();
 
+        Boolean checkUsername = username.equals("");
+        Boolean checkPassword = password.equals("");
+        Boolean checkStoreName = storeName.equals("");
+        Boolean checkLocation = location.equals("");
+        Boolean checkLogo = logo.equals("");
         ref.child(Constant.StoreOwner).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,7 +99,7 @@ public class SignupOwnerPage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        if (username.equals("") || password.equals("") || storeName.equals("") || location.equals("") || logo.equals("")){
+                        if (checkUsername || checkPassword || checkStoreName || checkLocation || checkLogo){
                             Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                         }
                         else{
@@ -109,7 +114,7 @@ public class SignupOwnerPage extends AppCompatActivity {
                     }
                 }
                 else{
-                    if (username.equals("") || password.equals("") || storeName.equals("") || location.equals("") || logo.equals("")){
+                    if (checkUsername || checkPassword || checkStoreName || checkLocation || checkLogo){
                         Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                     }
                     else{
@@ -131,8 +136,8 @@ public class SignupOwnerPage extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     private void ready2(){
         Intent intent = new Intent(this, main_screen_owner.class);

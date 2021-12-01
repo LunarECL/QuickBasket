@@ -10,17 +10,8 @@ public class StoreOwner extends User{
     String logoURL;
     ArrayList<String> storeProductIDs = new ArrayList<>();
 
-    public void setOwnerID(Integer ownerID) {
-        this.ownerID = ownerID;
-    }
-
-    public ArrayList<String> getStoreProductIDs() {
-        return storeProductIDs;
-    }
-
-    public void setStoreProductIDs(ArrayList<String> storeProductIDs) {
-        this.storeProductIDs = storeProductIDs;
-    }
+    // I need no-arg constructor to getValue
+    public StoreOwner(){}
 
     public StoreOwner(Integer ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
         super(username, password);
@@ -39,6 +30,17 @@ public class StoreOwner extends User{
         this.storeProductIDs = storeProductIDs;
     }
 
+    public void setOwnerID(Integer ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public ArrayList<String> getStoreProductIDs() {
+        return storeProductIDs;
+    }
+
+    public void setStoreProductIDs(ArrayList<String> storeProductIDs) {
+        this.storeProductIDs = storeProductIDs;
+    }
     public String getUsername(){return username;}
 
     public String getPassword() {return password;}

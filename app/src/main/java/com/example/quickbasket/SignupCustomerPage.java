@@ -73,6 +73,9 @@ public class SignupCustomerPage extends AppCompatActivity{
         String password = editPassword.getText().toString();
         EditText editName = (EditText) findViewById(R.id.enterName);
         String name = editName.getText().toString();
+        Boolean checkUsername = username.equals("");
+        Boolean checkPassword = password.equals("");
+        Boolean checkName = name.equals("");
         db.child(Customer).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -89,15 +92,12 @@ public class SignupCustomerPage extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        if (username.equals("") || password.equals("") || name.equals("")){
+                        if (checkUsername || checkPassword || checkName){
                             Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            // increment counter
                             counter += 1;
-                            // update the userCount
                             db.child(userCount).setValue(counter);
-                            // create the customer object
                             Customer customer = new Customer(counter, username, name, password);
 
                             db.child(Customer).child(String.valueOf(counter)).setValue(customer);
@@ -106,11 +106,16 @@ public class SignupCustomerPage extends AppCompatActivity{
                     }
                 }
                 else{
-                    counter += 1;
-                    db.child(userCount).setValue(counter);
-                    Customer customer = new Customer(counter, username, name, password);
-                    db.child(Customer).child(String.valueOf(counter)).setValue(customer);
-                    ready2();
+                    if (checkUsername || checkPassword || checkName){
+                        Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        counter += 1;
+                        db.child(userCount).setValue(counter);
+                        Customer customer = new Customer(counter, username, name, password);
+                        db.child(Customer).child(String.valueOf(counter)).setValue(customer);
+                        ready2();
+                    }
                 }
             }
 
