@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,10 +29,11 @@ public class CustomerCheckout extends Activity {
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
 
+    private int totalItems;
     private int counter = 0;
     private String customerID;
     private String ownerID;
-    private String qty;
+    private double grandTotal;
 
     ArrayList<Product> cartProducts = new ArrayList<>();
     ArrayList<Integer> cartProductsIDs = new ArrayList<>();
@@ -55,6 +57,7 @@ public class CustomerCheckout extends Activity {
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
+                activity2Intent.putExtra(Constant.CustomerID, customerID);
                 startActivity(activity2Intent);
             }
         });
@@ -141,7 +144,6 @@ public class CustomerCheckout extends Activity {
         entireDB.child(Constant.Order).child(Integer.toString(orderID)).setValue(order);
     }*/
 
-
     private void initImageBitmaps() {
 
         for (Product product: cartProducts){
@@ -149,7 +151,16 @@ public class CustomerCheckout extends Activity {
             mProductNames.add(product.name);
             mPrices.add(product.price);
             mQtys.add(product.qty);
+            totalItems += product.qty;
+            double qtyDouble = product.qty;
+            double price = product.price;
+            double total = qtyDouble * price;
+            Log.d("The total is:", String.valueOf(total));
+            grandTotal = grandTotal + total;
         }
+
+        TextView tv1 = (TextView) findViewById(R.id.totalCost);
+        tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
         /*
         mImageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Honeycrisp-Apple.jpg/2269px-Honeycrisp-Apple.jpg");
         mProductNames.add("Apple");
@@ -187,4 +198,5 @@ public class CustomerCheckout extends Activity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }

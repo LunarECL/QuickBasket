@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,7 +74,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             qty = itemView.findViewById(R.id.qty);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
 
-            //Functionality for '+' Button
+           /* //Functionality for '+' Button
             itemView.findViewById(R.id.addQty).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,7 +96,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                     }
                     qty.setText(Integer.toString(newQty));
                 }
-            });
+            });*/
 
             //total = Integer.parseInt(qty.getText().toString()) * Double.parseDouble(price.getText().toString());
         }
@@ -104,5 +105,4 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
     /*public static double getSubTotal(){
        return total;
     }*/
-
 }
