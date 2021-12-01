@@ -1,12 +1,9 @@
 package com.example.quickbasket;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -38,7 +35,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
 
     @Override
     public ViewHolder_Checkout onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listproducts_customer, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_layout_listproducts_customer, parent, false);
         ViewHolder_Checkout holder = new ViewHolder_Checkout(view);
         return holder;
     }
@@ -76,8 +73,6 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
             qty = itemView.findViewById(R.id.qty);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
 
-
-
             //Functionality for '+' Button
             itemView.findViewById(R.id.addQty).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,7 +83,7 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                 }
             });
 
-            //Functionality for '+' Button
+            //Functionality for '-' Button
             itemView.findViewById(R.id.minusQty).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

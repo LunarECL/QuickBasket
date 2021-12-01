@@ -18,11 +18,22 @@ public class Product {
         this.imageURL = imageURL;
     }
 
+
+    //use this for when quantity is required
     public Product(Integer id, String name, String description, String brand, double price, String imageURL, int qty){
         this.id = id;
         this.name = name;
         this.description = description;
         this.brand = brand;
+        this.price = price;
+        this.imageURL = imageURL;
+        this.qty = qty;
+    }
+
+    //use this for when CustomerCheckout Screen
+    public Product(Integer id, String name, double price, String imageURL, int qty){
+        this.id = id;
+        this.name = name;
         this.price = price;
         this.imageURL = imageURL;
         this.qty = qty;

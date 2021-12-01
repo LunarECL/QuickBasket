@@ -5,6 +5,7 @@ public class Constant {
     //Customer TABLE
     static String Customer = "Customer";
     static String Cart = "cart";
+    static String CartProductID = "cartProductID";
     static String CustomerID = "customerID";
     static String CustomerName = "name";
     static String Password = "password";
@@ -17,6 +18,7 @@ public class Constant {
 
     //Order Table
     static String Order = "Order";
+    static String orderCount = "orderCount";
 
 
     //StoreOwner Table
@@ -27,6 +29,6 @@ public class Constant {
     static String StoreLogoURL = "logoURL";
     static String StoreListProducts = "Product";
     static String ProductImageURl = "imageURL";
-    static String ProductName = "name";
+    static String ProductName = "productName";
     static String ProductPrice = "price";
 }

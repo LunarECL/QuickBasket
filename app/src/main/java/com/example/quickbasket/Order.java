@@ -8,14 +8,31 @@ public class Order {
     int ownerID;
     int customerID;
     boolean status;
-    ArrayList<Integer>  productIDsList;
+    ArrayList<Integer>  cartProductsIDs;
+    ArrayList<Product> cartProducts;
 
-    public Order(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
+    //used to set the data in the database
+    public Order(int orderID, int ownerID, int customerID, ArrayList<Integer> cartProductsIDs, boolean status) {
         this.orderID = orderID;
         this.ownerID = ownerID;
         this.customerID = customerID;
-        this.productIDsList = productIDsList;
+        this.cartProductsIDs = cartProductsIDs;
         this.status = status;
+    }
+
+    //used to get the data in the database
+    public Order(int ownerID, int customerID, ArrayList<Product> cartProducts) {
+        this.ownerID = ownerID;
+        this.customerID = customerID;
+        this.cartProducts = cartProducts;
+    }
+
+    public ArrayList<Product> getCartProducts() {
+        return cartProducts;
+    }
+
+    public void setCartProducts(ArrayList<Product> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 
     public int getOrderID() {
@@ -50,11 +67,11 @@ public class Order {
         this.status = status;
     }
 
-    public ArrayList<Integer> getProductIDsList() {
-        return productIDsList;
+    public ArrayList<Integer> getCartProductsIDs() {
+        return cartProductsIDs;
     }
 
-    public void setProductIDsList(ArrayList<Integer> productIDsList) {
-        this.productIDsList = productIDsList;
+    public void setCartProductsIDs(ArrayList<Integer> cartProductsIDs) {
+        this.cartProductsIDs = cartProductsIDs;
     }
 }

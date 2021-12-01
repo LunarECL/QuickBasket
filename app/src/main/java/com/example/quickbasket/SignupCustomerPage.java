@@ -43,7 +43,6 @@ public class SignupCustomerPage extends AppCompatActivity{
     }
 
     public void addCustomer(View view){
-
         // Get the customer count
         db.child(userCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override

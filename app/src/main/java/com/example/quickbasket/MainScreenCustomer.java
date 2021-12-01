@@ -28,7 +28,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
     private ArrayList<String> mStoreIDs = new ArrayList<>();
 
     private ArrayList<StoreOwner> owners = new ArrayList<>();
-    private int customerID;
+    private String customerID;
     private String customerName;
     DatabaseReference entireDB = FirebaseDatabase.getInstance().getReference();
 
@@ -39,8 +39,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
 
         //Get Customer ID from previous page
         Intent intent = getIntent();
-        customerID = intent.getIntExtra(Constant.CustomerID, 0);
-
+        customerID = intent.getStringExtra(Constant.CustomerID);
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +49,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
             }
         });
 
-        entireDB.child(Constant.Customer).child(String.valueOf(customerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        entireDB.child(Constant.Customer).child(customerID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (!task.isSuccessful()) {
@@ -145,7 +144,7 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, StoreDetailCustomerPage.class);
         Log.d("Value of ID is ", String.valueOf(owners.get(position).ownerID));
-        intent.putExtra(Constant.CustomerID, String.valueOf(customerID));
+        intent.putExtra(Constant.CustomerID, customerID);
         intent.putExtra(Constant.OwnerID, String.valueOf(owners.get(position).ownerID));
         startActivity(intent);
     }

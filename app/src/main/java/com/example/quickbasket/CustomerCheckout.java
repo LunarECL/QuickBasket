@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,32 +28,25 @@ public class CustomerCheckout extends Activity {
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
 
-
-    //TextView totalCost = findViewById(R.id.totalCost);
-   // double grandTotal = CustomerCheckoutRecyclerViewAdapter.getSubTotal();
-
-    private ArrayList<Order> orders = new ArrayList<>();
     private int counter = 0;
     private String customerID;
     private String ownerID;
     private String qty;
 
-    ArrayList<Integer> cartProductIDs = new ArrayList<Integer>();
+    ArrayList<Product> cartProducts = new ArrayList<>();
+    ArrayList<Integer> cartProductsIDs = new ArrayList<>();
 
     DatabaseReference entireDB = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.checkout_customer);
+        setContentView(R.layout.activity_checkout_customer);
 
-        initImageBitmaps();
-        //totalCost.setText(Double.toString(grandTotal));
-
-        //Get Customer ID from previous page
+        //Get Customer ID and OwnerID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
-        customerID = "0";
+        customerID = "1";
         ownerID = intent.getStringExtra(Constant.OwnerID);
         ownerID = "1";
 
@@ -66,7 +61,7 @@ public class CustomerCheckout extends Activity {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //Get all the Product IDs
+        //Get all the cartProducts
 
         mDatabase.child(Constant.Customer).child(customerID).child(Constant.Cart).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -76,43 +71,19 @@ public class CustomerCheckout extends Activity {
                 }
                 else {
                     Log.d("SO the Product IDs are", String.valueOf(task.getResult().getValue()));
-                    ArrayList<String> storeList = (ArrayList<String>) task.getResult().getValue();
-                   // Log.d("AND", String.valueOf(storeList.get(0)));
-                    /*for (Map<String, Object> entry : storeList){
+                    ArrayList cartProductIDMap = (ArrayList) task.getResult().getValue();
+                    ArrayList<Map> cartProductList = (ArrayList<Map>) cartProductIDMap;
+
+                    for (Map<String, Object> entry : cartProductList){
                         if (entry != null) {
-                            cartProductIDs = (ArrayList<Integer>) entry.get(Constant.Cart);
-                        }
-                    }*/
-                }
-            }
-        });
+                            String cartProductID = String.valueOf(entry.get(Constant.CartProductID));
+                            String productName = String.valueOf(entry.get(Constant.ProductName));
+                            String price = String.valueOf(entry.get(Constant.ProductPrice));
+                            String imageURL = String.valueOf(entry.get(Constant.ProductImageURl));
+                            String quantity = String.valueOf(entry.get(Constant.Quantity));
 
-
-
-        /*mDatabase.child(Constant.Customer).child(customerID).child(Constant.Cart).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    ArrayList cartIDMap = (ArrayList) task.getResult().getValue();
-                    ArrayList<Map> cartList = (ArrayList<Map>) cartIDMap;
-
-                    for (Map<String, Object> entry : cartList){
-                        if (entry != null) {
-                            String tempOwnerID = String.valueOf(entry.get(Constant.OwnerID));
-                            String tempQty = String.valueOf(entry.get(Constant.Quantity));
-
-                            //Product product = (Product) entry.get("Product");
-
-                            Order order = new Order(counter, Integer.parseInt(tempOwnerID), Integer.parseInt(customerID), cartProductIDs, false);
-
-                            if (order.productIDsList != null) {
-                                orders.add(order);
-                                writeOrder(order);
-                            }
+                            Product newProduct = new Product(Integer.parseInt(cartProductID), productName, Double.parseDouble(price), imageURL, Integer.parseInt(quantity));
+                            cartProducts.add(newProduct);
                         }
                     }
 
@@ -121,7 +92,42 @@ public class CustomerCheckout extends Activity {
             }
         });
 
-        */
+        // CODE FOR Confirm Order BUTTON
+        Button submitButton = findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
+                /*Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
+                intent.putExtra(Constant.CustomerID, customerID);
+                startActivity(activity2Intent);*/
+
+                //get Order ID
+                entireDB.child(Constant.orderCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
+                        }
+                        else {
+                            if (task.getResult().getValue() == null){
+                                entireDB.child(Constant.orderCount).setValue(0);
+                                counter = 0;
+                            }
+                            else{
+                                counter = Integer.parseInt(String.valueOf(task.getResult().getValue()));
+                                counter += 1;
+                                entireDB.child(Constant.orderCount).setValue(counter);
+                            }
+                            for (Product product: cartProducts){
+                                cartProductsIDs.add(product.id);
+                            }
+                            Order newOrder = new Order(counter, Integer.parseInt(ownerID), Integer.parseInt(customerID), cartProductsIDs, false);
+                            writeOrder(newOrder);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public void writeOrder(Order newOrder) {
@@ -137,65 +143,14 @@ public class CustomerCheckout extends Activity {
 
 
     private void initImageBitmaps() {
-       /* Log.d("CHECKPOINT", "1");
 
-        for (int id: cartProductIDs){
-            Log.d("YEHH", String.valueOf(id));
+        for (Product product: cartProducts){
+            mImageUrls.add(product.imageURL);
+            mProductNames.add(product.name);
+            mPrices.add(product.price);
+            mQtys.add(product.qty);
         }
-
-        for (Order order: orders){
-            for(int id: cartProductIDs){
-                //GET QUANTITY OF THIS PRODUCT
-                Log.d("CHECKPOINT", "2");
-                entireDB.child(Constant.Customer).child(customerID).child(Constant.Cart).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e("firebase", "Error getting data", task.getException());
-                        }
-                        else {
-                            ArrayList cartIDMap = (ArrayList) task.getResult().getValue();
-                            ArrayList<Map> cartList = (ArrayList<Map>) cartIDMap;
-
-                            for (Map<String, Object> entry : cartList){
-                                if (String.valueOf(entry.get(Constant.ProductID)).equals(String.valueOf(id))) {
-                                    Log.d("The Quantity is", String.valueOf(entry.get(Constant.Quantity)));
-                                    qty = String.valueOf(entry.get(Constant.Quantity));
-                                }
-                            }
-                        }
-                    }
-                });
-
-                entireDB.child(Constant.StoreOwner).child(String.valueOf(order.ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e("firebase", "Error getting data", task.getException());
-                        }
-                        else {
-                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                            ArrayList productIDMap = (ArrayList) task.getResult().getValue();
-                            ArrayList<Map> cartList = (ArrayList<Map>) productIDMap;
-
-                            for (Map<String, Object> entry : cartList){
-                                if (String.valueOf(entry.get("id")).equals(String.valueOf(id))) {
-                                    String imageURL = String.valueOf(entry.get(Constant.ProductImageURl));
-                                    String productName = String.valueOf(entry.get(Constant.ProductName));
-                                    String productPrice = String.valueOf(entry.get(Constant.ProductPrice));
-                                    mImageUrls.add(imageURL);
-                                    mProductNames.add(productName);
-                                    mPrices.add(Double.parseDouble(productPrice));
-                                    mQtys.add(Integer.parseInt(qty));
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }*/
-
-
+        /*
         mImageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Honeycrisp-Apple.jpg/2269px-Honeycrisp-Apple.jpg");
         mProductNames.add("Apple");
         mPrices.add(19.99);
@@ -220,6 +175,8 @@ public class CustomerCheckout extends Activity {
         mProductNames.add("Strawberry");
         mPrices.add(18.99);
         mQtys.add(5);
+        */
+
 
         initRecyclerView();
     }
