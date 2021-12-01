@@ -5,7 +5,10 @@
     android:id="@+id/parent_layout_store"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/blue_green_gradient"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/product_image"

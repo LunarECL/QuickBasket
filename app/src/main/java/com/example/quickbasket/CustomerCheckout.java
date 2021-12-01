@@ -161,7 +161,7 @@ public class CustomerCheckout extends Activity {
 
         TextView tv1 = (TextView) findViewById(R.id.totalCost);
         tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
-        /*
+
         mImageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Honeycrisp-Apple.jpg/2269px-Honeycrisp-Apple.jpg");
         mProductNames.add("Apple");
         mPrices.add(19.99);
@@ -186,7 +186,7 @@ public class CustomerCheckout extends Activity {
         mProductNames.add("Strawberry");
         mPrices.add(18.99);
         mQtys.add(5);
-        */
+
 
 
         initRecyclerView();
