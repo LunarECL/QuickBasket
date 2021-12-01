@@ -134,5 +134,6 @@
     <string name="test_main_customer_screen">Test Main Customer Screen</string>
     <string name="enter_name">Enter Name</string>
     <string name="name_text">Name:</string>
+    <string name="enter_logo">Enter Logo URL</string>
 
 </resources>

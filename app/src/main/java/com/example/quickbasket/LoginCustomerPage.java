@@ -76,7 +76,7 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
 
     private void ready(){
         Intent intent = new Intent(this, MainScreenCustomer.class);
-        intent.putExtra(Constant.CustomerID, id);
+        intent.putExtra(Constant.CustomerID, id.toString());
         startActivity(intent);
     }
 

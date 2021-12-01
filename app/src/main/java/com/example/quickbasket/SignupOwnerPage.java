@@ -118,7 +118,7 @@ public class SignupOwnerPage extends AppCompatActivity {
 
     private void ready2(){
         Intent intent = new Intent(this, main_screen_owner.class);
-        intent.putExtra(Constant.OwnerID, counter);
+        intent.putExtra(Constant.OwnerID, counter.toString());
         startActivity(intent);
     }
 
