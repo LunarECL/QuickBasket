@@ -22,8 +22,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,7 +36,49 @@ public class main_screen_owner extends AppCompatActivity {
     Integer ownerID;
     String storeName;
     String logoURL;
-    ArrayList<Order> orders;
+    String productURL;
+    String productDescription;
+    ArrayList<OrderListItem> orderList = new ArrayList<OrderListItem>();
+
+    // Setup string containing first 3 (at most) product names from order
+    public void setupOrderDescription(ArrayList<Integer> productIDsList) {
+        productDescription = "";
+        for (int i = 0; i < Math.min(productIDsList.size(), 3); i++) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+            ref.child(String.valueOf(productIDsList.get(i))).child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("demo", "Error getting data", task.getException());
+                    }
+                    else {
+                        Log.i("demo", task.getResult().getValue().toString());
+                        productDescription.concat((String) task.getResult().getValue() + "\n");
+                    }
+                }
+            });
+        }
+        if (productIDsList.size() > 3)
+            productDescription.concat("\n...");
+    }
+
+    // Setup string containing url of first image from order
+    public void setupOrderUrl(Integer productID) {
+        productURL = "";
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+        ref.child(String.valueOf(productID)).child("imageURL").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("demo", "Error getting data", task.getException());
+                }
+                else {
+                    Log.i("demo", task.getResult().getValue().toString());
+                    productURL = (String) task.getResult().getValue();
+                }
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +98,9 @@ public class main_screen_owner extends AppCompatActivity {
             }
         });
 
-
-        /////////////////////////////////////// Get Orders /////////////////////////////////////////
-
-        // Get store name, logo and orders
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("StoreOwner");
-        ref.child(String.valueOf(ownerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        // Get store name and logo
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("StoreOwner");
+        ref1.child(String.valueOf(ownerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -69,17 +110,39 @@ public class main_screen_owner extends AppCompatActivity {
                     Log.i("demo", task.getResult().getValue().toString());
                     storeName = (String) task.getResult().child("StoreName").getValue();
                     logoURL = (String) task.getResult().child("StoreImage").getValue();
-
-                    // TO DO
-                    // get orders
-
-
                 }
             }
         });
 
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        // Get information each order
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Order");
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("demo", "data changed");
+                for(DataSnapshot child:dataSnapshot.getChildren()) {
+                    if(child.child("OwnerID").equals(String.valueOf(ownerID))) {
+                        ArrayList<Integer> productIDsList = new ArrayList<Integer>();
+                        for (DataSnapshot productID : child.child("ProductIDsList").getChildren()) {
+                            productIDsList.add((Integer) productID.getValue());
+                        }
+                        setupOrderDescription(productIDsList);
+                        String description = "";
+                        description.concat(productDescription);
+                        setupOrderUrl(productIDsList.get(0));
+                        String url = "";
+                        url.concat(productURL);
+                        orderList.add(new OrderListItem(description, url));
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("warning", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        ref2.addValueEventListener(listener);
 
         // Set store name to storeName
         TextView storeNameTextView = (TextView) findViewById(R.id.textView12);
@@ -93,34 +156,12 @@ public class main_screen_owner extends AppCompatActivity {
                 .centerCrop();
         Glide.with(this).load(logoURL).apply(options).into(logoImageView);
 
-
-        /////////////////////////////////////// Display Orders /////////////////////////////////////
-
-        // TO DO
-        // get first product image in each order and display it in the recycler view
-        // write first 3 products in each order in the recycler view
-        // when order list item pressed go to next screen (pass order id to next screen?)
-
-        // Test code for recycler view
-        OrderListItem[] orderList = new OrderListItem[] {
-                new OrderListItem("Apple\nOrange\nBanana\n...", "https://assets.epicurious.com/photos/560d459cf3a00aeb2f1c31c4/6:4/w_1998,h_1332,c_limit/apples.jpg"),
-                new OrderListItem("Orange\nApple\nBanana\n...", "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2018/08/bananas-1354785_1920-1200x800.jpg"),
-                new OrderListItem("Banana\nApple\nOrange\n...", "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2018/08/bananas-1354785_1920-1200x800.jpg"),
-                new OrderListItem("Apple\nOrange\nBanana", "https://www.treetop.com/wp-content/uploads/2019/03/apples-bg-190329.jpg"),
-                new OrderListItem("Apple\nOrange\nBanana", "https://www.treetop.com/wp-content/uploads/2019/03/apples-bg-190329.jpg"),
-                new OrderListItem("Apple\nOrange\nBanana", "https://www.treetop.com/wp-content/uploads/2019/03/apples-bg-190329.jpg"),
-                new OrderListItem("Banana\nApple\nOrange", "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2018/08/bananas-1354785_1920-1200x800.jpg"),
-                new OrderListItem("Orange\nApple\nBanana", "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2018/08/bananas-1354785_1920-1200x800.jpg"),
-        };
-
-        // Setting up recycler view
+        // Setting up recycler view and displaying orders
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         OrderListAdapter adapter = new OrderListAdapter(orderList, getApplicationContext());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // View products button code

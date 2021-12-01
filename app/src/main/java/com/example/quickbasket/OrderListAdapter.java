@@ -1,6 +1,7 @@
 package com.example.quickbasket;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
+
 public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ViewHolder>{
 
-    private OrderListItem[] orderList;
+    private ArrayList<OrderListItem> orderList;
     private Context context;
 
-    public OrderListAdapter(OrderListItem[] orderList, Context context) {
+    public OrderListAdapter(ArrayList<OrderListItem> orderList, Context context) {
         this.orderList = orderList;
         this.context = context;
     }
@@ -33,19 +36,27 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final OrderListItem orderListItem = orderList[position];
+        final OrderListItem orderListItem = orderList.get(position);
         holder.textView.setText(orderListItem.getDescription());
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .centerCrop();
         Glide.with(context).load(orderListItem.getUrl()).apply(options).into(holder.imageView);
+//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, ViewOrderOwner.class);
+//                intent.putExtra("ownerID", ownerID);
+//                context.startActivity(intent);
+//            }
+//        });
     }
 
 
     @Override
     public int getItemCount() {
-        return orderList.length;
+        return orderList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
