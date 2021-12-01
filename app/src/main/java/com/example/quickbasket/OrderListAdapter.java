@@ -43,14 +43,16 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
                 .error(R.drawable.ic_launcher_background)
                 .centerCrop();
         Glide.with(context).load(orderListItem.getUrl()).apply(options).into(holder.imageView);
-//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, ViewOrderOwner.class);
-//                intent.putExtra("ownerID", ownerID);
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ViewOrderOwner.class);
+                intent.putExtra("orderID", orderListItem.getOrderID());
+                intent.putExtra("ownerID", orderListItem.getOwnerID());
+                intent.putExtra("orderID", orderListItem.getCustomerID());
+                context.startActivity(intent);
+            }
+        });
     }
 
 

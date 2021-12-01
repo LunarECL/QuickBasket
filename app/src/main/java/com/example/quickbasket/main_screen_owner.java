@@ -121,7 +121,7 @@ public class main_screen_owner extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i("demo", "data changed");
                 for(DataSnapshot child:dataSnapshot.getChildren()) {
-                    if(child.child("OwnerID").equals(String.valueOf(ownerID))) {
+                    if(child.child("OwnerID").getValue().equals(String.valueOf(ownerID))) {
                         ArrayList<Integer> productIDsList = new ArrayList<Integer>();
                         for (DataSnapshot productID : child.child("ProductIDsList").getChildren()) {
                             productIDsList.add((Integer) productID.getValue());
@@ -132,7 +132,10 @@ public class main_screen_owner extends AppCompatActivity {
                         setupOrderUrl(productIDsList.get(0));
                         String url = "";
                         url.concat(productURL);
-                        orderList.add(new OrderListItem(description, url));
+                        orderList.add(new OrderListItem(description, url,
+                                (Integer) child.child("OrderID").getValue(),
+                                (Integer) child.child("OwnerID").getValue(),
+                                (Integer) child.child("CustomerID").getValue()));
                     }
                 }
             }
