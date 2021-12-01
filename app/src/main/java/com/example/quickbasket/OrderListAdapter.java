@@ -38,6 +38,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final OrderListItem orderListItem = orderList.get(position);
         holder.textView.setText(orderListItem.getDescription());
+        String priceString = "$";
+        priceString.concat(orderListItem.getPrice().toString());
+        holder.textView2.setText(priceString);
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
@@ -64,11 +67,13 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView textView;
+        public TextView textView2;
         public RelativeLayout relativeLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             this.imageView = (ImageView) itemView.findViewById(R.id.orderListImageView);
             this.textView = (TextView) itemView.findViewById(R.id.orderListTextView);
+            this.textView2 = (TextView) itemView.findViewById(R.id.orderListTextView2);
             relativeLayout = (RelativeLayout)itemView.findViewById(R.id.orderListRelativeLayout);
         }
     }

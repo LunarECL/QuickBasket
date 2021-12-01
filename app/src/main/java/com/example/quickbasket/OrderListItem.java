@@ -3,13 +3,15 @@ package com.example.quickbasket;
 public class OrderListItem {
     private String description;
     private String url;
+    private Double price;
     private Integer orderID;
     private Integer ownerID;
     private Integer customerID;
 
-    public OrderListItem(String description, String url, Integer orderID, Integer ownerID, Integer customerID) {
+    public OrderListItem(String description, String url, Double price, Integer orderID, Integer ownerID, Integer customerID) {
         this.description = description;
         this.url = url;
+        this.price = price;
         this.orderID = orderID;
         this.ownerID = ownerID;
         this.customerID = customerID;
@@ -38,4 +40,8 @@ public class OrderListItem {
     public Integer getCustomerID() { return customerID; }
 
     public void setCustomerID(Integer customerID) { this.customerID = customerID; }
+
+    public Double getPrice() { return price; }
+
+    public void setPrice(Double price) { this.price = price; }
 }
