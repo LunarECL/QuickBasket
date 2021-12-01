@@ -82,27 +82,38 @@ public class SignupOwnerPage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> usernames = new ArrayList<String>();
                 ArrayList<String> productIDs = new ArrayList<String>();
+                Integer checker = 0;
 
                 for (DataSnapshot child: snapshot.getChildren()){
+                    checker++;
                     StoreOwner owner = child.getValue(StoreOwner.class);
                     usernames.add(owner.getUsername());
                 }
-                if (usernames.contains(username)){
-                    Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
+                if (checker > 0){
+                    if (usernames.contains(username)){
+                        Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if (username.equals("") || password.equals("") || storeName.equals("") || location.equals("") || logo.equals("")){
+                            Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            // increment counter
+                            counter += 1;
+                            // update the userCount
+                            ref.child(Constant.userCount).setValue(counter);
+                            StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+                            ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
+                            ready2();
+                        }
+                    }
                 }
-                else {
-                    if (username.equals("") || password.equals("") || storeName.equals("") || location.equals("") || logo.equals("")){
-                        Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        // increment counter
-                        counter += 1;
-                        // update the userCount
-                        ref.child(Constant.userCount).setValue(counter);
-                        StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
-                        ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
-                        ready2();
-                    }
+                else{
+                    counter += 1;
+                    ref.child(Constant.userCount).setValue(counter);
+                    StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+                    ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
+                    ready2();
                 }
 
             }
@@ -118,7 +129,7 @@ public class SignupOwnerPage extends AppCompatActivity {
 
     private void ready2(){
         Intent intent = new Intent(this, main_screen_owner.class);
-        intent.putExtra(Constant.OwnerID, counter.toString());
+        intent.putExtra(Constant.OwnerID, counter);
         startActivity(intent);
     }
 
