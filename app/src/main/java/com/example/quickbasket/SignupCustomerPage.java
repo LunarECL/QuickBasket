@@ -77,38 +77,40 @@ public class SignupCustomerPage extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> usernames = new ArrayList<String>();
-                //Integer checker = 0;
+                Integer checker = 0;
 
                 for (DataSnapshot child: snapshot.getChildren()){
-                    //checker++;
+                    checker++;
                     Customer cust = child.getValue(Customer.class);
                     usernames.add(cust.getUsername());
                 }
-                if (usernames.contains(username)){
-                    Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if (username.equals("") || password.equals("") || name.equals("")){
-                        Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                if (checker > 0){
+                    if (usernames.contains(username)){
+                        Toast.makeText(getApplicationContext(), "Username already exists. Please choose another username", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        // increment counter
-                        counter += 1;
-                        // update the userCount
-                        db.child(userCount).setValue(counter);
-                        // create the customer object
-                        Customer customer = new Customer(counter, username, name, password);
-                        db.child(Customer).child(String.valueOf(counter)).setValue(customer);
-                        ready2();
+                    else {
+                        if (username.equals("") || password.equals("") || name.equals("")){
+                            Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            // increment counter
+                            counter += 1;
+                            // update the userCount
+                            db.child(userCount).setValue(counter);
+                            // create the customer object
+                            Customer customer = new Customer(counter, username, name, password);
+                            db.child(Customer).child(String.valueOf(counter)).setValue(customer);
+                            ready2();
+                        }
                     }
                 }
-
-                /*if (checker < 1){
+                else{
+                    counter += 1;
+                    db.child(userCount).setValue(counter);
                     Customer customer = new Customer(counter, username, name, password);
                     db.child(Customer).child(String.valueOf(counter)).setValue(customer);
                     ready2();
-                }*/
-
+                }
             }
 
             @Override
@@ -122,7 +124,7 @@ public class SignupCustomerPage extends AppCompatActivity{
 
     private void ready2(){
         Intent intent = new Intent(this, MainScreenCustomer.class);
-        intent.putExtra(CustomerID, counter);
+        intent.putExtra(CustomerID, counter.toString());
         startActivity(intent);
     }
 }
