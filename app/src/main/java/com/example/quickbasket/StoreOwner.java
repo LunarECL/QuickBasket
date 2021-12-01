@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class StoreOwner extends User{
-    int ownerID;
+    Integer ownerID;
     String storeName;
     String location;
     String logoURL;
@@ -12,7 +12,7 @@ public class StoreOwner extends User{
 
     public StoreOwner(){}
 
-    public StoreOwner(int ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
+    public StoreOwner(Integer ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
         super(username, password);
         this.ownerID = ownerID;
         this.storeName = storeName;
@@ -29,10 +29,11 @@ public class StoreOwner extends User{
         this.storeProductIDs = storeProductIDs;
     }
 
-
     public String getUsername(){return username;}
 
     public String getPassword() {return password;}
+
+    public Integer getOwnerID(){return ownerID;}
 
     public String getStoreName() {
         return storeName;
