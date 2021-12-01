@@ -18,9 +18,18 @@ android:layout_height="120dp">
     <TextView
         android:id="@+id/orderListTextView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_toEndOf="@id/orderListImageView"
-        android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/orderListTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp" />
 
 </RelativeLayout>

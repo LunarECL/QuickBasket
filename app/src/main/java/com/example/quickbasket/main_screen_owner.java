@@ -38,6 +38,7 @@ public class main_screen_owner extends AppCompatActivity {
     String logoURL;
     String productURL;
     String productDescription;
+    Double productTotalPrice;
     ArrayList<OrderListItem> orderList = new ArrayList<OrderListItem>();
 
     // Setup string containing first 3 (at most) product names from order
@@ -78,6 +79,27 @@ public class main_screen_owner extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Setup double containing the total price of the orders
+    public void setupOrderTotalPrice(ArrayList<Integer> productIDsList) {
+        productTotalPrice = 0.0;
+        for (int i = 0; i < productIDsList.size(); i++) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
+            ref.child(String.valueOf(productIDsList.get(i))).child("price").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("demo", "Error getting data", task.getException());
+                    }
+                    else {
+                        Log.i("demo", task.getResult().getValue().toString());
+                        productTotalPrice += (Double) task.getResult().getValue();
+                    }
+                }
+            });
+        }
+        productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
     }
 
     @Override
@@ -132,7 +154,9 @@ public class main_screen_owner extends AppCompatActivity {
                         setupOrderUrl(productIDsList.get(0));
                         String url = "";
                         url.concat(productURL);
-                        orderList.add(new OrderListItem(description, url,
+                        setupOrderTotalPrice(productIDsList);
+                        Double price = productTotalPrice.doubleValue();
+                        orderList.add(new OrderListItem(description, url, price,
                                 (Integer) child.child("OrderID").getValue(),
                                 (Integer) child.child("OwnerID").getValue(),
                                 (Integer) child.child("CustomerID").getValue()));
