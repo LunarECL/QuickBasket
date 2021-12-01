@@ -109,11 +109,18 @@ public class SignupOwnerPage extends AppCompatActivity {
                     }
                 }
                 else{
-                    counter += 1;
-                    ref.child(Constant.userCount).setValue(counter);
-                    StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
-                    ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
-                    ready2();
+                    if (username.equals("") || password.equals("") || storeName.equals("") || location.equals("") || logo.equals("")){
+                        Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        // increment counter
+                        counter += 1;
+                        // update the userCount
+                        ref.child(Constant.userCount).setValue(counter);
+                        StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+                        ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
+                        ready2();
+                    }
                 }
 
             }
