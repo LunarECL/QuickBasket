@@ -1,6 +1,8 @@
 package com.example.quickbasket;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class MainScreenCustomer extends Activity implements MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
+public class MainScreenCustomer extends Activity implements View.OnClickListener, MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
     private ArrayList<String> mStoreNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mLocations = new ArrayList<>();
@@ -40,14 +42,10 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
+
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent activity2Intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(activity2Intent);
-            }
-        });
+        backButton.setOnClickListener(this);
 
         entireDB.child(Constant.Customer).child(customerID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -102,22 +100,37 @@ public class MainScreenCustomer extends Activity implements MainScreenCustomerRe
                 }
             }
         });
-
-       /* ArrayList<Integer> temp = new ArrayList<>();
-
-        temp.add(0);
-        temp.add(1);
-
-        writeNewOrder(1,2,3,temp);*/
-        //writeNewOwner("12", "ankit", "Fruits and Veggies", "Canada", "https://www.ryerson.ca/content/dam/international/admissions/virtual-tour-now.jpg");
     }
 
-    /*public void writeNewOwner(String userID, String password, String storeName, String location, String logoURL) {
-        StoreOwner owner = new StoreOwner(userID, password, storeName, location, logoURL);
-
-        entireDB.child("StoreOwner").child(userID).setValue(owner);
-    }*/
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.backButton_MainCustomer:
+                alertDialog();
+                break;
+        }
+    }
+    private void alertDialog() {
+        AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+        dialog.setMessage("Are you sure you want to log out?");
+        dialog.setTitle("Confirm");
+        dialog.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Intent activity2Intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(activity2Intent);
+                    }
+                });
+        dialog.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
+            }
+        });
+        AlertDialog alertDialog=dialog.create();
+        alertDialog.show();
+    }
     private void initImageBitmaps() {
 
         for (StoreOwner owner : owners) {
