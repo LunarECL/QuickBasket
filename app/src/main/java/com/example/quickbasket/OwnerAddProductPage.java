@@ -3,25 +3,36 @@ package com.example.quickbasket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class OwnerAddProductPage extends AppCompatActivity {
     Integer ownerID;
     Integer productID;
+    Context context = getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +54,15 @@ public class OwnerAddProductPage extends AppCompatActivity {
 
         // Change the product image view when image url edit text is edited
         EditText imageURLEditText = (EditText) findViewById(R.id.editTextTextPersonName10);
+        ImageView productImageView = (ImageView) findViewById(R.id.imageView2);
         imageURLEditText.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                ImageView product_image = (ImageView) findViewById(R.id.imageView2);
-                new URLImageTask(product_image).execute(imageURLEditText.getText().toString());
+                String imageURL = imageURLEditText.getText().toString();
+                RequestOptions options = new RequestOptions()
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_background)
+                        .centerCrop();
+                Glide.with(context).load(imageURL).apply(options).into(productImageView);
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
