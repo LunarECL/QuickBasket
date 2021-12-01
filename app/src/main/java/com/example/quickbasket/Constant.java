@@ -24,8 +24,8 @@ public class Constant {
     //StoreOwner Table
     static String OwnerID = "ownerID";
     static String StoreOwner = "StoreOwner";
-    static String StoreName = "Name";
-    static String StoreLocation = "Location";
+    static String StoreName = "storeName";
+    static String StoreLocation = "location";
     static String StoreLogoURL = "logoURL";
     static String StoreListProducts = "Product";
     static String ProductImageURl = "imageURL";

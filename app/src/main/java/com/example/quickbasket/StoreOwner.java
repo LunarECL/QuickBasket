@@ -10,7 +10,17 @@ public class StoreOwner extends User{
     String logoURL;
     ArrayList<String> storeProductIDs = new ArrayList<>();
 
-    public StoreOwner(){}
+    public void setOwnerID(Integer ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public ArrayList<String> getStoreProductIDs() {
+        return storeProductIDs;
+    }
+
+    public void setStoreProductIDs(ArrayList<String> storeProductIDs) {
+        this.storeProductIDs = storeProductIDs;
+    }
 
     public StoreOwner(Integer ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
         super(username, password);

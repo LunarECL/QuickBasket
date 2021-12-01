@@ -99,6 +99,7 @@ public class SignupCustomerPage extends AppCompatActivity{
                             db.child(userCount).setValue(counter);
                             // create the customer object
                             Customer customer = new Customer(counter, username, name, password);
+
                             db.child(Customer).child(String.valueOf(counter)).setValue(customer);
                             ready2();
                         }

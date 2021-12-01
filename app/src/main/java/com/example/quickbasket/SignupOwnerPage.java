@@ -112,6 +112,7 @@ public class SignupOwnerPage extends AppCompatActivity {
                     counter += 1;
                     ref.child(Constant.userCount).setValue(counter);
                     StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+
                     ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
                     ready2();
                 }
