@@ -40,7 +40,7 @@ public class SignupOwnerPage extends AppCompatActivity {
             }
         });
     }
-    public void addCustomer(View view){
+    public void addStoreOwner(View view){
 
         // Get the customer count
         ref.child(Constant.userCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
