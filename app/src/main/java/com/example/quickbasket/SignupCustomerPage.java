@@ -78,10 +78,10 @@ public class SignupCustomerPage extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> usernames = new ArrayList<String>();
-                Integer checker = 0;
+                //Integer checker = 0;
 
                 for (DataSnapshot child: snapshot.getChildren()){
-                    checker++;
+                    //checker++;
                     Customer cust = child.getValue(Customer.class);
                     usernames.add(cust.getUsername());
                 }
@@ -104,11 +104,11 @@ public class SignupCustomerPage extends AppCompatActivity{
                     }
                 }
 
-                if (checker < 1){
+                /*if (checker < 1){
                     Customer customer = new Customer(counter, username, name, password);
                     db.child(Customer).child(String.valueOf(counter)).setValue(customer);
                     ready2();
-                }
+                }*/
 
             }
 

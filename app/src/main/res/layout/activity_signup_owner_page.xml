@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/enterOwnerUsername"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -58,10 +58,10 @@
         android:inputType="textPersonName"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+        app:layout_constraintTop_toBottomOf="@+id/enterLocation" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/enterOwnerPassword"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -72,7 +72,7 @@
         android:inputType="textPassword"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/enterOwnerUsername" />
 
     <Button
         android:id="@+id/button7"
@@ -83,10 +83,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName9" />
+        app:layout_constraintTop_toBottomOf="@+id/enterLogo" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/enterStoreName"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -101,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/enterLocation"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -112,7 +112,7 @@
         android:inputType="textPersonName"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/enterStoreName" />
 
     <TextView
         android:id="@+id/textView13"
@@ -122,9 +122,9 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName5"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName5"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName5"
+        app:layout_constraintBottom_toBottomOf="@+id/enterStoreName"
+        app:layout_constraintEnd_toStartOf="@+id/enterStoreName"
+        app:layout_constraintTop_toTopOf="@+id/enterStoreName"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -135,9 +135,9 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName8"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName8"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8"
+        app:layout_constraintBottom_toBottomOf="@+id/enterLocation"
+        app:layout_constraintEnd_toStartOf="@+id/enterLocation"
+        app:layout_constraintTop_toTopOf="@+id/enterLocation"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -148,9 +148,9 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName3"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName3"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toBottomOf="@+id/enterOwnerUsername"
+        app:layout_constraintEnd_toStartOf="@+id/enterOwnerUsername"
+        app:layout_constraintTop_toTopOf="@+id/enterOwnerUsername"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -161,13 +161,13 @@
         android:textAlignment="textEnd"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword2"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword2"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword2"
+        app:layout_constraintBottom_toBottomOf="@+id/enterOwnerPassword"
+        app:layout_constraintEnd_toStartOf="@+id/enterOwnerPassword"
+        app:layout_constraintTop_toTopOf="@+id/enterOwnerPassword"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName9"
+        android:id="@+id/enterLogo"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -177,7 +177,7 @@
         android:text="Enter your logo URL"
         android:textColor="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintTop_toBottomOf="@+id/enterOwnerPassword" />
 
     <TextView
         android:id="@+id/textView23"
@@ -187,8 +187,8 @@
         android:textAlignment="textEnd"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName9"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName9"
+        app:layout_constraintBottom_toBottomOf="@+id/enterLogo"
+        app:layout_constraintEnd_toStartOf="@+id/enterLogo"
+        app:layout_constraintTop_toTopOf="@+id/enterLogo"
         app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

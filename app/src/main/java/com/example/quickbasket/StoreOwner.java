@@ -10,7 +10,8 @@ public class StoreOwner extends User{
     String logoURL;
     ArrayList<String> storeProductIDs = new ArrayList<>();
 
-    public StoreOwner(int ownerID, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
+    public StoreOwner(int ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
+        super(username, password);
         this.ownerID = ownerID;
         this.storeName = storeName;
         this.location = location;
@@ -18,6 +19,10 @@ public class StoreOwner extends User{
         this.storeProductIDs = storeProductIDs;
     }
 
+
+    public String getUsername(){return username;}
+
+    public String getPassword() {return password;}
 
     public String getStoreName() {
         return storeName;
