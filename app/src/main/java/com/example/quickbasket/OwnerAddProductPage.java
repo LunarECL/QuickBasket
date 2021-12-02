@@ -46,7 +46,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
     }
 
     // Shows toast on the screen
-    public void setupToast(String string) {
+    public void setUpToast(String string) {
         Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_VERTICAL, 0, 32);
         toast.show();
@@ -121,19 +121,19 @@ public class OwnerAddProductPage extends AppCompatActivity {
     // User input validity check
     public void inputValidityCheck() {
         if (imageURL.equals("")) {
-            setupToast("url cannot be empty");
+            setUpToast("url cannot be empty");
         } else if (!URLUtil.isValidUrl(imageURL)) {
-            setupToast("url cannot be valid");
+            setUpToast("url cannot be valid");
         } else if (name.equals("")) {
-            setupToast("name cannot be empty");
+            setUpToast("name cannot be empty");
         } else if(brand.equals("")) {
-            setupToast("brand cannot be empty");
+            setUpToast("brand cannot be empty");
         } else if(price_string.equals("")) {
-            setupToast("price cannot be empty");
+            setUpToast("price cannot be empty");
         } else if(!isValidPrice(price_string)) {
-            setupToast("price is invalid");
+            setUpToast("price is invalid");
         }else if(description.equals("")) {
-            setupToast("description cannot be empty");
+            setUpToast("description cannot be empty");
         } else {
             price = Double.parseDouble(price_string);
             getProductID();

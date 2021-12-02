@@ -72,21 +72,21 @@ public class main_screen_owner extends AppCompatActivity {
                 } else {
                     storeName = (String) task.getResult().child(Constant.StoreName).getValue();
                     logoURL = (String) task.getResult().child(Constant.StoreLogoURL).getValue();
-                    setupStoreNameView();
+                    setUpStoreNameView();
                 }
             }
         });
     }
 
     // Set store name to storeName
-    public void setupStoreNameView() {
+    public void setUpStoreNameView() {
         TextView storeNameTextView = (TextView) findViewById(R.id.textView12);
         storeNameTextView.setText(storeName);
-        setupLogoView();
+        setUpLogoView();
     }
 
     // Set logo image to image corresponding to logoURL
-    public void setupLogoView() {
+    public void setUpLogoView() {
         ImageView logoImageView = (ImageView) findViewById(R.id.cart_Button2);
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
@@ -96,7 +96,7 @@ public class main_screen_owner extends AppCompatActivity {
         checkProductIDInDatabase();
     }
 
-    // Setup product ID count in database
+    // Set up product ID count in database
     public void checkProductIDInDatabase() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ValueEventListener listener = new ValueEventListener() {
@@ -135,7 +135,7 @@ public class main_screen_owner extends AppCompatActivity {
                             }
                         }
                     }
-                    setupOrderDescription();
+                    setUpOrderDescription();
                 }
 
                 @Override
@@ -147,8 +147,8 @@ public class main_screen_owner extends AppCompatActivity {
         }
     }
 
-    // Setup each order list item with a string containing first 3 (at most) product names from order
-    public void setupOrderDescription() {
+    // Set up each order list item with a string containing first 3 (at most) product names from order
+    public void setUpOrderDescription() {
         productDescription = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
         ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -167,14 +167,14 @@ public class main_screen_owner extends AppCompatActivity {
                             productDescription.concat("\n...");
                         orderList.get(i).setDescription(orderList.get(i).getDescription().concat(productDescription));
                     }
-                    setupOrderUrl();
+                    setUpOrderUrl();
                 }
             }
         });
     }
 
-    // Setup each order list item with string containing url of first image from order
-    public void setupOrderUrl() {
+    // Set up each order list item with string containing url of first image from order
+    public void setUpOrderUrl() {
         productURL = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
         ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -188,14 +188,14 @@ public class main_screen_owner extends AppCompatActivity {
                         productURL = (String) task.getResult().child(String.valueOf(productIDs.get(i).get(0))).child(Constant.ProductImageURl).getValue();
                         orderList.get(i).setUrl(orderList.get(i).getUrl().concat(productURL));
                     }
-                    setupOrderTotalPrice();
+                    setUpOrderTotalPrice();
                 }
             }
         });
     }
 
-    // Setup each order list item with double containing the total price of the orders
-    public void setupOrderTotalPrice() {
+    // Set up each order list item with double containing the total price of the orders
+    public void setUpOrderTotalPrice() {
         productTotalPrice = 0.0;
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
         ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -213,14 +213,14 @@ public class main_screen_owner extends AppCompatActivity {
                         productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
                         orderList.get(i).setPrice(productTotalPrice.doubleValue());
                     }
-                    setupRecyclerView();
+                    setUpRecyclerView();
                 }
             }
         });
     }
 
     // Set up recycler view and display orders
-    public void setupRecyclerView() {
+    public void setUpRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         OrderListAdapter adapter = new OrderListAdapter(orderList, getApplicationContext());
         recyclerView.setHasFixedSize(true);
