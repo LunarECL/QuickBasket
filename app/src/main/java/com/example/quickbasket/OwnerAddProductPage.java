@@ -191,7 +191,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
     public void addProductToDatabase() {
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Product product = new Product(productID.intValue(), name, description, brand, price, imageURL);
-        ref2.child("StoreOwner").child(String.valueOf(ownerID.intValue())).child("StoreProductIDs").child(String.valueOf(productID.intValue())).setValue(product);
+        ref2.child(Constant.StoreOwner).child(String.valueOf(ownerID.intValue())).child("StoreProductIDs").child(String.valueOf(productID.intValue())).setValue(product);
         ref2.child("ProductID").setValue(productID.intValue() + 1);
         toNextScreen();
     }

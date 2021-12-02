@@ -71,16 +71,15 @@ public class main_screen_owner extends AppCompatActivity {
 
     // Get store name and logo
     public void getStoreNameAndLogo() {
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("StoreOwner");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
         ref1.child(String.valueOf(ownerID)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("demo", "Error getting data", task.getException());
                 } else {
-//                    Log.i("demo", task.getResult().getValue().toString());
-                    storeName = (String) task.getResult().child("StoreName").getValue();
-                    logoURL = (String) task.getResult().child("LogoURL").getValue();
+                    storeName = (String) task.getResult().child(Constant.StoreName).getValue();
+                    logoURL = (String) task.getResult().child(Constant.StoreLogoURL).getValue();
                     setupStoreNameView();
                 }
             }
@@ -107,7 +106,7 @@ public class main_screen_owner extends AppCompatActivity {
 
     // Get information about each order
     public void getOrderInformation() {
-        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("Order");
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference(Constant.Order);
         if (ref2 != null) {
             ValueEventListener listener = new ValueEventListener() {
                 @Override
