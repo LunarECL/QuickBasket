@@ -120,7 +120,7 @@
     <string name="product_brand_text">Brand:</string>
     <string name="product_brand_hint_text">Enter Brand</string>
     <string name="product_price_text">Price:</string>
-    <string name="product_price_hint_text">Enter Price</string>
+    <string name="product_price_hint_text">Enter Price (e.g., 5.00)</string>
     <string name="product_description_text">Description:</string>
     <string name="product_description_hint_text">Enter Description</string>
     <string name="add_product_text">Add Product</string>

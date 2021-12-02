@@ -39,11 +39,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         final OrderListItem orderListItem = orderList.get(position);
         holder.textView.setText(orderListItem.getDescription());
         String priceString = "$";
-        priceString.concat(orderListItem.getPrice().toString());
+        priceString = priceString.concat(orderListItem.getPrice().toString());
+        if (!priceString.matches("\\$[\\d]+\\.\\d\\d")) {
+            priceString = priceString.concat("0");
+        }
         holder.textView2.setText(priceString);
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
+                .override(100, 100)
                 .centerCrop();
         Glide.with(context).load(orderListItem.getUrl()).apply(options).into(holder.imageView);
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

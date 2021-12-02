@@ -48,6 +48,10 @@
             android:name=".main_screen_owner"
             android:exported="false" />
 
+        <activity
+            android:name=".OwnerAddProductPage"
+            android:exported="false" />
+
         <activity android:name=".MainScreenCustomer"
             android:parentActivityName=".MainActivity"/>
 
