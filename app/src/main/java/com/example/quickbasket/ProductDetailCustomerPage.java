@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProductDetailCustomerPage extends AppCompatActivity {
@@ -148,8 +147,17 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                     //Changed Strings to Constants from Java file, Ankit
                     intent.putExtra(Constant.OwnerID, StoreID);
                     intent.putExtra(Constant.CustomerID, CustomerID);
+                    startActivity(intent);
                 }
             }
         });
+    }
+
+
+    public void onClickCart(View view){
+        Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
+        intent.putExtra(Constant.OwnerID, StoreID);
+        intent.putExtra(Constant.CustomerID, CustomerID);
+        startActivity(intent);
     }
 }

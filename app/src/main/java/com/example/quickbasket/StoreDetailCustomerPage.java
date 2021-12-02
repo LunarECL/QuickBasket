@@ -131,4 +131,13 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         }
     }
 
+    public void onClickCart(View view){
+        Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
+        intent.putExtra(Constant.OwnerID, StoreID);
+        intent.putExtra(Constant.CustomerID, CustomerID);
+        startActivity(intent);
+    }
+
+
+
 }
