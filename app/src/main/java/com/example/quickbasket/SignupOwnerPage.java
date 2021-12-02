@@ -1,6 +1,5 @@
 package com.example.quickbasket;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -91,6 +90,7 @@ public class SignupOwnerPage extends AppCompatActivity {
 
                 for (DataSnapshot child: snapshot.getChildren()){
                     checker++;
+                    Log.d("store owner", String.valueOf(child.getValue(StoreOwner.class)));
                     StoreOwner owner = child.getValue(StoreOwner.class);
                     usernames.add(owner.getUsername());
                 }
@@ -103,11 +103,9 @@ public class SignupOwnerPage extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            // increment counter
                             counter += 1;
-                            // update the userCount
                             ref.child(Constant.userCount).setValue(counter);
-                            StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+                            StoreOwner storeowner = new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
                             ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
                             ready2();
                         }
@@ -118,16 +116,13 @@ public class SignupOwnerPage extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        // increment counter
                         counter += 1;
-                        // update the userCount
                         ref.child(Constant.userCount).setValue(counter);
-                        StoreOwner storeowner= new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
+                        StoreOwner storeowner = new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
                         ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
                         ready2();
                     }
                 }
-
             }
 
             @Override

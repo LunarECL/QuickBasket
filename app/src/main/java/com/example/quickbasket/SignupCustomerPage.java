@@ -73,6 +73,7 @@ public class SignupCustomerPage extends AppCompatActivity{
         String password = editPassword.getText().toString();
         EditText editName = (EditText) findViewById(R.id.enterName);
         String name = editName.getText().toString();
+
         Boolean checkUsername = username.equals("");
         Boolean checkPassword = password.equals("");
         Boolean checkName = name.equals("");
