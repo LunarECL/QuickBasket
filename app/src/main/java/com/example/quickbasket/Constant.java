@@ -31,4 +31,9 @@ public class Constant {
     static String ProductImageURl = "imageURL";
     static String ProductName = "productName";
     static String ProductPrice = "price";
+    static String ProductBrand = "brand";
+    static String ProductDescription = "description";
+
+
+
 }
