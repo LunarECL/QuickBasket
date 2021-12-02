@@ -32,6 +32,7 @@
 
     <ImageButton
         android:id="@+id/Cart_Button"
+        android:src = "@drawable/cart"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
@@ -39,8 +40,7 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:layout_width="wrap_content"
