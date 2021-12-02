@@ -22,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MainScreenCustomer extends Activity implements View.OnClickListener, MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
@@ -68,6 +70,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            //child(Constant.StoreOwner).
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -76,7 +79,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeIDMap = (Map) task.getResult().getValue();
-                    ArrayList<HashMap> storeList = (ArrayList<HashMap>) storeIDMap.entrySet();
+                    ArrayList<Map> storeList = new ArrayList<Map>(storeIDMap.values());
 
                     for (Map<String, Object> entry : storeList){
                         if (entry != null) {

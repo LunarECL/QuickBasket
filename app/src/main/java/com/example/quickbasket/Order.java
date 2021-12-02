@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order {
 
-    int orderID;
+    Integer orderID;
     int ownerID;
     int customerID;
     boolean status;
@@ -12,7 +12,7 @@ public class Order {
     ArrayList<Product> cartProducts;
 
     //used to set the data in the database
-    public Order(int orderID, int ownerID, int customerID, ArrayList<Integer> cartProductsIDs, boolean status) {
+    public Order(Integer orderID, int ownerID, int customerID, ArrayList<Integer> cartProductsIDs, boolean status) {
         this.orderID = orderID;
         this.ownerID = ownerID;
         this.customerID = customerID;

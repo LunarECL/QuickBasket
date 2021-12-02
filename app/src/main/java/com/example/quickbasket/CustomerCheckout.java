@@ -135,7 +135,8 @@ public class CustomerCheckout extends Activity {
 
     public void writeOrder(Order newOrder) {
         Order order = newOrder;
-        entireDB.child(Constant.Order).child(Integer.toString(order.orderID)).setValue(order);
+        Log.d("The order ID is ", Integer.toString(order.orderID));
+        entireDB.child(Constant.Order).child(String.valueOf(order.orderID)).setValue(order);
     }
 
     /*public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
