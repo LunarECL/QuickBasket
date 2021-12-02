@@ -46,7 +46,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
-        customerID = "1";
+        //customerID = "1";
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
