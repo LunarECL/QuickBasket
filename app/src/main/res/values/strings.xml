@@ -110,6 +110,7 @@
     <string name="view_products_text">View Products</string>
     <string name="add_new_product_text">Add New Product</string>
     <string name="orders_text">Orders</string>
+    <string name="my_orders_text">My Orders</string>
 
     <string name="enter_product_info">Enter Product Information</string>
     <string name="product_image_text">Image:</string>
