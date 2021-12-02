@@ -51,7 +51,7 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
     public void handleClick(View view){
         presenter.checkUsername();
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Customer");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.Customer);
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
