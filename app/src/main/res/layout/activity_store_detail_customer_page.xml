@@ -48,18 +48,17 @@
     </HorizontalScrollView>
 
 
-
     <ImageButton
         android:id="@+id/Cart_Button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
+        android:onClick="onClickCart"
         android:scaleType="fitXY"
+        android:src="@drawable/cart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/StoreDetailCustomerLocation"

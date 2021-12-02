@@ -15,13 +15,6 @@ public class Customer extends User{
         this.name = name;
     }
 
-
-    public String getUsername(){ return username; }
-
-    public String getPassword(){
-        return password;
-    }
-
     public Integer getId() {return id; }
 
     public String getName() {return name; }

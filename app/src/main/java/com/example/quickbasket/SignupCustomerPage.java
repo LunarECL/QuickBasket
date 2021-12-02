@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SignupCustomerPage extends AppCompatActivity{
-    private Integer counter;
+    private int counter;
     DatabaseReference db = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class SignupCustomerPage extends AppCompatActivity{
         String password = editPassword.getText().toString();
         EditText editName = (EditText) findViewById(R.id.enterName);
         String name = editName.getText().toString();
+
         Boolean checkUsername = username.equals("");
         Boolean checkPassword = password.equals("");
         Boolean checkName = name.equals("");
@@ -113,7 +114,7 @@ public class SignupCustomerPage extends AppCompatActivity{
                         counter += 1;
                         db.child(userCount).setValue(counter);
                         Customer customer = new Customer(counter, username, name, password);
-                        db.child(Customer).child(String.valueOf(counter)).setValue(customer);
+                        db.child(Customer).child(Integer.toString(counter)).setValue(customer);
                         ready2();
                     }
                 }
@@ -130,7 +131,7 @@ public class SignupCustomerPage extends AppCompatActivity{
 
     private void ready2(){
         Intent intent = new Intent(this, MainScreenCustomer.class);
-        intent.putExtra(CustomerID, counter.toString());
+        intent.putExtra(CustomerID, Integer.toString(counter));
         startActivity(intent);
     }
 }

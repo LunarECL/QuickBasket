@@ -135,7 +135,8 @@ public class CustomerCheckout extends Activity {
 
     public void writeOrder(Order newOrder) {
         Order order = newOrder;
-        entireDB.child(Constant.Order).child(Integer.toString(order.orderID)).setValue(order);
+        Log.d("The order ID is ", Integer.toString(order.orderID));
+        entireDB.child(Constant.Order).child(String.valueOf(order.orderID)).setValue(order);
     }
 
     /*public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
@@ -162,6 +163,7 @@ public class CustomerCheckout extends Activity {
         TextView tv1 = (TextView) findViewById(R.id.totalCost);
         tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
 
+        /*
         mImageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Honeycrisp-Apple.jpg/2269px-Honeycrisp-Apple.jpg");
         mProductNames.add("Apple");
         mPrices.add(19.99);
@@ -187,7 +189,7 @@ public class CustomerCheckout extends Activity {
         mPrices.add(18.99);
         mQtys.add(5);
 
-
+        */
 
         initRecyclerView();
     }

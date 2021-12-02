@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ProductDetailCustomerPage extends AppCompatActivity {
@@ -117,9 +116,12 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
 
     public void addCart(View view){
         DatabaseReference entireDB = FirebaseDatabase.getInstance().getReference();
-        Map<String, Integer> cartProduct = new HashMap<>();
-        cartProduct.put(Constant.OwnerID, Integer.valueOf(StoreID));
-        cartProduct.put(Constant.ProductID, Integer.valueOf(ProductID));
+        Map<String, Object> cartProduct = new HashMap<>();
+        cartProduct.put(Constant.ProductBrand, product.brand);
+        cartProduct.put(Constant.ProductDescription, product.description);
+        cartProduct.put(Constant.ProductImageURl, product.imageURL);
+        cartProduct.put(Constant.ProductPrice, product.price);
+        cartProduct.put(Constant.ProductName, product.name);
         TextView t1 = (TextView) findViewById(R.id.quantity);
         cartProduct.put(Constant.Quantity, Integer.valueOf(t1.getText().toString()));
 
@@ -134,17 +136,28 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                     try {
                         ArrayList<Map> carts = (ArrayList<Map>) task.getResult().getValue();
                         Integer length = carts.size();
+                        cartProduct.put("cartProductID", length);
                         entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(length)).setValue(cartProduct);
 
                     }catch (NullPointerException e){
+                        cartProduct.put("cartProductID", 0);
                         entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(0)).setValue(cartProduct);
                     }
                     Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
                     //Changed Strings to Constants from Java file, Ankit
                     intent.putExtra(Constant.OwnerID, StoreID);
                     intent.putExtra(Constant.CustomerID, CustomerID);
+                    startActivity(intent);
                 }
             }
         });
+    }
+
+
+    public void onClickCart(View view){
+        Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
+        intent.putExtra(Constant.OwnerID, StoreID);
+        intent.putExtra(Constant.CustomerID, CustomerID);
+        startActivity(intent);
     }
 }

@@ -10,7 +10,6 @@ public class StoreOwner extends User{
     String logoURL;
     ArrayList<String> storeProductIDs = new ArrayList<>();
 
-    // I need no-arg constructor to getValue
     public StoreOwner(){}
 
     public StoreOwner(Integer ownerID, String username, String password, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
@@ -34,6 +33,8 @@ public class StoreOwner extends User{
         this.ownerID = ownerID;
     }
 
+    public Integer getOwnerID(){return ownerID;}
+
     public ArrayList<String> getStoreProductIDs() {
         return storeProductIDs;
     }
@@ -41,11 +42,6 @@ public class StoreOwner extends User{
     public void setStoreProductIDs(ArrayList<String> storeProductIDs) {
         this.storeProductIDs = storeProductIDs;
     }
-    public String getUsername(){return username;}
-
-    public String getPassword() {return password;}
-
-    public Integer getOwnerID(){return ownerID;}
 
     public String getStoreName() {
         return storeName;

@@ -91,7 +91,7 @@
     <TextView
         android:id="@+id/textViewLoginCustomer"
         android:layout_width="370dp"
-        android:layout_height="42dp"
+        android:layout_height="50dp"
         android:layout_marginTop="84dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"

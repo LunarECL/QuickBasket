@@ -33,19 +33,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/editTextLoginOwner"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="240dp"
         android:ems="10"
         android:hint="@string/enter_username"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColorHint="#474747"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTextPassword4"
@@ -54,19 +54,20 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/enter_password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textColorHint="#474747"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginOwner" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
+        android:onClick="handleClick"
         android:text="@string/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -86,4 +87,15 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textViewLoginOwner"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="84dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

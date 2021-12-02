@@ -22,7 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MainScreenCustomer extends Activity implements View.OnClickListener, MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
@@ -44,7 +46,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
         //Get Customer ID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
-       // customerID = "5";
+        //customerID = "1";
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButton_MainCustomer);
@@ -67,7 +69,8 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
             });
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        mDatabase.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            //child(Constant.StoreOwner).
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -76,7 +79,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeIDMap = (Map) task.getResult().getValue();
-                    ArrayList<Map> storeList = (ArrayList<Map>) storeIDMap.get(Constant.StoreOwner);
+                    ArrayList<Map> storeList = new ArrayList<Map>(storeIDMap.values());
 
                     for (Map<String, Object> entry : storeList){
                         if (entry != null) {
