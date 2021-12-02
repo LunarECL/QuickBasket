@@ -136,34 +136,13 @@ public class OwnerAddProductPage extends AppCompatActivity {
             setupToast("description cannot be empty");
         } else {
             price = Double.parseDouble(price_string);
-            checkProductIDInDatabase();
+            getProductID();
         }
-    }
-
-    // Check if product id in db
-    public void checkProductIDInDatabase() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ValueEventListener listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("demo", "data changed");
-                if (!dataSnapshot.hasChild("ProductID")) {
-                    ref.child("ProductID").setValue(0);
-                }
-                getProductID();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("warning", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        ref.addListenerForSingleValueEvent(listener);
     }
 
     //Get product id
     public void getProductID() {
-        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("ProductID");
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference(Constant.ProductIDCount);
         ref1.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -171,7 +150,6 @@ public class OwnerAddProductPage extends AppCompatActivity {
                     Log.e("demo", "Error getting data", task.getException());
                 } else {
                     Log.i("demo", task.getResult().getValue().toString());
-
                     productID = new Integer((int) Math.toIntExact((Long) task.getResult().getValue()));
                     addProductToDatabase();
                 }
@@ -183,8 +161,8 @@ public class OwnerAddProductPage extends AppCompatActivity {
     public void addProductToDatabase() {
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference();
         Product product = new Product(productID.intValue(), name, description, brand, price, imageURL);
-        ref2.child(Constant.StoreOwner).child(String.valueOf(ownerID.intValue())).child("StoreProductIDs").child(String.valueOf(productID.intValue())).setValue(product);
-        ref2.child("ProductID").setValue(productID.intValue() + 1);
+        ref2.child(Constant.StoreOwner).child(String.valueOf(ownerID.intValue())).child(Constant.StoreListProducts).child(String.valueOf(productID.intValue())).setValue(product);
+        ref2.child(Constant.ProductIDCount).setValue(productID.intValue() + 1);
         toNextScreen();
     }
 

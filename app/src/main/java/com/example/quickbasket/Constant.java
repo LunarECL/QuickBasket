@@ -19,6 +19,8 @@ public class Constant {
     //Order Table
     static String Order = "Order";
     static String orderCount = "orderCount";
+    static String OrderID = "orderID"; // Added by Virthiya
+    static String CartProductsIDs = "cartProductsIDs"; // Added by Virthiya
 
 
     //StoreOwner Table
@@ -28,6 +30,8 @@ public class Constant {
     static String StoreLocation = "location";
     static String StoreLogoURL = "logoURL";
     static String StoreListProducts = "Product";
+    // Stored as direct child of the database (similar to userCount)
+    static String ProductIDCount = "productIDCount";
     static String ProductImageURl = "imageURL";
     static String ProductName = "productName";
     static String ProductPrice = "price";

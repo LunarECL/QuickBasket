@@ -93,7 +93,28 @@ public class main_screen_owner extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_background)
                 .centerCrop();
         Glide.with(this).load(logoURL).apply(options).into(logoImageView);
-        getOrderInformation();
+        checkProductIDInDatabase();
+    }
+
+    // Setup product ID count in database
+    public void checkProductIDInDatabase() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("demo", "data changed");
+                if (!dataSnapshot.hasChild(Constant.ProductIDCount)) {
+                    ref.child(Constant.ProductIDCount).setValue(0);
+                }
+                getOrderInformation();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("warning", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        ref.addListenerForSingleValueEvent(listener);
     }
 
     // Get information about each order
@@ -105,13 +126,13 @@ public class main_screen_owner extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.i("demo", "data changed");
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        if (String.valueOf(child.child("ownerID").getValue()).equals(String.valueOf(ownerID))) {
+                        if (String.valueOf(child.child(Constant.OwnerID).getValue()).equals(String.valueOf(ownerID))) {
                             orderList.add(new OrderListItem("", "", 0.0,
-                                    (Math.toIntExact((Long) child.child("orderID").getValue())),
-                                    (Math.toIntExact((Long) child.child("ownerID").getValue())),
-                                    (Math.toIntExact((Long) child.child("customerID").getValue()))));
+                                    (Math.toIntExact((Long) child.child(Constant.OrderID).getValue())),
+                                    (Math.toIntExact((Long) child.child(Constant.OwnerID).getValue())),
+                                    (Math.toIntExact((Long) child.child(Constant.CustomerID).getValue()))));
                             productIDs.add(new ArrayList<Integer>());
-                            for (DataSnapshot productID : child.child("cartProductsIDs").getChildren()) {
+                            for (DataSnapshot productID : child.child(Constant.CartProductsIDs).getChildren()) {
                                 productIDs.get(productIDs.size() - 1).add(Math.toIntExact((Long) productID.getValue()));
                             }
                         }
@@ -131,8 +152,8 @@ public class main_screen_owner extends AppCompatActivity {
     // Setup each order list item with a string containing first 3 (at most) product names from order
     public void setupOrderDescription() {
         productDescription = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
-        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
+        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -142,7 +163,7 @@ public class main_screen_owner extends AppCompatActivity {
                     for (int i = 0; i < orderList.size(); i++) {
                         productDescription = "";
                         for (int j = 0; j < Math.min(productIDs.get(i).size(), 3); j++) {
-                            productDescription = productDescription.concat((String) task.getResult().child(String.valueOf(productIDs.get(i).get(j))).child("name").getValue() + "\n");
+                            productDescription = productDescription.concat((String) task.getResult().child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductName).getValue() + "\n");
                         }
                         if (productIDs.get(i).size() > 3)
                             productDescription.concat("\n...");
@@ -157,8 +178,8 @@ public class main_screen_owner extends AppCompatActivity {
     // Setup each order list item with string containing url of first image from order
     public void setupOrderUrl() {
         productURL = "";
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
-        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
+        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -166,7 +187,7 @@ public class main_screen_owner extends AppCompatActivity {
                 }
                 else {
                     for (int i = 0; i < orderList.size(); i++) {
-                        productURL = (String) task.getResult().child(String.valueOf(productIDs.get(i).get(0))).child("imageURL").getValue();
+                        productURL = (String) task.getResult().child(String.valueOf(productIDs.get(i).get(0))).child(Constant.ProductImageURl).getValue();
                         orderList.get(i).setUrl(orderList.get(i).getUrl().concat(productURL));
                     }
                     setupOrderTotalPrice();
@@ -178,8 +199,8 @@ public class main_screen_owner extends AppCompatActivity {
     // Setup each order list item with double containing the total price of the orders
     public void setupOrderTotalPrice() {
         productTotalPrice = 0.0;
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product");
-        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
+        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -189,7 +210,7 @@ public class main_screen_owner extends AppCompatActivity {
                     for (int i = 0; i < orderList.size(); i++) {
                         productTotalPrice = 0.0;
                         for (int j = 0; j < productIDs.get(i).size(); j++) {
-                            productTotalPrice += ((Long) task.getResult().child(String.valueOf(productIDs.get(i).get(j))).child("price").getValue()).doubleValue();
+                            productTotalPrice += ((Long) task.getResult().child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue()).doubleValue();
                         }
                         productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
                         orderList.get(i).setPrice(productTotalPrice.doubleValue());
