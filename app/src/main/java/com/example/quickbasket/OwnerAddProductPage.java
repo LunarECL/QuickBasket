@@ -149,7 +149,6 @@ public class OwnerAddProductPage extends AppCompatActivity {
                 if (!task.isSuccessful()) {
                     Log.e("demo", "Error getting data", task.getException());
                 } else {
-                    Log.i("demo", task.getResult().getValue().toString());
                     productID = new Integer((int) Math.toIntExact((Long) task.getResult().getValue()));
                     addProductToDatabase();
                 }

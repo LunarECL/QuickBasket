@@ -102,7 +102,6 @@ public class main_screen_owner extends AppCompatActivity {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("demo", "data changed");
                 if (!dataSnapshot.hasChild(Constant.ProductIDCount)) {
                     ref.child(Constant.ProductIDCount).setValue(0);
                 }
@@ -124,7 +123,6 @@ public class main_screen_owner extends AppCompatActivity {
             ValueEventListener listener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.i("demo", "data changed");
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         if (String.valueOf(child.child(Constant.OwnerID).getValue()).equals(String.valueOf(ownerID))) {
                             orderList.add(new OrderListItem("", "", 0.0,
