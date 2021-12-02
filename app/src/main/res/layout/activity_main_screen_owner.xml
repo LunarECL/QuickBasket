@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/cart_Button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
