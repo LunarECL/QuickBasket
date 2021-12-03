@@ -119,7 +119,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
         if (imageURL.equals("")) {
             setUpToast("url cannot be empty");
         } else if (!URLUtil.isValidUrl(imageURL)) {
-            setUpToast("url cannot be valid");
+            setUpToast("url is invalid");
         } else if (name.equals("")) {
             setUpToast("name cannot be empty");
         } else if(brand.equals("")) {
