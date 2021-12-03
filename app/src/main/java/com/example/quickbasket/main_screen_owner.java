@@ -164,7 +164,7 @@ public class main_screen_owner extends AppCompatActivity {
                             productDescription = productDescription.concat((String) task.getResult().child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductName).getValue() + "\n");
                         }
                         if (productIDs.get(i).size() > 3)
-                            productDescription.concat("\n...");
+                            productDescription = productDescription.concat("\n...");
                         orderList.get(i).setDescription(orderList.get(i).getDescription().concat(productDescription));
                     }
                     setUpOrderUrl();

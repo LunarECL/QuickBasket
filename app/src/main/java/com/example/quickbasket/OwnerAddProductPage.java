@@ -22,10 +22,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class OwnerAddProductPage extends AppCompatActivity {
     Integer ownerID;
@@ -40,9 +38,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
 
     // Checks if a string price is a valid price
     public boolean isValidPrice(String price) {
-        if (price.matches("[\\d]+\\.\\d\\d"))
-            return true;
-        return false;
+        return price.matches("[\\d]+\\.\\d\\d");
     }
 
     // Shows toast on the screen
