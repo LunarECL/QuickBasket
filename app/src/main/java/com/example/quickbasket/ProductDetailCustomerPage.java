@@ -33,21 +33,23 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail_customer_page);
+        Intent intent = getIntent();
+
+        StoreID = intent.getStringExtra("StoreID");
+        ProductID = intent.getStringExtra("ID");
+        CustomerID = intent.getStringExtra("CustomerID");
 
         ImageButton backButton = findViewById(R.id.backButton_ProductDetail);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
-                intent.putExtra("CustomerID", CustomerID);
-                intent.putExtra("ID", StoreID);
+                intent.putExtra(Constant.CustomerID, CustomerID);
+                intent.putExtra(Constant.OwnerID, StoreID);
                 startActivity(intent);
             }
         });
 
-        Intent intent = getIntent();
-        StoreID = intent.getStringExtra("StoreID");
-        ProductID = intent.getStringExtra("ID");
-        CustomerID = intent.getStringExtra("CustomerID");
+
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(Constant.StoreOwner).child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -60,11 +62,27 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
                     StoreName = String.valueOf(storeMap.get(Constant.StoreName));
-                    ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
-                    for (Map<String, String> productMap : productsList) {
-                        if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
-                            product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get(Constant.CustomerName)), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(String.valueOf(productMap.get("price"))), String.valueOf(productMap.get("imageURL")));
-                            break;
+                    if (storeMap.get(Constant.Product) instanceof ArrayList) {
+                        ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get(Constant.Product);
+                        for (Map<String, String> productMap : productsList)
+                        {
+                            if (productMap == null){
+                                continue;
+                            }
+                            if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
+                                product = new Product(Integer.valueOf(String.valueOf(productMap.get("id"))), String.valueOf(productMap.get("name")), String.valueOf(productMap.get(Constant.ProductDescription)), String.valueOf(productMap.get(Constant.ProductBrand)), Double.valueOf(String.valueOf(productMap.get(Constant.ProductPrice))), String.valueOf(productMap.get(Constant.ProductImageURl)));
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        HashMap<Integer, Object> productsList = (HashMap<Integer, Object>) storeMap.get(Constant.Product);
+                        for (Map.Entry<Integer, Object> productrawMap : productsList.entrySet()) {
+                            Map<String, String> productMap = (Map<String, String>) productrawMap.getValue();
+                            if (String.valueOf(productMap.get("id")).equalsIgnoreCase(ProductID)) {
+                                product = new Product(Integer.valueOf(String.valueOf(productMap.get("id"))), String.valueOf(productMap.get("name")), String.valueOf(productMap.get(Constant.ProductDescription)), String.valueOf(productMap.get(Constant.ProductBrand)), Double.valueOf(String.valueOf(productMap.get(Constant.ProductPrice))), String.valueOf(productMap.get(Constant.ProductImageURl)));
+                                break;
+                            }
                         }
                     }
                     getReadt();

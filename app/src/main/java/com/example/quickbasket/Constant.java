@@ -29,7 +29,7 @@ public class Constant {
     static String StoreName = "storeName";
     static String StoreLocation = "location";
     static String StoreLogoURL = "logoURL";
-    static String StoreListProducts = "Product";
+    static String Product = "Product";
     // Stored as direct child of the database (similar to userCount)
     static String ProductIDCount = "productIDCount";
     static String ProductImageURl = "imageURL";

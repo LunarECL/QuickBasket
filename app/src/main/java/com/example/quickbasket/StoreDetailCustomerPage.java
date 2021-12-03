@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StoreDetailCustomerPage extends AppCompatActivity {
@@ -36,19 +37,21 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_detail_customer_page);
 
+        Intent intent = getIntent();
+
+        StoreID = intent.getStringExtra(Constant.OwnerID);
+        CustomerID = intent.getStringExtra(Constant.CustomerID);
+
         ImageButton backButton = findViewById(R.id.backButton_StoreDetail);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
+                intent.putExtra(Constant.CustomerID, CustomerID);
                 startActivity(intent);
             }
         });
 
-        Intent intent = getIntent();
 
-        //Changed the name from Strings to to ones from Constant.java, Ankit
-        StoreID = intent.getStringExtra(Constant.OwnerID);
-        CustomerID = intent.getStringExtra(Constant.CustomerID);
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("StoreOwner").child(StoreID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -60,16 +63,32 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
                     Map storeMap = (Map) task.getResult().getValue();
-                    StoreName = String.valueOf(storeMap.get("Name"));
-                    StoreLocation = String.valueOf(storeMap.get("Location"));
-                    ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get("Product");
+                    StoreName = String.valueOf(storeMap.get(Constant.StoreName));
+                    Log.d("name", StoreName);
+                    StoreLocation = String.valueOf(storeMap.get(Constant.StoreLocation));
                     products = new ArrayList<>();
-                    for (Map<String, String> productMap : productsList) {
-                        Product product = new Product(Integer.valueOf(productMap.get("id")), String.valueOf(productMap.get("name")), String.valueOf(productMap.get("description")), String.valueOf(productMap.get("brand")), Double.valueOf(productMap.get("price")), String.valueOf(productMap.get("imageURL")));
-                        products.add(product);
+                    if (storeMap.get(Constant.Product) instanceof ArrayList) {
+                        ArrayList<Map> productsList = (ArrayList<Map>) storeMap.get(Constant.Product);
+                        for (Map<String, String> productMap : productsList) {
+                            if (productMap == null) {
+                                continue;
+                            }
+                            Product product = new Product(Integer.valueOf(String.valueOf(productMap.get("id"))), String.valueOf(productMap.get("name")), String.valueOf(productMap.get(Constant.ProductDescription)), String.valueOf(productMap.get(Constant.ProductBrand)), Double.valueOf(String.valueOf(productMap.get(Constant.ProductPrice))), String.valueOf(productMap.get(Constant.ProductImageURl)));
+                            products.add(product);
+                        }
                     }
-                    getReadt();
+                    else {
+                        HashMap<Integer, Object> productsList = (HashMap<Integer, Object>) storeMap.get(Constant.Product);
+                        for (Map.Entry<Integer, Object> productrawMap : productsList.entrySet()) {
+                            Map<String, String> productMap = (Map<String, String>) productrawMap.getValue();
+                            Log.d("map", String.valueOf(productMap));
+                            Product product = new Product(Integer.valueOf(String.valueOf(productMap.get("id"))), String.valueOf(productMap.get("name")), String.valueOf(productMap.get(Constant.ProductDescription)), String.valueOf(productMap.get(Constant.ProductBrand)), Double.valueOf(String.valueOf(productMap.get(Constant.ProductPrice))), String.valueOf(productMap.get(Constant.ProductImageURl)));
+                            Log.d("product", String.valueOf(product.id));
+                            products.add(product);
+                        }
+                    }
                 }
+                getReadt();
             }
         });
 

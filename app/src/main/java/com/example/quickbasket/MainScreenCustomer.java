@@ -20,11 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MainScreenCustomer extends Activity implements View.OnClickListener, MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
@@ -93,12 +89,12 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
 
                             Map storeProductIDsMAP = null;
                             ArrayList<String> storeProductIDsArrayList = null;
-                            if (entry.get(Constant.StoreListProducts) instanceof Map){
-                                storeProductIDsMAP = (Map) entry.get(Constant.StoreListProducts);
+                            if (entry.get(Constant.Product) instanceof Map){
+                                storeProductIDsMAP = (Map) entry.get(Constant.Product);
                             }
 
-                            if (entry.get(Constant.StoreListProducts) instanceof ArrayList){
-                                storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.StoreListProducts);
+                            if (entry.get(Constant.Product) instanceof ArrayList){
+                                storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.Product);
                             }
 
                             StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
