@@ -5,9 +5,19 @@ public class Product {
     String name;
     String description;
     String brand;
-    double price;
+    Double price;
     String imageURL;
-    int qty;
+    Integer qty;
+
+    public Product(String brand, String description, Integer id, String imageURL, String name, Double price, Integer qty){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.brand = brand;
+        this.price = price;
+        this.imageURL = imageURL;
+        this.qty = qty;
+    }
 
     public Product(Integer id, String name, String description, String brand, double price, String imageURL){
         this.id = id;

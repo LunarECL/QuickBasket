@@ -28,14 +28,16 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent){
 
         //get item information
+        Integer id = getItem(position).getId();
         String productName = getItem(position).getName();
         String description = getItem(position).getDescription();
-        double price = getItem(position).getPrice();
+        Double price = getItem(position).getPrice();
         String brand = getItem(position).getBrand();
         String imgURL = getItem(position).getImageURL();
+        Integer qty = getItem(position).getQty();
 
         //create item with the information
-        //Product product = new Product(productName,description,brand,price,imgURL); // <- this should be with product id too, Joshua Kim
+        Product product = new Product(id,productName,description,brand,price,imgURL,qty);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);
