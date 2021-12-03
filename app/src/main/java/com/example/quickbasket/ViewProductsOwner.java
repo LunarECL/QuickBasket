@@ -37,7 +37,11 @@ public class ViewProductsOwner extends AppCompatActivity {
             }
         });
 
-        int ownerID = 10; // get the id from the main screen owner
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        Integer ownerID = extras.getInt("ownerID");
+
+        //int ownerID = 10; // get the id from the main screen owner
 
         ArrayList<Product> productList = new ArrayList<>();
 

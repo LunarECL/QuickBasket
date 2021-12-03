@@ -40,13 +40,15 @@ public class ViewOrderOwner extends AppCompatActivity {
             }
         });
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        Integer orderID = extras.getInt("orderID");
+
 
 
         ArrayList<Product> productList = new ArrayList<>();
 
         ArrayList<Product> list = new ArrayList<>();
-
-        int orderID = 5; // Get Order ID
 
         ArrayList<Order> ordersList = new ArrayList<>();
 
