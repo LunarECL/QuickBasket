@@ -3,6 +3,7 @@ package com.example.quickbasket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -140,6 +142,7 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
         cartProduct.put(Constant.ProductImageURl, product.imageURL);
         cartProduct.put(Constant.ProductPrice, product.price);
         cartProduct.put(Constant.ProductName, product.name);
+        cartProduct.put(Constant.OwnerID, StoreID);
         TextView t1 = (TextView) findViewById(R.id.quantity);
         cartProduct.put(Constant.Quantity, Integer.valueOf(t1.getText().toString()));
 
@@ -155,7 +158,19 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                         ArrayList<Map> carts = (ArrayList<Map>) task.getResult().getValue();
                         Integer length = carts.size();
                         cartProduct.put("cartProductID", length);
-                        entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(length)).setValue(cartProduct);
+                        String previousID = String.valueOf(carts.get(0).get(Constant.OwnerID));
+                        if (previousID.equalsIgnoreCase(StoreID)){
+                            entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(length)).setValue(cartProduct);
+                        }
+                        else{
+                            Context context = getApplicationContext();
+                            CharSequence text = "You only allowed to order items from same store";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                            return;
+                        }
 
                     }catch (NullPointerException e){
                         cartProduct.put("cartProductID", 0);
