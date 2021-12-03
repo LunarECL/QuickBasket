@@ -33,16 +33,23 @@ public class ViewOrderOwner extends AppCompatActivity {
 
         back_button = (Button) findViewById(R.id.back_button);
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openOwnerMainPage();
-            }
-        });
+
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         Integer orderID = extras.getInt("orderID");
+        Integer ownerID = extras.getInt("ownerID");
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent  = new Intent(ViewOrderOwner.this, main_screen_owner.class);
+                intent.putExtra("ownerID",ownerID);
+                startActivity(intent);
+                //openOwnerMainPage();
+            }
+        });
 
 
 
@@ -149,10 +156,11 @@ public class ViewOrderOwner extends AppCompatActivity {
          */
     }
 
+    /*
     public void openOwnerMainPage(){
         Intent intent  = new Intent(this, main_screen_owner.class);
         startActivity(intent);
-    }
+    }*/
 
 
 
