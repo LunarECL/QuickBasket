@@ -90,12 +90,21 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
                             String ownerID = String.valueOf(entry.get(Constant.OwnerID));
 
                             //Product product = (Product) entry.get("Product");
-                            ArrayList<String> storeProductIDs = (ArrayList<String>) entry.get(Constant.StoreListProducts);
+                            Log.d("storeProductIDs", String.valueOf(task.getResult().getValue()));
 
-                            Log.d("storeIDS are ", ownerID);
-                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL, storeProductIDs);
+                            Map storeProductIDsMAP = null;
+                            ArrayList<String> storeProductIDsArrayList = null;
+                            if (entry.get(Constant.StoreListProducts) instanceof Map){
+                                storeProductIDsMAP = (Map) entry.get(Constant.StoreListProducts);
+                            }
 
-                            if (owner.storeProductIDs != null) {
+                            if (entry.get(Constant.StoreListProducts) instanceof ArrayList){
+                                storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.StoreListProducts);
+                            }
+
+                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
+
+                            if (!(storeProductIDsMAP == null && storeProductIDsArrayList == null)) {
                                 owners.add(owner);
                                 mStoreIDs.add(ownerID);
                             }
