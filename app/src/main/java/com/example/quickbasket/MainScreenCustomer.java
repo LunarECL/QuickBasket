@@ -70,7 +70,6 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            //child(Constant.StoreOwner).
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
