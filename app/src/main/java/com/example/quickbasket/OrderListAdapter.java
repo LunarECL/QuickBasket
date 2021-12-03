@@ -56,7 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
                 Intent intent = new Intent(context, ViewOrderOwner.class);
                 intent.putExtra("orderID", orderListItem.getOrderID());
                 intent.putExtra("ownerID", orderListItem.getOwnerID());
-                intent.putExtra("orderID", orderListItem.getCustomerID());
+                intent.putExtra("customerID", orderListItem.getCustomerID());
                 context.startActivity(intent);
             }
         });
