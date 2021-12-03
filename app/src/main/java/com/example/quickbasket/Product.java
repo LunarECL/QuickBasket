@@ -49,7 +49,7 @@ public class Product {
         this.qty = qty;
     }
 
-    public int getQty() {
+    public Integer getQty() {
         return qty;
     }
 
