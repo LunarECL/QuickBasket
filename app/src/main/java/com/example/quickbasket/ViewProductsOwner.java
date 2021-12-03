@@ -104,7 +104,4 @@ public class ViewProductsOwner extends AppCompatActivity {
         Intent intent  = new Intent(this, main_screen_owner.class);
         startActivity(intent);
     }
-
-
-
 }

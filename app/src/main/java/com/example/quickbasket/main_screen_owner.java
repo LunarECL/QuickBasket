@@ -151,7 +151,7 @@ public class main_screen_owner extends AppCompatActivity {
     public void setUpOrderDescription() {
         productDescription = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
-        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        ref.child(String.valueOf(ownerID)).child(Constant.Product).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -177,7 +177,7 @@ public class main_screen_owner extends AppCompatActivity {
     public void setUpOrderUrl() {
         productURL = "";
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
-        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        ref.child(String.valueOf(ownerID)).child(Constant.Product).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -198,7 +198,7 @@ public class main_screen_owner extends AppCompatActivity {
     public void setUpOrderTotalPrice() {
         productTotalPrice = 0.0;
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
-        ref.child(String.valueOf(ownerID)).child(Constant.StoreListProducts).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        ref.child(String.valueOf(ownerID)).child(Constant.Product).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {

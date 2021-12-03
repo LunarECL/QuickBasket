@@ -21,12 +21,11 @@ public class StoreOwner extends User{
         this.storeProductIDs = storeProductIDs;
     }
 
-    public StoreOwner(int ownerID, String storeName, String location, String logoURL, ArrayList<String> storeProductIDs) {
+    public StoreOwner(int ownerID, String storeName, String location, String logoURL) {
         this.ownerID = ownerID;
         this.storeName = storeName;
         this.location = location;
         this.logoURL = logoURL;
-        this.storeProductIDs = storeProductIDs;
     }
 
     public void setOwnerID(Integer ownerID) {

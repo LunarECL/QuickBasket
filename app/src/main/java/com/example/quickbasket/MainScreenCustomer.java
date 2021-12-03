@@ -20,11 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MainScreenCustomer extends Activity implements View.OnClickListener, MainScreenCustomerRecyclerViewAdapter.OnNoteListener{
@@ -70,7 +66,6 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            //child(Constant.StoreOwner).
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
@@ -90,12 +85,21 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
                             String ownerID = String.valueOf(entry.get(Constant.OwnerID));
 
                             //Product product = (Product) entry.get("Product");
-                            ArrayList<String> storeProductIDs = (ArrayList<String>) entry.get(Constant.StoreListProducts);
+                            Log.d("storeProductIDs", String.valueOf(task.getResult().getValue()));
 
-                            Log.d("storeIDS are ", ownerID);
-                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL, storeProductIDs);
+                            Map storeProductIDsMAP = null;
+                            ArrayList<String> storeProductIDsArrayList = null;
+                            if (entry.get(Constant.Product) instanceof Map){
+                                storeProductIDsMAP = (Map) entry.get(Constant.Product);
+                            }
 
-                            if (owner.storeProductIDs != null) {
+                            if (entry.get(Constant.Product) instanceof ArrayList){
+                                storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.Product);
+                            }
+
+                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
+
+                            if (!(storeProductIDsMAP == null && storeProductIDsArrayList == null)) {
                                 owners.add(owner);
                                 mStoreIDs.add(ownerID);
                             }

@@ -2,6 +2,7 @@ package com.example.quickbasket;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ViewOrderOwner.class);
-                intent.putExtra("orderID", orderListItem.getOrderID());
-                intent.putExtra("ownerID", orderListItem.getOwnerID());
-                intent.putExtra("orderID", orderListItem.getCustomerID());
+                Bundle extras = new Bundle();
+                extras.putInt("orderID", orderListItem.getOrderID());
+                extras.putInt("ownerID", orderListItem.getOwnerID());
+                extras.putInt("customerID", orderListItem.getCustomerID());
+                intent.putExtras(extras);
                 context.startActivity(intent);
             }
         });

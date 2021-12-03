@@ -48,9 +48,9 @@ public class CustomerCheckout extends Activity {
         //Get Customer ID and OwnerID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
-        customerID = "1";
+       // customerID = "1";
         ownerID = intent.getStringExtra(Constant.OwnerID);
-        ownerID = "1";
+       // ownerID = "1";
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButtonCheckoutCustomer);

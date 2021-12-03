@@ -145,9 +145,6 @@ public class ViewOrderOwner extends AppCompatActivity {
         mListView.setAdapter(adapter);
 
          */
-
-
-
     }
 
     public void openOwnerMainPage(){
