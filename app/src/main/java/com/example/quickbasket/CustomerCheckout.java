@@ -51,15 +51,24 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         //Get Customer ID and OwnerID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
-       // customerID = "1";
         ownerID = intent.getStringExtra(Constant.OwnerID);
-       // ownerID = "1";
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButtonCheckoutCustomer);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
+                activity2Intent.putExtra(Constant.CustomerID, customerID);
+                activity2Intent.putExtra(Constant.OwnerID, ownerID);
+                startActivity(activity2Intent);
+            }
+        });
+
+        // CODE FOR Status BUTTON
+        Button statusButton = findViewById(R.id.status_button);
+        statusButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent activity2Intent = new Intent(getApplicationContext(), OrderStatus.class);
                 activity2Intent.putExtra(Constant.CustomerID, customerID);
                 startActivity(activity2Intent);
             }
@@ -136,7 +145,6 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
                     //get Order ID
                     entireDB.child(Constant.orderCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
@@ -157,11 +165,10 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                                         cartProductsIDs.add(product.id);
                                     }
 
-
-                                        Order newOrder = new Order(counter, Integer.parseInt(ownerID), Integer.parseInt(customerID), cartProductsIDs, false);
-                                        writeOrder(newOrder);
-                                        Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
-                                    }
+                                    Order newOrder = new Order(counter, Integer.parseInt(ownerID), Integer.parseInt(customerID), cartProductsIDs, false);
+                                    writeOrder(newOrder);
+                                    Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
+                                }
 
                                 else{
                                     Toast.makeText(getApplicationContext(), "Please have atleast one item in cart", Toast.LENGTH_SHORT).show();
@@ -183,7 +190,6 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
     /*public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
         Order order = new Order(orderID,ownerID,customerID,productIDsList, status);
-
         entireDB.child(Constant.Order).child(Integer.toString(orderID)).setValue(order);
     }*/
 
@@ -210,27 +216,22 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         mProductNames.add("Apple");
         mPrices.add(19.99);
         mQtys.add(2);
-
         mImageUrls.add("https://media.istockphoto.com/photos/orange-picture-id185284489?k=20&m=185284489&s=612x612&w=0&h=LLY2os0YTG2uAzpBKpQZOAC4DGiXBt1jJrltErTJTKI=");
         mProductNames.add("Oranges");
         mPrices.add(17.99);
         mQtys.add(3);
-
         mImageUrls.add("https://images.immediate.co.uk/production/volatile/sites/30/2017/01/Bananas-218094b-scaled.jpg?quality=90&resize=960%2C872");
         mProductNames.add("Bananas");
         mPrices.add(16.99);
         mQtys.add(1);
-
         mImageUrls.add("https://solidstarts.com/wp-content/uploads/Kiwi_edited-scaled.jpg");
         mProductNames.add("Kiwi");
         mPrices.add(17.99);
         mQtys.add(4);
-
         mImageUrls.add("https://5.imimg.com/data5/UH/AR/MY-41645336/fresh-strawberry-500x500.jpg");
         mProductNames.add("Strawberry");
         mPrices.add(18.99);
         mQtys.add(5);
-
         */
 
         initRecyclerView();

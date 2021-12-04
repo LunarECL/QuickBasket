@@ -101,14 +101,12 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
                     qty.setText(Integer.toString(newQty));
                 }
             });
-
             //Functionality for '-' Button
             itemView.findViewById(R.id.minusQty).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String currentQty = qty.getText().toString();
                     int newQty = Integer.parseInt(currentQty) - 1;
-
                     if (newQty < 0){
                         newQty = 0;
                     }
@@ -132,5 +130,3 @@ public class CustomerCheckoutRecyclerViewAdapter extends RecyclerView.Adapter<Cu
         void onDeleteBtnClick(int position);
     }
 }
-
-

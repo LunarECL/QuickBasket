@@ -21,6 +21,7 @@ public class Constant {
     static String orderCount = "orderCount";
     static String OrderID = "orderID"; // Added by Virthiya
     static String CartProductsIDs = "cartProductsIDs"; // Added by Virthiya
+    static String Status = "status";
 
 
     //StoreOwner Table

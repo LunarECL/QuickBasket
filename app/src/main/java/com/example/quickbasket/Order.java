@@ -20,6 +20,12 @@ public class Order {
         this.status = status;
     }
 
+    //used in status of orders
+    public Order(int ownerID, int customerID, boolean status){
+        this.ownerID = ownerID;
+        this.customerID = customerID;
+        this.status = status;
+    }
     //used to get the data in the database
     public Order(int ownerID, int customerID, ArrayList<Product> cartProducts) {
         this.ownerID = ownerID;
