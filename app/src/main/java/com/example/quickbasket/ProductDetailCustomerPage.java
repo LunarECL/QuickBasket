@@ -157,7 +157,7 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                     try {
                         ArrayList<Map> carts = (ArrayList<Map>) task.getResult().getValue();
                         Integer length = carts.size();
-                        cartProduct.put("cartProductID", length);
+                        cartProduct.put(Constant.CartProductID, length);
                         String previousID = String.valueOf(carts.get(0).get(Constant.OwnerID));
                         if (previousID.equalsIgnoreCase(StoreID)){
                             entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(length)).setValue(cartProduct);
@@ -173,11 +173,10 @@ public class ProductDetailCustomerPage extends AppCompatActivity {
                         }
 
                     }catch (NullPointerException e){
-                        cartProduct.put("cartProductID", 0);
+                        cartProduct.put(Constant.CartProductID, 0);
                         entireDB.child(Constant.Customer).child(CustomerID).child(Constant.Cart).child(String.valueOf(0)).setValue(cartProduct);
                     }
                     Intent intent = new Intent(getApplicationContext(), CustomerCheckout.class);
-                    //Changed Strings to Constants from Java file, Ankit
                     intent.putExtra(Constant.OwnerID, StoreID);
                     intent.putExtra(Constant.CustomerID, CustomerID);
                     startActivity(intent);
