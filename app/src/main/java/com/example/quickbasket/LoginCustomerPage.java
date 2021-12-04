@@ -27,6 +27,11 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
         textView.setText(message);
     }
 
+    public void displayMessage2(String message){
+        TextView textView = findViewById(R.id.textView30);
+        textView.setText(message);
+    }
+
     public String getUsername(){
         EditText editText = findViewById(R.id.editTextLoginCustomer);
         return editText.getText().toString();

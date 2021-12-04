@@ -33,17 +33,17 @@ public class MyPresenter implements Contract.Presenter{
         String username = view.getUsername();
         String password = view.getPassword();
         if (password.equals(""))
-            view.displayMessage("Password cannot be empty");
+            view.displayMessage2("Password cannot be empty");
         else if (!model.customerPasswordMatches(username, password))
-            view.displayMessage("Wrong password");
+            view.displayMessage2("Wrong password");
     }
 
     public void checkOwnerPassword(){
         String username = view.getUsername();
         String password = view.getPassword();
         if (password.equals(""))
-            view.displayMessage("Password cannot be empty");
+            view.displayMessage2("Password cannot be empty");
         else if (!model.ownerPasswordMatches(username, password))
-            view.displayMessage("Wrong password");
+            view.displayMessage2("Wrong password");
     }
 }

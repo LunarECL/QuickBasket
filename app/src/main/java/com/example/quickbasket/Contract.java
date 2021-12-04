@@ -12,6 +12,7 @@ public interface Contract {
         public String getUsername();
         public String getPassword();
         public void displayMessage(String message);
+        public void displayMessage2(String message);
 
     }
 

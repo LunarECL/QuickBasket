@@ -25,6 +25,11 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
         textView.setText(message);
     }
 
+    public void displayMessage2(String message){
+        TextView textView = findViewById(R.id.textView29);
+        textView.setText(message);
+    }
+
     public String getUsername(){
         EditText editText = findViewById(R.id.editTextLoginOwner);
         return editText.getText().toString();
