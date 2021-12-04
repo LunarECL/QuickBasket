@@ -26,21 +26,18 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     private ArrayList<Integer> mQtys = new ArrayList<>();
     private Context mContext;
 
-    private OnBtnClick mOnBtnClick;
-
-    public OrderStatusAdapter(Context mContext, ArrayList<String> mProductName, ArrayList<String> mImages, ArrayList<Double> mPrice, ArrayList<Integer> mQty, OnBtnClick mOnBtnClick) {
+    public OrderStatusAdapter(Context mContext, ArrayList<String> mProductName, ArrayList<String> mImages, ArrayList<Double> mPrice, ArrayList<Integer> mQty) {
         this.mProductNames = mProductName;
         this.mImages = mImages;
         this.mPrices = mPrice;
         this.mQtys = mQty;
         this.mContext = mContext;
-        this.mOnBtnClick = mOnBtnClick;
     }
 
     @Override
     public ViewHolder_Status onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_layout_listproducts_customer, parent, false);
-        ViewHolder_Status holder = new ViewHolder_Status(view, mOnBtnClick);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_layout_listproducts_order, parent, false);
+        ViewHolder_Status holder = new ViewHolder_Status(view);
         return holder;
     }
 
@@ -61,75 +58,22 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         return mPrices.size();
     }
 
-    public class ViewHolder_Status extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder_Status extends RecyclerView.ViewHolder {
 
         CircleImageView image;
         TextView productName;
         TextView price;
         TextView qty;
         ConstraintLayout parentLayout;
-        Button removeItem;
 
-        OnBtnClick mOnBtnClick;
-
-        public ViewHolder_Status(View itemView, OnBtnClick onBtnClick) {
+        public ViewHolder_Status(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.product_image);
             productName = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.price);
             qty = itemView.findViewById(R.id.qty);
             parentLayout = itemView.findViewById(R.id.parent_layout_store);
-            removeItem = itemView.findViewById(R.id.delete_item);
-            this.mOnBtnClick = onBtnClick;
-
-            itemView.setOnClickListener(this);
-
-            removeItem.setOnClickListener((v) ->{
-                if (mOnBtnClick != null){
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        mOnBtnClick.onDeleteBtnClick(position);
-                    }
-                }
-            });
-           /* //Functionality for '+' Button
-            itemView.findViewById(R.id.addQty).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String currentQty = qty.getText().toString();
-                    int newQty = Integer.parseInt(currentQty) + 1;
-                    qty.setText(Integer.toString(newQty));
-                }
-            });
-
-            //Functionality for '-' Button
-            itemView.findViewById(R.id.minusQty).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String currentQty = qty.getText().toString();
-                    int newQty = Integer.parseInt(currentQty) - 1;
-
-                    if (newQty < 0){
-                        newQty = 0;
-                    }
-                    qty.setText(Integer.toString(newQty));
-                }
-            });*/
-
-            //total = Integer.parseInt(qty.getText().toString()) * Double.parseDouble(price.getText().toString());
         }
-
-        @Override
-        public void onClick(View v) {
-            mOnBtnClick.onDeleteBtnClick(getAdapterPosition());
-        }
-    }
-
-    /*public static double getSubTotal(){
-       return total;
-    }*/
-    public interface OnBtnClick{
-        void onDeleteBtnClick(int position);
     }
 }
 

@@ -45,7 +45,11 @@
             android:exported="false"/>
 
         <activity
-            android:name=".MainScreenOwner"
+            android:name=".OrderStatus"
+            android:exported="false"/>
+
+        <activity
+            android:name=".main_screen_owner"
             android:exported="false" />
 
         <activity
