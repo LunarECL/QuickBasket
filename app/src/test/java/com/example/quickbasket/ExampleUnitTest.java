@@ -24,7 +24,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
     @Mock
-    MainActivity view;
+    LoginCustomerPage viewCustomer;
+
+    @Mock
+    LoginStoreOwnerPage viewOwner;
 
     @Mock
     MyModel model;
