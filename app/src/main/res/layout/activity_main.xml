@@ -7,13 +7,14 @@
     android:background="#ff42959a"
     tools:context=".MainActivity">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/customerLogin"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginTop="222dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/oval"
+
         android:text="@string/login_customer"
         app:layout_constraintBottom_toTopOf="@+id/customerSignup"
         app:layout_constraintEnd_toEndOf="parent"
