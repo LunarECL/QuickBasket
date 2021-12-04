@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class CustomerCheckout extends Activity {
+public class CustomerCheckout extends Activity implements View.OnClickListener, CustomerCheckoutRecyclerViewAdapter.OnBtnClick{
     private ArrayList<String> mProductNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<Double> mPrices = new ArrayList<>();
@@ -196,9 +196,26 @@ public class CustomerCheckout extends Activity {
 
     private void initRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.product_list_recycle_view);
-        CustomerCheckoutRecyclerViewAdapter adapter = new CustomerCheckoutRecyclerViewAdapter(this, mProductNames, mImageUrls, mPrices, mQtys);
+        CustomerCheckoutRecyclerViewAdapter adapter = new CustomerCheckoutRecyclerViewAdapter(this, mProductNames, mImageUrls, mPrices, mQtys, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    public void onDeleteBtnClick(int position) {
+        mProductNames.remove(position);
+        mImageUrls.remove(position);
+        mPrices.remove(position);
+        mQtys.remove(position);
+
+        RecyclerView recyclerView = findViewById(R.id.product_list_recycle_view);
+        CustomerCheckoutRecyclerViewAdapter adapter = new CustomerCheckoutRecyclerViewAdapter(this, mProductNames, mImageUrls, mPrices, mQtys, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }
