@@ -1,5 +1,7 @@
 package com.example.quickbasket;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class main_screen_owner extends AppCompatActivity {
+public class main_screen_owner extends AppCompatActivity implements View.OnClickListener {
     Integer ownerID;
     String storeName;
     String logoURL;
@@ -43,13 +45,45 @@ public class main_screen_owner extends AppCompatActivity {
 
     // Back button code
     public void backButtonCode() {
+//        ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
         ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+        backButton.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.backButton_MainCustomer:
+                alertDialog();
+                break;
+        }
+    }
+
+    private void alertDialog() {
+        AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+        dialog.setMessage("Are you sure you want to log out?");
+        dialog.setTitle("Confirm");
+        dialog.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Intent activity2Intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(activity2Intent);
+                    }
+                });
+        dialog.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
             }
         });
+        AlertDialog alertDialog=dialog.create();
+        alertDialog.show();
     }
 
     @Override
@@ -210,9 +244,12 @@ public class main_screen_owner extends AppCompatActivity {
                     for (int i = 0; i < orderList.size(); i++) {
                         productTotalPrice = 0.0;
                         for (int j = 0; j < productIDs.get(i).size(); j++) {
-                            Number price = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue();
-                            Number quantity = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue();
-                            productTotalPrice += ((Double) price) * ((Long) quantity);
+                            String price = String.valueOf(task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue());
+                            String quantity = String.valueOf(task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue());
+                            productTotalPrice += Double.parseDouble(price) * Long.parseLong(quantity);
+//                            Number price = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue();
+//                            Number quantity = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue();
+//                            productTotalPrice += ((Double) price) * ((Long) quantity);
                         }
                         productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
                         orderList.get(i).setPrice(productTotalPrice.doubleValue());
