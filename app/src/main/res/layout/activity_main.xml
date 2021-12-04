@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff42959a"
     tools:context=".MainActivity">
 
     <Button
@@ -14,7 +15,6 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/oval"
         android:text="@string/login_customer"
-        app:iconTint="#7C3333"
         app:layout_constraintBottom_toTopOf="@+id/customerSignup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -103,6 +103,17 @@
         app:layout_constraintBottom_toTopOf="@+id/testMainCustomer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="296dp"
+        android:layout_height="594dp"
+        android:layout_marginBottom="316dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/app_logo" />
 
     //*****************************************************
 
