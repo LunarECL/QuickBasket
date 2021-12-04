@@ -37,6 +37,7 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
     private String customerID;
     private String ownerID;
     private double grandTotal;
+    boolean existingOrder = false;
 
     ArrayList<Product> cartProducts = new ArrayList<>();
     ArrayList<Integer> cartProductsIDs = new ArrayList<>();
@@ -140,19 +141,23 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
             // CODE FOR Confirm Order BUTTON
 
+            for (Product product: cartProducts){
+                Log.d("The product name is :", product.name);
+            }
+
             Button submitButton = findViewById(R.id.submitButton);
             submitButton.setEnabled(true);
 
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //get Order ID
                     entireDB.child(Constant.orderCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (!task.isSuccessful()) {
                                 Log.e("firebase", "Error getting data", task.getException());
-                            } else {
-                                if (!cartProductsIDs.isEmpty()){
+                            }
+                            else {
+                                if (!cartProducts.isEmpty()){
                                     if (task.getResult().getValue() == null) {
                                         entireDB.child(Constant.orderCount).setValue(0);
                                         counter = 0;
@@ -167,10 +172,10 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
                                     Order newOrder = new Order(counter, Integer.parseInt(ownerID), Integer.parseInt(customerID), cartProductsIDs, false);
                                     writeOrder(newOrder);
-                                    Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
                                 }
 
                                 else{
+                                    Log.d("error" , "hha");
                                     Toast.makeText(getApplicationContext(), "Please have atleast one item in cart", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -184,14 +189,66 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
     public void writeOrder(Order newOrder) {
         Order order = newOrder;
-        Log.d("The order ID is ", Integer.toString(order.orderID));
-        entireDB.child(Constant.Order).child(String.valueOf(order.orderID)).setValue(order);
-    }
+        Log.d("The customer ID is ", customerID);
 
-    /*public void writeNewOrder(int orderID, int ownerID, int customerID, ArrayList<Integer> productIDsList, boolean status) {
-        Order order = new Order(orderID,ownerID,customerID,productIDsList, status);
-        entireDB.child(Constant.Order).child(Integer.toString(orderID)).setValue(order);
-    }*/
+        entireDB.child(Constant.Order).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    Log.d("SO the Orders are ", String.valueOf(task.getResult().getValue()));
+
+                    if (task.getResult().getValue() instanceof ArrayList) {
+                        ArrayList orderIDMap = (ArrayList) task.getResult().getValue();
+                        if (orderIDMap != null) {
+                            ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
+
+                            for (Map<String, Object> entry : orderList) {
+                                if (entry != null){
+                                    Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                    if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
+                                        existingOrder = true;
+                                    }
+                                }
+                            }
+                        }
+                        else{
+
+                        }
+                    }
+                    else {
+                        Map orderIDMap = (Map) task.getResult().getValue();
+                        if (orderIDMap != null){
+                            ArrayList<Map> orderList = new ArrayList<Map>(orderIDMap.values());
+
+                            for (Map<String, Object> entry : orderList) {
+                                if (entry != null){
+                                    Log.d("CustomerIDs Map are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                    if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
+                                        existingOrder = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        else{
+
+                        }
+                    }
+                }
+            }
+        });
+
+        if (existingOrder){
+            Toast.makeText(getApplicationContext(), "Order limit reached", Toast.LENGTH_SHORT).show();
+        }
+
+        else{
+            entireDB.child(Constant.Order).child(String.valueOf(order.orderID)).setValue(order);
+            Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void initImageBitmaps() {
 
@@ -210,29 +267,6 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
         TextView tv1 = (TextView) findViewById(R.id.totalCost);
         tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
-
-        /*
-        mImageUrls.add("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Honeycrisp-Apple.jpg/2269px-Honeycrisp-Apple.jpg");
-        mProductNames.add("Apple");
-        mPrices.add(19.99);
-        mQtys.add(2);
-        mImageUrls.add("https://media.istockphoto.com/photos/orange-picture-id185284489?k=20&m=185284489&s=612x612&w=0&h=LLY2os0YTG2uAzpBKpQZOAC4DGiXBt1jJrltErTJTKI=");
-        mProductNames.add("Oranges");
-        mPrices.add(17.99);
-        mQtys.add(3);
-        mImageUrls.add("https://images.immediate.co.uk/production/volatile/sites/30/2017/01/Bananas-218094b-scaled.jpg?quality=90&resize=960%2C872");
-        mProductNames.add("Bananas");
-        mPrices.add(16.99);
-        mQtys.add(1);
-        mImageUrls.add("https://solidstarts.com/wp-content/uploads/Kiwi_edited-scaled.jpg");
-        mProductNames.add("Kiwi");
-        mPrices.add(17.99);
-        mQtys.add(4);
-        mImageUrls.add("https://5.imimg.com/data5/UH/AR/MY-41645336/fresh-strawberry-500x500.jpg");
-        mProductNames.add("Strawberry");
-        mPrices.add(18.99);
-        mQtys.add(5);
-        */
 
         initRecyclerView();
     }
