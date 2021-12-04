@@ -30,6 +30,11 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
         return editText.getText().toString();
     }
 
+    public String getPassword(){
+        EditText editText = findViewById(R.id.editTextPasswordOwner);
+        return editText.getText().toString();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +52,8 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
     }
 
     public void handleClick(View view){
-        presenter.checkUsername();
+        presenter.checkOwnerUsername();
+        presenter.checkOwnerPassword();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
         ValueEventListener listener = new ValueEventListener() {
@@ -55,7 +61,7 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot child: snapshot.getChildren()){
                     StoreOwner owner = child.getValue(StoreOwner.class);
-                    if (owner.getUsername().equals(getUsername())) {
+                    if (owner.getUsername().equals(getUsername()) && owner.getPassword().equals(getPassword())) {
                         id = owner.getOwnerID();
                         ready();
                         break;

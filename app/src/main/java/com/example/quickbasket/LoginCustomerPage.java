@@ -32,6 +32,11 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
         return editText.getText().toString();
     }
 
+    public String getPassword(){
+        EditText editText = findViewById(R.id.editTextCustomerPassword);
+        return editText.getText().toString();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,8 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
     }
 
     public void handleClick(View view){
-        presenter.checkUsername();
+        presenter.checkCustomerUsername();
+        presenter.checkCustomerPassword();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.Customer);
         ValueEventListener listener = new ValueEventListener() {
@@ -57,7 +63,7 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot child: snapshot.getChildren()){
                     Customer customer = child.getValue(Customer.class);
-                    if (customer.getUsername().equals(getUsername())) {
+                    if (customer.getUsername().equals(getUsername()) && customer.getPassword().equals(getPassword())) {
                         id = customer.getId();
                         ready();
                         break;
