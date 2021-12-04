@@ -58,7 +58,7 @@ public class main_screen_owner extends AppCompatActivity implements View.OnClick
 
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.backButton_MainCustomer:
+            case R.id.backButton_StoreOwner:
                 alertDialog();
                 break;
         }
