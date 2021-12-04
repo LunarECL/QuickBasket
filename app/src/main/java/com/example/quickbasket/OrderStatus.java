@@ -175,7 +175,6 @@ public class OrderStatus extends Activity implements View.OnClickListener{
     }
 
     private void initImageBitmaps() {
-
         for (Product product: cartProducts){
             mImageUrls.add(product.imageURL);
             mProductNames.add(product.name);
