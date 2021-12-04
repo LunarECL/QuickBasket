@@ -210,7 +210,9 @@ public class main_screen_owner extends AppCompatActivity {
                     for (int i = 0; i < orderList.size(); i++) {
                         productTotalPrice = 0.0;
                         for (int j = 0; j < productIDs.get(i).size(); j++) {
-                            productTotalPrice += ((Long) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue()).doubleValue() * ((Long) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue()).doubleValue();
+                            Number price = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue();
+                            Number quantity = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue();
+                            productTotalPrice += ((Double) price) * ((Long) quantity);
                         }
                         productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
                         orderList.get(i).setPrice(productTotalPrice.doubleValue());
