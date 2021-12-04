@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -38,6 +39,8 @@ public class ViewOrderOwner extends AppCompatActivity {
         Integer orderID = extras.getInt("orderID");
         Integer ownerID = extras.getInt("ownerID");
 
+
+
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,20 +52,93 @@ public class ViewOrderOwner extends AppCompatActivity {
             }
         });
 
+        /*
+
+        final ArrayList<Integer>[] productIDs = new ArrayList[]{new ArrayList<>()};
+
+        ArrayList<String> list = new ArrayList<>();
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_product, list);
+        mListView.setAdapter(adapter);
 
 
-        ArrayList<Product> productList = new ArrayList<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Order").child(orderID.toString());
 
-        ArrayList<Product> list = new ArrayList<>();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        ArrayList<Order> ordersList = new ArrayList<>();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-        ArrayList<Integer> productsIDs = new ArrayList<>();
+                    Order order = snapshot.getValue(Order.class);
+
+                    assert order != null;
+                    productIDs[0] = order.getCartProductsIDs();
+
+                }
+
+                //adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("StoreOwner").child(ownerID.toString()).child("Products");
+
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                list.clear();
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Product product = snapshot.getValue(Product.class);
+
+
+                    assert product != null;
+
+                    for(Integer id : productIDs[0]){
+
+                        if(id.equals(product.getId())){
+
+                            String txt = product.getName() + " " + product.getBrand()  + " " + product.getDescription()  + " " + product.getPrice();
+                            list.add(txt);
+
+                        }
+
+                    }
+
+                }
+
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        //ArrayList<Product> productList = new ArrayList<>();
+
+        //ArrayList<Product> list = new ArrayList<>();
+
+        //ArrayList<Order> ordersList = new ArrayList<>();
+
+        //ArrayList<Integer> productsIDs = new ArrayList<>();
 
 
 
         //Read from Database
 
+        /*
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Order");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -126,13 +202,13 @@ public class ViewOrderOwner extends AppCompatActivity {
                 }
 
             }
-        }
+        }*/
 
 
 
-        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.adapter_view_layout, list);
+        //ProductListAdapter adapter = new ProductListAdapter(this, R.layout.adapter_view_layout, list);
 
-        mListView.setAdapter(adapter);
+        //mListView.setAdapter(adapter);
 
 
 
