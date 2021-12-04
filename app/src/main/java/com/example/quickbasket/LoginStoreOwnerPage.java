@@ -84,7 +84,7 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
     }
 
     private void ready(){
-        Intent intent = new Intent(this, main_screen_owner.class);
+        Intent intent = new Intent(this, MainScreenOwner.class);
         intent.putExtra(Constant.OwnerID, id);
         startActivity(intent);
     }

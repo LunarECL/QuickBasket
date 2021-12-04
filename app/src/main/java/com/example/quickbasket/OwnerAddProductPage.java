@@ -59,7 +59,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
         ImageButton backButton = findViewById(R.id.backButton_AddProductInfo);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), main_screen_owner.class);
+                Intent intent = new Intent(getApplicationContext(), MainScreenOwner.class);
                 intent.putExtra("ownerID", ownerID.intValue());
                 startActivity(intent);
             }
@@ -163,7 +163,7 @@ public class OwnerAddProductPage extends AppCompatActivity {
 
     // Go to next screen
     public void toNextScreen() {
-        Intent intent = new Intent(this, main_screen_owner.class);
+        Intent intent = new Intent(this, MainScreenOwner.class);
         intent.putExtra("ownerID", ownerID.intValue());
         startActivity(intent);
     }

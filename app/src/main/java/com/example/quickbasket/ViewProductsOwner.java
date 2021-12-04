@@ -41,7 +41,7 @@ public class ViewProductsOwner extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent  = new Intent(ViewProductsOwner.this, main_screen_owner.class);
+                Intent intent  = new Intent(ViewProductsOwner.this, MainScreenOwner.class);
                 intent.putExtra("ownerID",ownerID);
                 startActivity(intent);
                 //public void openOwnerMainPage()
