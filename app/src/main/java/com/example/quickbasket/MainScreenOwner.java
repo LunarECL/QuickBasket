@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class main_screen_owner extends AppCompatActivity implements View.OnClickListener {
+public class MainScreenOwner extends AppCompatActivity implements View.OnClickListener {
     Integer ownerID;
     String storeName;
     String logoURL;
@@ -45,17 +45,11 @@ public class main_screen_owner extends AppCompatActivity implements View.OnClick
 
     // Back button code
     public void backButtonCode() {
-//        ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
         ImageButton backButton = findViewById(R.id.backButton_StoreOwner);
         backButton.setOnClickListener(this);
     }
 
+    // Back button additional code
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.backButton_StoreOwner:
@@ -64,6 +58,7 @@ public class main_screen_owner extends AppCompatActivity implements View.OnClick
         }
     }
 
+    // Back button additional code
     private void alertDialog() {
         AlertDialog.Builder dialog=new AlertDialog.Builder(this);
         dialog.setMessage("Are you sure you want to log out?");
@@ -78,9 +73,7 @@ public class main_screen_owner extends AppCompatActivity implements View.OnClick
                 });
         dialog.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
-            }
+            public void onClick(DialogInterface dialog, int which) { }
         });
         AlertDialog alertDialog=dialog.create();
         alertDialog.show();
