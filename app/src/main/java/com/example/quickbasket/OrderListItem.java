@@ -29,6 +29,10 @@ public class OrderListItem {
 
     public void setUrl(String url) { this.url = url; }
 
+    public Double getPrice() { return price; }
+
+    public void setPrice(Double price) { this.price = price; }
+
     public Integer getOrderID() { return orderID; }
 
     public void setOrderID(Integer orderID) { this.orderID = orderID; }
@@ -41,7 +45,4 @@ public class OrderListItem {
 
     public void setCustomerID(Integer customerID) { this.customerID = customerID; }
 
-    public Double getPrice() { return price; }
-
-    public void setPrice(Double price) { this.price = price; }
 }
