@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainScreenOwner extends AppCompatActivity implements View.OnClickListener {
     Integer ownerID;
     String storeName;
@@ -114,7 +116,7 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
 
     // Set logo image to image corresponding to logoURL
     public void setUpLogoView() {
-        ImageView logoImageView = (ImageView) findViewById(R.id.cart_Button2);
+        CircleImageView logoImageView = (CircleImageView) findViewById(R.id.cart_Button2);
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
