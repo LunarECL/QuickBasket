@@ -61,12 +61,15 @@
 
     <Button
         android:id="@+id/delete_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Button"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/oval"
+        android:gravity="center"
+        android:text="X"
+        android:textAlignment="center"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/price"
+        app:layout_constraintEnd_toStartOf="@+id/qty"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

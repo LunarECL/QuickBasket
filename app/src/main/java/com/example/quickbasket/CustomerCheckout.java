@@ -52,7 +52,9 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         //Get Customer ID and OwnerID from previous page
         Intent intent = getIntent();
         customerID = intent.getStringExtra(Constant.CustomerID);
+        Log.d("CUSTOMER ID IS", customerID);
         ownerID = intent.getStringExtra(Constant.OwnerID);
+        Log.d("OWNER ID IS", ownerID);
 
         // CODE FOR BACK BUTTON
         ImageButton backButton = findViewById(R.id.backButtonCheckoutCustomer);
@@ -76,6 +78,11 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         });
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        //Check if Order Exists
+
+        checkOrderExists();
+
 
         //Get all the cartProducts
 
@@ -150,6 +157,7 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    checkOrderExists();
                     entireDB.child(Constant.orderCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -187,10 +195,7 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         }
     }
 
-    public void writeOrder(Order newOrder) {
-        Order order = newOrder;
-        Log.d("The customer ID is ", customerID);
-
+    public void checkOrderExists(){
         entireDB.child(Constant.Order).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -205,40 +210,43 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                             ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
 
                             for (Map<String, Object> entry : orderList) {
-                                if (entry != null){
+                                if (entry != null) {
                                     Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
                                     if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
                                         existingOrder = true;
+
                                     }
                                 }
                             }
                         }
-                        else{
-
-                        }
+                        Log.d("EXISTING ORDER ARRAY ", String.valueOf(existingOrder));
                     }
-                    else {
+
+                    else{
                         Map orderIDMap = (Map) task.getResult().getValue();
-                        if (orderIDMap != null){
-                            ArrayList<Map> orderList = new ArrayList<Map>(orderIDMap.values());
+                        if (orderIDMap != null) {
+                            ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
 
                             for (Map<String, Object> entry : orderList) {
-                                if (entry != null){
-                                    Log.d("CustomerIDs Map are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                if (entry != null) {
+                                    Log.d("CustomerIDs MAP are ", String.valueOf(entry.get(Constant.CustomerID)));
                                     if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
                                         existingOrder = true;
                                     }
                                 }
                             }
                         }
-
-                        else{
-
-                        }
+                        Log.d("EXISTING ORDER MAP ", String.valueOf(existingOrder));
                     }
                 }
             }
         });
+    }
+
+
+    public void writeOrder(Order newOrder) {
+        Order order = newOrder;
+        Log.d("The customer ID is ", customerID);
 
         if (existingOrder){
             Toast.makeText(getApplicationContext(), "Order limit reached", Toast.LENGTH_SHORT).show();
@@ -247,6 +255,10 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
         else{
             entireDB.child(Constant.Order).child(String.valueOf(order.orderID)).setValue(order);
             Toast.makeText(getApplicationContext(), "Order submitted. Thank you!", Toast.LENGTH_SHORT).show();
+            Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
+            activity2Intent.putExtra(Constant.CustomerID, customerID);
+            activity2Intent.putExtra(Constant.OwnerID, ownerID);
+            startActivity(activity2Intent);
         }
     }
 
@@ -280,38 +292,44 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
 
     @Override
     public void onDeleteBtnClick(int position) {
-        Product productDeleted = cartProducts.get(position);
-        String cartProductIDelete = String.valueOf(productDeleted.id);
+        if (!existingOrder) {
+            Product productDeleted = cartProducts.get(position);
+            String cartProductIDelete = String.valueOf(productDeleted.id);
+            cartProducts.remove(position);
+            mImageUrls.clear();
+            mProductNames.clear();
+            mPrices.clear();
+            mQtys.clear();
 
+            totalItems = 0;
+            grandTotal = 0;
+            for (Product product : cartProducts) {
+                mImageUrls.add(product.imageURL);
+                mProductNames.add(product.name);
+                mPrices.add(product.price);
+                mQtys.add(product.qty);
+                totalItems += product.qty;
+                double qtyDouble = product.qty;
+                double price = product.price;
+                double total = qtyDouble * price;
+                Log.d("The total is:", String.valueOf(total));
+                grandTotal = grandTotal + total;
+            }
 
-        cartProducts.remove(position);
-        mImageUrls.clear();
-        mProductNames.clear();
-        mPrices.clear();
-        mQtys.clear();
+            initRecyclerView();
 
-        totalItems = 0;
-        grandTotal = 0;
-        for (Product product: cartProducts){
-            mImageUrls.add(product.imageURL);
-            mProductNames.add(product.name);
-            mPrices.add(product.price);
-            mQtys.add(product.qty);
-            totalItems += product.qty;
-            double qtyDouble = product.qty;
-            double price = product.price;
-            double total = qtyDouble * price;
-            Log.d("The total is:", String.valueOf(total));
-            grandTotal = grandTotal + total;
+            TextView tv1 = (TextView) findViewById(R.id.totalCost);
+            tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
+
+            Log.d("The delete order ID is ", cartProductIDelete);
+            entireDB.child(Constant.Customer).child(customerID).child(Constant.Cart).child(cartProductIDelete).setValue(null);
+            checkOrderExists();
+
         }
 
-        initRecyclerView();
-
-        TextView tv1 = (TextView) findViewById(R.id.totalCost);
-        tv1.setText("Subtotal (" + totalItems + " items): $" + grandTotal);
-
-        Log.d("The delete order ID is ", cartProductIDelete);
-        entireDB.child(Constant.Customer).child(customerID).child(Constant.Cart).child(cartProductIDelete).setValue(null);
+        else{
+            Toast.makeText(getApplicationContext(), "Can't edit a submitted order", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
