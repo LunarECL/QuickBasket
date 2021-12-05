@@ -33,7 +33,7 @@ public class ExampleUnitTest {
     MyModel model;
 
     @Test
-    public void testPresenter(){
+    public void testFoundCustomer(){
         when(viewCustomer.getUsername()).thenReturn("leah");
         when(model.customerExists("leah")).thenReturn(true);
 
@@ -44,7 +44,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter1(){
+    public void testNotFoundCustomer(){
         when(viewCustomer.getUsername()).thenReturn("trisha");
         when(model.customerExists("trisha")).thenReturn(false);
         MyPresenter presenter = new MyPresenter(model, viewCustomer);
@@ -53,7 +53,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter2(){
+    public void testEmptyCustomer(){
         when(viewCustomer.getUsername()).thenReturn("");
         MyPresenter presenter = new MyPresenter(model, viewCustomer);
         presenter.checkCustomerUsername();
@@ -61,7 +61,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter3(){
+    public void testEmptyCustomerPassword(){
         when(viewCustomer.getUsername()).thenReturn("ryan");
         when(viewCustomer.getPassword()).thenReturn("");
         MyPresenter presenter = new MyPresenter(model, viewCustomer);
@@ -70,7 +70,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter4(){
+    public void testWrongCustomerPassword(){
         when(viewCustomer.getUsername()).thenReturn("ryan");
         when(viewCustomer.getPassword()).thenReturn("123");
         when(model.customerPasswordMatches("ryan", "123")).thenReturn(false);
@@ -80,7 +80,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter5(){
+    public void testFoundOwner(){
         when(viewOwner.getUsername()).thenReturn("harry");
         when(model.ownerExists("harry")).thenReturn(true);
 
@@ -91,7 +91,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter6(){
+    public void testNotFoundOwner(){
         when(viewOwner.getUsername()).thenReturn("harry");
         when(model.ownerExists("harry")).thenReturn(false);
 
@@ -102,7 +102,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter7(){
+    public void testEmptyOwner(){
         when(viewOwner.getUsername()).thenReturn("");
 
         MyPresenter presenter = new MyPresenter(model, viewOwner);
@@ -112,7 +112,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter8(){
+    public void testEmptyOwnerPassword(){
         when(viewOwner.getUsername()).thenReturn("dean");
         when(viewOwner.getPassword()).thenReturn("");
         MyPresenter presenter = new MyPresenter(model, viewOwner);
@@ -121,7 +121,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testPresenter9(){
+    public void testWrongOwnerPassword(){
         when(viewOwner.getUsername()).thenReturn("dean");
         when(viewOwner.getPassword()).thenReturn("123");
         when(model.ownerPasswordMatches("dean", "123")).thenReturn(false);
