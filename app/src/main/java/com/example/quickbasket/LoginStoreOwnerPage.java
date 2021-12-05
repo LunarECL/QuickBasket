@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -68,6 +69,7 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
                     StoreOwner owner = child.getValue(StoreOwner.class);
                     if (owner.getUsername().equals(getUsername()) && owner.getPassword().equals(getPassword())) {
                         id = owner.getOwnerID();
+                        Log.d("id", String.valueOf(id));
                         ready();
                         break;
                     }
