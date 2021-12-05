@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//View products as the Store Owner
+
 public class ViewProductsOwner extends AppCompatActivity{
     ArrayList<Product> products;
     String StoreName;

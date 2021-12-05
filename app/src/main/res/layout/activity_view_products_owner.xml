@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".StoreDetailCustomerPage">
 
+
     <ImageButton
         android:id="@+id/backButton_StoreDetail"
         android:layout_width="60dp"
