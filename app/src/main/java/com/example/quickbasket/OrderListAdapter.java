@@ -54,13 +54,15 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ViewOrderOwner.class);
+                Intent intent = new Intent(view.getContext(), ViewOrderOwner.class);
+//                Intent intent = new Intent(context, ViewOrderOwner.class);
                 Bundle extras = new Bundle();
                 extras.putInt("orderID", orderListItem.getOrderID());
                 extras.putInt("ownerID", orderListItem.getOwnerID());
                 extras.putInt("customerID", orderListItem.getCustomerID());
                 intent.putExtras(extras);
-                context.startActivity(intent);
+                view.getContext().startActivity(intent);
+//                context.startActivity(intent);
             }
         });
     }
