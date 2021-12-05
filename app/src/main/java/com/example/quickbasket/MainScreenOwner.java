@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainScreenOwner extends AppCompatActivity implements View.OnClickListener {
     Integer ownerID;
     String storeName;
@@ -114,7 +116,7 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
 
     // Set logo image to image corresponding to logoURL
     public void setUpLogoView() {
-        ImageView logoImageView = (ImageView) findViewById(R.id.cart_Button2);
+        CircleImageView logoImageView = (CircleImageView) findViewById(R.id.cart_Button2);
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
@@ -193,7 +195,6 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
                         if (productIDs.get(i).size() > 3)
                             productDescription = productDescription.concat("...");
                         orderList.get(i).setDescription(orderList.get(i).getDescription().concat(productDescription));
-                        Log.i("demo", String.valueOf(productDescription));
                     }
                     setUpOrderUrl();
                 }
@@ -215,7 +216,6 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
                     for (int i = 0; i < orderList.size(); i++) {
                         productURL = (String) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(0))).child(Constant.ProductImageURl).getValue();
                         orderList.get(i).setUrl(orderList.get(i).getUrl().concat(productURL));
-                        Log.i("demo", String.valueOf(productURL));
                     }
                     setUpOrderTotalPrice();
                 }
@@ -240,9 +240,6 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
                             String price = String.valueOf(task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue());
                             String quantity = String.valueOf(task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue());
                             productTotalPrice += Double.parseDouble(price) * Long.parseLong(quantity);
-//                            Number price = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.ProductPrice).getValue();
-//                            Number quantity = (Number) task.getResult().child(String.valueOf(orderList.get(i).getCustomerID())).child(Constant.Cart).child(String.valueOf(productIDs.get(i).get(j))).child(Constant.Quantity).getValue();
-//                            productTotalPrice += ((Double) price) * ((Long) quantity);
                         }
                         productTotalPrice = Math.round(productTotalPrice * 100.0) / 100.0;
                         orderList.get(i).setPrice(productTotalPrice.doubleValue());
