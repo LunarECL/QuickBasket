@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff42959a"
     tools:context=".LoginCustomerPage">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="296dp"
+        android:layout_height="594dp"
+        android:layout_marginBottom="340dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/app_logo" />
 
     <ImageButton
         android:id="@+id/backButton_CustomerLogin"
@@ -23,19 +35,20 @@
         android:layout_marginTop="240dp"
         android:ems="10"
         android:hint="@string/enter_username"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColorHint="#474747"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
+        android:background="@drawable/oval"
         android:onClick="handleClick"
         android:text="@string/button_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,30 +74,14 @@
         android:id="@+id/textView4"
         android:layout_width="240dp"
         android:layout_height="50dp"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="168dp"
         android:hint="@string/login_customer_heading"
         android:textAlignment="center"
         android:textColorHint="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="224dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="77dp"
-        android:hint="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="#08980E"
-        android:textColorHighlight="#500D0D"
-        android:textColorHint="#009688"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +90,9 @@
         android:layout_width="370dp"
         android:layout_height="50dp"
         android:layout_marginTop="84dp"
-        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
@@ -102,10 +101,32 @@
         android:id="@+id/textView30"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:layout_marginTop="4dp"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewLoginCustomer" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextCustomerPassword"
+        app:layout_constraintEnd_toStartOf="@+id/editTextCustomerPassword"
+        app:srcCompat="@drawable/password_icon" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextLoginCustomer"
+        app:layout_constraintEnd_toStartOf="@+id/editTextLoginCustomer"
+        app:srcCompat="@drawable/user_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

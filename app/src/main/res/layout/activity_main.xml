@@ -7,7 +7,7 @@
     android:background="#ff42959a"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/customerLogin"
         android:layout_width="210dp"
         android:layout_height="50dp"
@@ -73,37 +73,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ownerLogin" />
 
-    //*****************************************************
-    //CODE FOR TEST BUTTONS (Customer Main and Checkout)
-
-    <Button
-        android:id="@+id/testMainCustomer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
-        android:text="@string/test_main_customer_screen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/testCheckout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Test Checkout Screen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/testDetailPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/testMainCustomer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -116,6 +85,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/app_logo" />
 
-    //*****************************************************
 
 </androidx.constraintlayout.widget.ConstraintLayout>
