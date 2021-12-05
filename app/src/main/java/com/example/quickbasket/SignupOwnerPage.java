@@ -41,7 +41,6 @@ public class SignupOwnerPage extends AppCompatActivity {
     }
     public void addStoreOwner(View view){
 
-        // Get the customer count
         ref.child(Constant.userCount).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -107,6 +106,7 @@ public class SignupOwnerPage extends AppCompatActivity {
                             ref.child(Constant.userCount).setValue(counter);
                             StoreOwner storeowner = new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
                             ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
+                            Log.d("id1", counter.toString());
                             ready2();
                         }
                     }
@@ -120,6 +120,7 @@ public class SignupOwnerPage extends AppCompatActivity {
                         ref.child(Constant.userCount).setValue(counter);
                         StoreOwner storeowner = new StoreOwner(counter, username, password, storeName, location, logo, productIDs);
                         ref.child(Constant.StoreOwner).child(String.valueOf(counter)).setValue(storeowner);
+                        Log.d("id2", counter.toString());
                         ready2();
                     }
                 }

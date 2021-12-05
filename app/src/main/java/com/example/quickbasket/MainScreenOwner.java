@@ -38,6 +38,7 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
     ArrayList<OrderListItem> orderList = new ArrayList<OrderListItem>();
     ArrayList<ArrayList<Integer>> productIDs = new ArrayList<ArrayList<Integer>>();
 
+
     // Get owner id from previous activity
     public void getOwnerIDFromIntent() {
         Intent intent = getIntent();

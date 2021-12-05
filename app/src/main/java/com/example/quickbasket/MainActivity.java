@@ -23,17 +23,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // CODE FOR TestDetailPage
-        Button testDetail = findViewById(R.id.testDetailPage);
-        testDetail.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent activity2Intent = new Intent(getApplicationContext(), StoreDetailCustomerPage.class);
-                activity2Intent.putExtra("ID", "1");
-                activity2Intent.putExtra("CustomerID", "0");
-                startActivity(activity2Intent);
-            }
-        });
-
         // CODE FOR OWNER LOGIN BUTTON
         Button testButtonOwnerLogin = findViewById(R.id.ownerLogin);
         testButtonOwnerLogin.setOnClickListener(new View.OnClickListener() {
@@ -61,23 +50,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //CODE FOR TEST MAIN CUSTOMER BUTTON
-        Button testButtonMainCustomer = findViewById(R.id.testMainCustomer);
-        testButtonMainCustomer.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent activity2Intent = new Intent(getApplicationContext(), MainScreenCustomer.class);
-                startActivity(activity2Intent);
-            }
-        });
-
-        //CODE FOR TEST CUSTOMER CHECKOUT BUTTON
-        Button testButtonCheckoutCustomer = findViewById(R.id.testCheckout);
-        testButtonCheckoutCustomer.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent activity2Intent = new Intent(getApplicationContext(), CustomerCheckout.class);
-                startActivity(activity2Intent);
-            }
-        });
     }
 
 
