@@ -207,17 +207,33 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                     if (task.getResult().getValue() instanceof ArrayList) {
                         ArrayList orderIDMap = (ArrayList) task.getResult().getValue();
                         if (orderIDMap != null) {
-                            ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
+                            if (orderIDMap instanceof ArrayList) {
+                                ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
 
-                            for (Map<String, Object> entry : orderList) {
-                                if (entry != null) {
-                                    Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
-                                    if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
-                                        existingOrder = true;
+                                for (Map<String, Object> entry : orderList) {
+                                    if (entry != null) {
+                                        Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
+                                            existingOrder = true;
 
+                                        }
                                     }
                                 }
                             }
+
+                           /* else{
+                                HashMap<Integer, Map> orderList = (HashMap<Integer, Map>) orderIDMap;
+
+                                for (Map<String, Object> entry : orderList) {
+                                    if (entry != null) {
+                                        Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
+                                            existingOrder = true;
+
+                                        }
+                                    }
+                                }
+                            }*/
                         }
                         Log.d("EXISTING ORDER ARRAY ", String.valueOf(existingOrder));
                     }
@@ -225,15 +241,32 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                     else{
                         Map orderIDMap = (Map) task.getResult().getValue();
                         if (orderIDMap != null) {
-                            ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
-                            for (Map<String, Object> entry : orderList) {
-                                if (entry != null) {
-                                    Log.d("CustomerIDs MAP are ", String.valueOf(entry.get(Constant.CustomerID)));
-                                    if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
-                                        existingOrder = true;
+                            if (orderIDMap instanceof ArrayList){
+                                ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
+                                for (Map<String, Object> entry : orderList) {
+                                    if (entry != null) {
+                                        Log.d("CustomerIDs MAP are ", String.valueOf(entry.get(Constant.CustomerID)));
+                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
+                                            existingOrder = true;
+                                        }
                                     }
                                 }
                             }
+
+                            else{
+                                HashMap<Integer, Map> orderList = (HashMap<Integer, Map>) orderIDMap;
+                                Log.d("CHECKPOINT ", "1");
+                                for (Map.Entry<Integer, Map> entry : orderList.entrySet()) {
+                                    if (entry != null) {
+                                        Map value = entry.getValue();
+                                        Log.d("CustomerIDs MAP are ", String.valueOf(value.get(Constant.CustomerID)));
+                                        if (String.valueOf(value.get(Constant.CustomerID)).equals(customerID)) {
+                                            existingOrder = true;
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                         Log.d("EXISTING ORDER MAP ", String.valueOf(existingOrder));
                     }
