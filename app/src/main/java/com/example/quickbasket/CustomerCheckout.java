@@ -221,19 +221,6 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                                 }
                             }
 
-                           /* else{
-                                HashMap<Integer, Map> orderList = (HashMap<Integer, Map>) orderIDMap;
-
-                                for (Map<String, Object> entry : orderList) {
-                                    if (entry != null) {
-                                        Log.d("CustomerIDs ArrayList are ", String.valueOf(entry.get(Constant.CustomerID)));
-                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
-                                            existingOrder = true;
-
-                                        }
-                                    }
-                                }
-                            }*/
                         }
                         Log.d("EXISTING ORDER ARRAY ", String.valueOf(existingOrder));
                     }
