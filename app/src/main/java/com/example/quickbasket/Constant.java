@@ -2,6 +2,7 @@ package com.example.quickbasket;
 
 public class Constant {
 
+
     //Customer TABLE
     static String Customer = "Customer";
     static String Cart = "cart";

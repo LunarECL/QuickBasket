@@ -5,11 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,10 +25,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewOrderOwner extends AppCompatActivity {
 
     private Button back_button;
+    String StoreName;
+    String StoreLocation;
+    String StoreID;
+    String CustomerID;
+    ArrayList<Integer> productIDs = new ArrayList<>();
+    private  TextView mStatus;
+    private Button mConfirm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +48,7 @@ public class ViewOrderOwner extends AppCompatActivity {
         ListView mListView = (ListView) findViewById(R.id.orderlist);
 
 
-        back_button = (Button) findViewById(R.id.back_button);
+        //back_button = (Button) findViewById(R.id.back_button);
 
 
 
@@ -40,81 +58,128 @@ public class ViewOrderOwner extends AppCompatActivity {
         Integer ownerID = extras.getInt("ownerID");
 
 
-
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
+        ImageButton backButton = findViewById(R.id.backButton_StoreDetail);
+        backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                Intent intent  = new Intent(ViewOrderOwner.this, MainScreenOwner.class);
+                Intent intent = new Intent(getApplicationContext(), MainScreenOwner.class);
                 intent.putExtra("ownerID",ownerID);
                 startActivity(intent);
-                //openOwnerMainPage();
             }
         });
 
-        /*
+        mStatus = (TextView) findViewById(R.id.OrderStatus);
 
-        final ArrayList<Integer>[] productIDs = new ArrayList[]{new ArrayList<>()};
+        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference().child("Order").child(orderID.toString()).child("status");
+
+        reference3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+
+                //debug
+                //String ma = datasnapshot.getValue().toString();
+                //System.out.println("1  1 1"  + ma);
+
+                Boolean status = datasnapshot.getValue(Boolean.class);
+
+                if(!status){
+
+                    mStatus.setText("Order status: Not completed");
+
+                }
+                else{
+
+                    mStatus.setText("Order status: Complete");
+                }
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        mConfirm = (Button) findViewById(R.id.ConfirmButton);
+
+        DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference().child("Order").child(orderID.toString());
+
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                reference4.child("status").setValue(true);
+
+            }
+        });
+
+
+
+
+
+        //ArrayList<Integer> productIDs = new ArrayList<>();
 
         ArrayList<String> list = new ArrayList<>();
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.list_product, list);
         mListView.setAdapter(adapter);
 
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Order").child(orderID.toString());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Order").child(orderID.toString()).child("customerID");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                //debug
 
-                    Order order = snapshot.getValue(Order.class);
+                CustomerID = datasnapshot.getValue().toString();
 
-                    assert order != null;
-                    productIDs[0] = order.getCartProductsIDs();
+                System.out.println(CustomerID);
 
-                }
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("Customer").child(CustomerID).child("cart");
 
-                //adapter.notifyDataSetChanged();
+                reference2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot datasnapshot) {
 
-            }
+                        //debug
+                        //String ma = datasnapshot.getValue().toString();
+                       //System.out.println("1  1 1"  + ma);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("StoreOwner").child(ownerID.toString()).child("Products");
-
-        reference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                list.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Product product = snapshot.getValue(Product.class);
+                        for(DataSnapshot snapshot : datasnapshot.getChildren()){
 
 
-                    assert product != null;
+                            String brand = snapshot.child("brand").getValue(String.class);
+                            String description = snapshot.child("description").getValue(String.class);
+                            String imageURL = snapshot.child("imageURL").getValue(String.class);
+                            Integer quantity = snapshot.child("quantity").getValue(Integer.class);
+                            Double price = snapshot.child("price").getValue(Double.class);
+                            String productName = snapshot.child("productName").getValue(String.class);
 
-                    for(Integer id : productIDs[0]){
+                            String information = "Product name: " + productName + " ● Quantity: " + quantity;
 
-                        if(id.equals(product.getId())){
+                            list.add(information);
 
-                            String txt = product.getName() + " " + product.getBrand()  + " " + product.getDescription()  + " " + product.getPrice();
-                            list.add(txt);
+                            //System.out.println("->" + brand + " " + price);
 
                         }
 
+                        adapter.notifyDataSetChanged();
+
+                        //getReadt(products);
+
                     }
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                adapter.notifyDataSetChanged();
+                    }
+                });
+
+
 
             }
 
@@ -122,119 +187,21 @@ public class ViewOrderOwner extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
+
         });
 
 
 
-        //ArrayList<Product> productList = new ArrayList<>();
-
-        //ArrayList<Product> list = new ArrayList<>();
-
-        //ArrayList<Order> ordersList = new ArrayList<>();
-
-        //ArrayList<Integer> productsIDs = new ArrayList<>();
-
-
-
-        //Read from Database
-
-        /*
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Order");
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Order order = snapshot.getValue(Order.class);
-
-                    ordersList.add(order);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-
-        for(Order order : ordersList){
-
-            if(order.getOrderID() == orderID){
-
-                productsIDs = order.getCartProductsIDs();
-
-            }
-        }
-
-
-
-        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference().child("StoreOwner/Products");
-
-        ref2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-
-                    Product product = snapshot.getValue(Product.class);
-
-                    productList.add(product);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-        for(int id : productsIDs){
-
-            for(Product product : productList){
-
-                if(product.getId() == id){
-
-                    list.add(product);
-
-                }
-
-            }
-        }*/
-
-
-
-        //ProductListAdapter adapter = new ProductListAdapter(this, R.layout.adapter_view_layout, list);
-
-        //mListView.setAdapter(adapter);
-
-
-
-        //Demo Run with hardcoded items not relevant in future
-
-        /*
-        Product product1 = new Product("iphone","phone","apple",200,"url");
-        Product product2 = new Product("surface pro","tablet","microsoft",600,"url");
-
-        ArrayList<Product> productList = new ArrayList<>();
-
-        productList.add(product1);
-        productList.add(product2);
-
-        ProductListAdapter adapter = new ProductListAdapter(this, R.layout.adapter_view_layout, productList);
-
-        mListView.setAdapter(adapter);
-
-         */
     }
 
-    /*
-    public void openOwnerMainPage(){
-        Intent intent  = new Intent(this, main_screen_owner.class);
-        startActivity(intent);
-    }*/
+
+
+
+
+
+
 
 
 

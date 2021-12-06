@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#ff42959a"
     android:layout_height="match_parent"
     tools:context=".ViewOrderOwner">
 
@@ -10,7 +11,6 @@
         android:id="@+id/orderlist"
         android:layout_width="match_parent"
         android:layout_height="576dp"
-        android:layout_below="@+id/back_button"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="-2dp"
@@ -18,34 +18,39 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="171dp"
-        android:layout_marginTop="65dp"
-        android:text="TextView" />
+    <ImageButton
+        android:id="@+id/backButton_StoreDetail"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/backbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="55dp"
-        android:text="Back" />
-
-    <Button
-        android:id="@+id/button10"
+        android:id="@+id/ConfirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="55dp"
-        android:layout_marginEnd="35dp"
-        android:text="Button" />
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/oval"
+        android:text="Confirm order" />
+
+    <TextView
+        android:id="@+id/OrderStatus"
+        android:layout_width="143dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="30dp"
+        android:layout_toStartOf="@+id/ConfirmButton"
+        android:gravity="center"
+        android:text="TextView"
+        android:textStyle="bold"
+        android:textSize="16sp" />
 </RelativeLayout>
