@@ -143,6 +143,7 @@ public class OrderStatus extends Activity implements View.OnClickListener{
             double qtyDouble = product.qty;
             double price = product.price;
             double total = qtyDouble * price;
+            total = (double) Math.round(total * 100) / 100;
             Log.d("The total is:", String.valueOf(total));
             grandTotal = grandTotal + total;
         }

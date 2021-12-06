@@ -149,5 +149,7 @@
     <string name="canada">Canada</string>
     <string name="_10">10</string>
     <string name="x">X</string>
+    <string name="order_status">Order Status:</string>
+    <string name="backbutton">backButton</string>
 
 </resources>
