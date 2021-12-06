@@ -37,7 +37,6 @@ public class OrderStatus extends Activity implements View.OnClickListener{
     private String customerID;
     private String ownerID;
     private double grandTotal;
-    private boolean status;
 
     ArrayList<Product> cartProducts = new ArrayList<>();
 
@@ -125,52 +124,7 @@ public class OrderStatus extends Activity implements View.OnClickListener{
                 }
             });
 
-            mDatabase.child(Constant.Order).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    } else {
-                        Log.d("SO the Orders are ", String.valueOf(task.getResult().getValue()));
 
-                        if (task.getResult().getValue() instanceof ArrayList) {
-                            ArrayList orderIDMap = (ArrayList) task.getResult().getValue();
-                            if (orderIDMap != null) {
-                                ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
-
-                                for (Map<String, Object> entry : orderList) {
-                                    if (entry != null){
-                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
-                                            status = Boolean.parseBoolean(String.valueOf(entry.get(Constant.Status)));
-                                        }
-                                    }
-                                }
-                            }
-                            else{
-
-                            }
-                        }
-                        else {
-                            Map orderIDMap = (Map) task.getResult().getValue();
-                            if (orderIDMap != null){
-                                ArrayList<Map> orderList = new ArrayList<Map>(orderIDMap.values());
-
-                                for (Map<String, Object> entry : orderList) {
-                                    if (entry != null){
-                                        if (String.valueOf(entry.get(Constant.CustomerID)).equals(customerID)) {
-                                            status = Boolean.parseBoolean(String.valueOf(entry.get(Constant.Status)));
-                                        }
-                                    }
-                                }
-                            }
-
-                            else{
-
-                            }
-                        }
-                    }
-                }
-            });
         }
     }
 
@@ -193,13 +147,36 @@ public class OrderStatus extends Activity implements View.OnClickListener{
 
         TextView tv2 = (TextView) findViewById(R.id.orderStatus);
 
-        if (status){
-            tv2.setText("Order Status: Ready");
-        }
+        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference().child("Order");
 
-        else{
-            tv2.setText("Order Status: In-progress");
-        }
+        reference3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot datasnapshot) {
+                Log.d("STATUS IS ", String.valueOf(datasnapshot.getValue()));
+                Boolean status = false;
+
+                for (DataSnapshot snapshot : datasnapshot.getChildren()) {
+                    Order order = snapshot.getValue(Order.class);
+                    if (String.valueOf(order.customerID).equals(customerID)){
+                        status = order.status;
+                    }
+                }
+
+                if (status){
+                    tv2.setText("Order Status: Ready");
+                }
+
+                else{
+                    tv2.setText("Order Status: In-progress");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         initRecyclerView();
     }
 

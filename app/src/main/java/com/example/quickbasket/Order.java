@@ -12,6 +12,11 @@ public class Order {
     ArrayList<Product> cartProducts;
 
     //used to set the data in the database
+
+    public Order(){
+
+    }
+
     public Order(Integer orderID, int ownerID, int customerID, ArrayList<Integer> cartProductsIDs, boolean status) {
         this.orderID = orderID;
         this.ownerID = ownerID;
