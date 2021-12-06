@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,10 +65,10 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
         presenter.checkCustomerPassword();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.Customer);
-        ValueEventListener listener = new ValueEventListener() {
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot child: snapshot.getChildren()){
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for(DataSnapshot child: task.getResult().getChildren()){
                     Customer customer = child.getValue(Customer.class);
                     if (customer.getUsername().equals(getUsername()) && customer.getPassword().equals(getPassword())) {
                         id = customer.getId();
@@ -75,13 +77,8 @@ public class LoginCustomerPage extends AppCompatActivity implements Contract.Vie
                     }
                 }
             }
+        });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        ref.addValueEventListener(listener);
 
     }
 

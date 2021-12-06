@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,10 +64,10 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
         presenter.checkOwnerPassword();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constant.StoreOwner);
-        ValueEventListener listener = new ValueEventListener() {
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot child: snapshot.getChildren()){
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for(DataSnapshot child: task.getResult().getChildren()){
                     StoreOwner owner = child.getValue(StoreOwner.class);
                     if (owner.getUsername().equals(getUsername()) && owner.getPassword().equals(getPassword())) {
                         id = owner.getOwnerID();
@@ -75,13 +77,7 @@ public class LoginStoreOwnerPage extends AppCompatActivity implements Contract.V
                     }
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        ref.addValueEventListener(listener);
+        });
 
     }
 

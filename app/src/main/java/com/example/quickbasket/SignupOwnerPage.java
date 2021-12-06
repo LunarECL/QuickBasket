@@ -80,14 +80,14 @@ public class SignupOwnerPage extends AppCompatActivity {
         Boolean checkStoreName = storeName.equals("");
         Boolean checkLocation = location.equals("");
         Boolean checkLogo = logo.equals("");
-        ref.child(Constant.StoreOwner).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
                 ArrayList<String> usernames = new ArrayList<String>();
                 ArrayList<String> productIDs = new ArrayList<String>();
                 Integer checker = 0;
 
-                for (DataSnapshot child: snapshot.getChildren()){
+                for (DataSnapshot child: task.getResult().getChildren()){
                     checker++;
                     Log.d("store owner", String.valueOf(child.getValue(StoreOwner.class)));
                     StoreOwner owner = child.getValue(StoreOwner.class);
@@ -124,11 +124,6 @@ public class SignupOwnerPage extends AppCompatActivity {
                         ready2();
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 

@@ -77,13 +77,13 @@ public class SignupCustomerPage extends AppCompatActivity{
         Boolean checkUsername = username.equals("");
         Boolean checkPassword = password.equals("");
         Boolean checkName = name.equals("");
-        db.child(Customer).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.child(Customer).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
                 ArrayList<String> usernames = new ArrayList<String>();
                 Integer checker = 0;
 
-                for (DataSnapshot child: snapshot.getChildren()){
+                for (DataSnapshot child: task.getResult().getChildren()){
                     checker++;
                     Customer cust = child.getValue(Customer.class);
                     usernames.add(cust.getUsername());
@@ -118,11 +118,6 @@ public class SignupCustomerPage extends AppCompatActivity{
                         ready2();
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
 
