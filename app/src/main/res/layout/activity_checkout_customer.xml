@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ff42959a">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_list_recycle_view"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Qty"
+        android:text="@string/qty"
         android:textAlignment="textEnd"
         android:textAllCaps="false"
         android:textSize="20sp"
@@ -34,13 +35,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Subtotal (10 items): $189.00"
+        android:text="@string/subtotal_10_items_189_00"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textAllCaps="true"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.637"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_list_recycle_view" />
 
     <Button
         android:id="@+id/submitButton"
@@ -48,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:enabled="false"
-        android:text="Confirm Order"
+        android:text="@string/confirm_order"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,13 +81,14 @@
         android:src="@drawable/backbutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        android:contentDescription="@string/todo" />
 
     <Button
         android:id="@+id/status_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CHECK STATUS"
+        android:text="@string/check_status"
         android:textAllCaps="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

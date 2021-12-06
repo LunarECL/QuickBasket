@@ -137,5 +137,17 @@
     <string name="name_text">Name:</string>
     <string name="enter_logo">Enter Logo URL</string>
     <string name="logo_text">Logo:</string>
+    <string name="qty">Qty</string>
+    <string name="subtotal_10_items_189_00">Subtotal (10 items): $189.00</string>
+    <string name="confirm_order">Confirm Order</string>
+    <string name="check_status">CHECK STATUS</string>
+    <string name="todo">TODO</string>
+    <string name="list_of_stores">List of Stores:</string>
+    <string name="welcome">Welcome</string>
+    <string name="name">Name</string>
+    <string name="north_america">North America</string>
+    <string name="canada">Canada</string>
+    <string name="_10">10</string>
+    <string name="x">X</string>
 
 </resources>

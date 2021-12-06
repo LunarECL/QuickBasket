@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="#ff42959a"
     >
 
     <TextView
@@ -12,15 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginBottom="24dp"
-        android:text="List of Stores:"
-        android:textSize="20sp"
+        android:text="@string/list_of_stores"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/store_list_recycle_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/store_list_recycle_view"
@@ -38,7 +38,7 @@
         android:layout_height="27dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto_condensed_bold"
-        android:text="Welcome"
+        android:text="@string/welcome"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Name"
+        android:text="@string/name"
         android:textAlignment="center"
-        android:textSize="48sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,11 +61,12 @@
         android:id="@+id/backButton_MainCustomer"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
+        android:scaleX="-1"
         android:src="@drawable/logout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck"
-        />
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
