@@ -76,35 +76,71 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
                 }
                 else {
                     Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    Map storeIDMap = (Map) task.getResult().getValue();
-                    ArrayList<Map> storeList = new ArrayList<Map>(storeIDMap.values());
+                    if (task.getResult().getValue() instanceof ArrayList){
+                        ArrayList storeIDMap = (ArrayList) task.getResult().getValue();
+                        ArrayList<Map> storeList = new ArrayList<Map>(storeIDMap);
 
-                    for (Map<String, Object> entry : storeList){
-                        if (entry != null) {
-                            String storeName = String.valueOf(entry.get(Constant.StoreName));
-                            String location = String.valueOf(entry.get(Constant.StoreLocation));
-                            String logoURL = String.valueOf(entry.get(Constant.StoreLogoURL));
-                            //String storeID = String.valueOf(index);
-                            String ownerID = String.valueOf(entry.get(Constant.OwnerID));
+                        for (Map<String, Object> entry : storeList) {
+                            if (entry != null) {
+                                String storeName = String.valueOf(entry.get(Constant.StoreName));
+                                String location = String.valueOf(entry.get(Constant.StoreLocation));
+                                String logoURL = String.valueOf(entry.get(Constant.StoreLogoURL));
+                                //String storeID = String.valueOf(index);
+                                String ownerID = String.valueOf(entry.get(Constant.OwnerID));
 
-                            //Product product = (Product) entry.get("Product");
-                            Log.d("storeProductIDs", String.valueOf(task.getResult().getValue()));
+                                //Product product = (Product) entry.get("Product");
+                                Log.d("storeProductIDs", String.valueOf(task.getResult().getValue()));
 
-                            Map storeProductIDsMAP = null;
-                            ArrayList<String> storeProductIDsArrayList = null;
-                            if (entry.get(Constant.Product) instanceof Map){
-                                storeProductIDsMAP = (Map) entry.get(Constant.Product);
+                                Map storeProductIDsMAP = null;
+                                ArrayList<String> storeProductIDsArrayList = null;
+                                if (entry.get(Constant.Product) instanceof Map) {
+                                    storeProductIDsMAP = (Map) entry.get(Constant.Product);
+                                }
+
+                                if (entry.get(Constant.Product) instanceof ArrayList) {
+                                    storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.Product);
+                                }
+
+                                StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
+
+                                if (!(storeProductIDsMAP == null && storeProductIDsArrayList == null)) {
+                                    owners.add(owner);
+                                    mStoreIDs.add(ownerID);
+                                }
                             }
+                        }
+                    }
+                    else {
+                        Map storeIDMap = (Map) task.getResult().getValue();
+                        ArrayList<Map> storeList = new ArrayList<Map>(storeIDMap.values());
 
-                            if (entry.get(Constant.Product) instanceof ArrayList){
-                                storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.Product);
-                            }
+                        for (Map<String, Object> entry : storeList) {
+                            if (entry != null) {
+                                String storeName = String.valueOf(entry.get(Constant.StoreName));
+                                String location = String.valueOf(entry.get(Constant.StoreLocation));
+                                String logoURL = String.valueOf(entry.get(Constant.StoreLogoURL));
+                                //String storeID = String.valueOf(index);
+                                String ownerID = String.valueOf(entry.get(Constant.OwnerID));
 
-                            StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
+                                //Product product = (Product) entry.get("Product");
+                                Log.d("storeProductIDs", String.valueOf(task.getResult().getValue()));
 
-                            if (!(storeProductIDsMAP == null && storeProductIDsArrayList == null)) {
-                                owners.add(owner);
-                                mStoreIDs.add(ownerID);
+                                Map storeProductIDsMAP = null;
+                                ArrayList<String> storeProductIDsArrayList = null;
+                                if (entry.get(Constant.Product) instanceof Map) {
+                                    storeProductIDsMAP = (Map) entry.get(Constant.Product);
+                                }
+
+                                if (entry.get(Constant.Product) instanceof ArrayList) {
+                                    storeProductIDsArrayList = (ArrayList<String>) entry.get(Constant.Product);
+                                }
+
+                                StoreOwner owner = new StoreOwner(Integer.parseInt(ownerID), storeName, location, logoURL);
+
+                                if (!(storeProductIDsMAP == null && storeProductIDsArrayList == null)) {
+                                    owners.add(owner);
+                                    mStoreIDs.add(ownerID);
+                                }
                             }
                         }
                     }

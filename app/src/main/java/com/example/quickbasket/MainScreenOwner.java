@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -261,9 +264,27 @@ public class MainScreenOwner extends AppCompatActivity implements View.OnClickLi
 
     // View products button code
     public void onViewProductsClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewProductsOwner.class);
-        intent.putExtra("ownerID", ownerID.intValue());
-        startActivity(intent);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("StoreOwner").child(String.valueOf(ownerID)).child(Constant.Product).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    if (task.getResult().getValue() == null){
+                        Toast.makeText(getApplicationContext(), "No Products", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Intent intent = new Intent(getApplicationContext(), ViewProductsOwner.class);
+                        intent.putExtra("ownerID", ownerID.intValue());
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
+
+
     }
 
     // Add new product button code

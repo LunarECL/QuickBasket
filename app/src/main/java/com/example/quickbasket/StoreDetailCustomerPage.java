@@ -129,17 +129,19 @@ public class StoreDetailCustomerPage extends AppCompatActivity {
             layoutParams.setMargins(20, 0, 20, 0);
 
             ImageView img = new ImageView(this);
-            LinearLayout.LayoutParams imgl = new LinearLayout.LayoutParams(600, 600);
+            LinearLayout.LayoutParams imgl = new LinearLayout.LayoutParams(800, 800);
             img.setScaleType(ImageView.ScaleType.FIT_XY);
             new URLImageTask(img).execute(product.imageURL);
 
             TextView tv1 = new TextView(this);
             tv1.setText(product.name);
+            tv1.setTextSize(50);
             LinearLayout.LayoutParams tv11 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             tv1.setGravity(Gravity.CENTER);
 
             TextView tv2 = new TextView(this);
             tv2.setText("$" + product.price);
+            tv2.setTextSize(30);
             tv2.setGravity(Gravity.CENTER);
 
             ll.addView(img, imgl);
