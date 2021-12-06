@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerCheckout extends Activity implements View.OnClickListener, CustomerCheckoutRecyclerViewAdapter.OnBtnClick{
@@ -225,7 +226,6 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
                         Map orderIDMap = (Map) task.getResult().getValue();
                         if (orderIDMap != null) {
                             ArrayList<Map> orderList = (ArrayList<Map>) orderIDMap;
-
                             for (Map<String, Object> entry : orderList) {
                                 if (entry != null) {
                                     Log.d("CustomerIDs MAP are ", String.valueOf(entry.get(Constant.CustomerID)));
