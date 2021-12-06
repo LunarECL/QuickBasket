@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff42959a"
     tools:context=".ProductDetailCustomerPage">
 
     <ImageButton
@@ -79,7 +80,7 @@
                     android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:orientation="horizontal"
-                    android:background="@android:color/white">
+                    android:background="#ff42959a">
 
                     <Button
                         android:id="@+id/decrement"
@@ -94,7 +95,7 @@
 
                     <TextView
                         android:layout_width="40dp"
-                        android:background="@android:color/white"
+                        android:background="#ff42959a"
                         android:layout_height="match_parent"
                         android:text="1"
                         android:textColor="@android:color/black"
