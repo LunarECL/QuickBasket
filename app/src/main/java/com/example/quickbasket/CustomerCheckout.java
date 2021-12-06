@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,11 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -32,6 +30,7 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
 
+    private final String DEFAULT_PRODUCT_IMAGE_URL = "https://www.clipartmax.com/png/middle/331-3316280_new-product-development-new-product-product-clip-art.png";
     private int totalItems;
     private int counter = 0;
     private String customerID;
@@ -265,7 +264,12 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
     private void initImageBitmaps() {
 
         for (Product product: cartProducts){
-            mImageUrls.add(product.imageURL);
+            if (!URLUtil.isValidUrl(product.imageURL)) {
+                mImageUrls.add(DEFAULT_PRODUCT_IMAGE_URL);
+            }
+            else{
+                mImageUrls.add(product.imageURL);
+            }
             mProductNames.add(product.name);
             mPrices.add(product.price);
             mQtys.add(product.qty);
@@ -304,7 +308,12 @@ public class CustomerCheckout extends Activity implements View.OnClickListener, 
             totalItems = 0;
             grandTotal = 0;
             for (Product product : cartProducts) {
-                mImageUrls.add(product.imageURL);
+                if (!URLUtil.isValidUrl(product.imageURL)) {
+                    mImageUrls.add(DEFAULT_PRODUCT_IMAGE_URL);
+                }
+                else{
+                    mImageUrls.add(product.imageURL);
+                }
                 mProductNames.add(product.name);
                 mPrices.add(product.price);
                 mQtys.add(product.qty);

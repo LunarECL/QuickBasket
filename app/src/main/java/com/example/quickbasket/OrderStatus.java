@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.webkit.URLUtil;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +19,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -31,6 +29,8 @@ public class OrderStatus extends Activity implements View.OnClickListener{
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<Double> mPrices = new ArrayList<>();
     private ArrayList<Integer> mQtys = new ArrayList<>();
+
+    private final String DEFAULT_PRODUCT_IMAGE_URL = "https://www.clipartmax.com/png/middle/331-3316280_new-product-development-new-product-product-clip-art.png";
 
     private int totalItems;
     private int counter = 0;
@@ -130,7 +130,12 @@ public class OrderStatus extends Activity implements View.OnClickListener{
 
     private void initImageBitmaps() {
         for (Product product: cartProducts){
-            mImageUrls.add(product.imageURL);
+            if (!URLUtil.isValidUrl(product.imageURL)) {
+                mImageUrls.add(DEFAULT_PRODUCT_IMAGE_URL);
+            }
+            else{
+                mImageUrls.add(product.imageURL);
+            }
             mProductNames.add(product.name);
             mPrices.add(product.price);
             mQtys.add(product.qty);

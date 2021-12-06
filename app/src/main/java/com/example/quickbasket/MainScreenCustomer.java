@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
     private ArrayList<String> mLocations = new ArrayList<>();
     private ArrayList<String> mStoreIDs = new ArrayList<>();
 
+    private final String DEFAULT_STORE_IMAGE_URL = "https://us.123rf.com/450wm/llesia/llesia1602/llesia160200015/51629583-store-facade-vector-illustration-of-store-building-ideal-for-business-web-publications-and-graphic-d.jpg?ver=6";
     private ArrayList<StoreOwner> owners = new ArrayList<>();
     private String customerID;
     private String customerName;
@@ -145,7 +147,12 @@ public class MainScreenCustomer extends Activity implements View.OnClickListener
     private void initImageBitmaps() {
 
         for (StoreOwner owner : owners) {
-            mImageUrls.add(owner.logoURL);
+            if (!URLUtil.isValidUrl(owner.logoURL)) {
+                mImageUrls.add(DEFAULT_STORE_IMAGE_URL);
+            }
+            else{
+                mImageUrls.add(owner.logoURL);
+            }
             mStoreNames.add(owner.storeName);
             mLocations.add(owner.location);
         }
