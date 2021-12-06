@@ -36,6 +36,8 @@ public class MyPresenter implements Contract.Presenter{
             view.displayMessage2("Password cannot be empty");
         else if (!model.customerPasswordMatches(username, password))
             view.displayMessage2("Wrong password");
+        else
+            view.displayMessage2("");
     }
 
     public void checkOwnerPassword(){
@@ -45,5 +47,8 @@ public class MyPresenter implements Contract.Presenter{
             view.displayMessage2("Password cannot be empty");
         else if (!model.ownerPasswordMatches(username, password))
             view.displayMessage2("Wrong password");
+        else{
+            view.displayMessage2("");
+        }
     }
 }

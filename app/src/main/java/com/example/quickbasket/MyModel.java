@@ -4,6 +4,8 @@ import android.renderscript.Sampler;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,10 +60,10 @@ public class MyModel implements Contract.Model{
     }
 
     public boolean customerPasswordMatches(String username, String password){
-        ref.child(Constant.Customer).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(Constant.Customer).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot child: snapshot.getChildren()){
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for(DataSnapshot child: task.getResult().getChildren()){
                     Customer customer = child.getValue(Customer.class);
                     if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
                         flag = true;
@@ -69,31 +71,21 @@ public class MyModel implements Contract.Model{
                     }
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
         });
         return flag;
     }
 
     public boolean ownerPasswordMatches(String username, String password){
-        ref.child(Constant.StoreOwner).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(Constant.StoreOwner).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child : snapshot.getChildren()){
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for (DataSnapshot child : task.getResult().getChildren()){
                     StoreOwner owner = child.getValue(StoreOwner.class);
                     if (owner.getUsername().equals(username) && owner.getPassword().equals(password)){
                         flag1 = true;
                         break;
                     }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         return flag1;
